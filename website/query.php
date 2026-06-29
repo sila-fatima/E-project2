@@ -6,7 +6,7 @@ if(isset($_POST['addtocart'])){
     }
     $_SESSION['cart'][] = array("pid"=> $_POST['proid'],"pname"=> $_POST['proname'],"pimg"=> $_POST['proimg'],"pprice"=> $_POST['proprice'],"pqty"=> $_POST['proqty'] );
     echo "<script> alert('Product Added To Cart');
-        location.assign('shop.php');
+        location.assign('index.php');
     </script>";
 }
 if (isset($_GET['dlt'])&& $_SESSION['cart']) { 

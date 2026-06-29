@@ -1,4 +1,5 @@
 <?php
+include('query.php');
 include('../admin-pannel/connection.php');?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,6 +69,7 @@ include('../admin-pannel/connection.php');?>
             </div>
         </div>
     </div>
+    
     <!-- Topbar End -->
 
 
@@ -90,6 +92,7 @@ include('../admin-pannel/connection.php');?>
                         <?php }?>
                     </div>
                 </nav>
+                
 <!-- CLOSE row -->
     </div>
     <div class="col-lg-9">
@@ -157,7 +160,38 @@ if (isset($_SESSION['cart'])) {
                     </div>
                 </div>
             </div>
+        </div><div id="header-carousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#header-carousel" data-slide-to="1"></li>
+        <li data-target="#header-carousel" data-slide-to="2"></li>
+    </ol>
+    <!-- Changed bg-dark to bg-white so empty spaces blend in perfectly -->
+    <div class="carousel-inner bg-white" style="height: 410px;">
+        <div class="carousel-item active">
+            <img class="w-100" src="img/slide 1.png" alt="Find a Gift They'll Adore" style="height: 410px; object-fit: contain;">
         </div>
+        <div class="carousel-item">
+            <img class="w-100" src="img/slide 2.png" alt="Gifts With a Personal Touch" style="height: 410px; object-fit: contain;">
+        </div>
+        <div class="carousel-item">
+            <img class="w-100" src="img/slide 3.png" alt="Build the Perfect Hamper" style="height: 410px; object-fit: contain;">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+            <span class="carousel-control-prev-icon mb-n2"></span>
+        </div>
+    </a>
+    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+            <span class="carousel-control-next-icon mb-n2"></span>
+        </div>
+    </a>
+</div>
+</div>
+</div>
+</div>
 
         <div class="js-cart-backdrop" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 2040; display: none;"></div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

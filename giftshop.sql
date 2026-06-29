@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2026 at 06:09 PM
+-- Generation Time: Jun 29, 2026 at 07:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,6 +85,19 @@ INSERT INTO `employees` (`Id`, `name`, `designation`, `DOB`, `Joining_date`, `sa
 (8, 'haris', 'Logistics Coordinator', '1998-07-08', '2024-07-03', 40000, 'xyz@gmail.com', 'xcvbnm', 'Employee'),
 (9, 'raza', 'order processing staff', '2003-11-10', '2025-09-10', 60000, 'stp@gmail.com', '123456789', 'Employee'),
 (10, 'ahmed', 'order processing staff', '2005-11-31', '2020-06-24', 60000, 'wvy@gmail.com', '0987654321', 'Employee');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `message` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -391,6 +404,12 @@ ALTER TABLE `employees`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -435,6 +454,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `employees`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
