@@ -64,11 +64,12 @@ else {
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
+                                            <div class="form-check mt-2 d-flex justify-content-flexstart gap-1">
+                            <input class="form-check-input" type="checkbox" id="showPassword">
+                            <label class="form-check-label small text-muted" for="showPassword">
+                                Show password
+                            </label>
+                        </div>
                                         </div>
                                         <button type="submit" name="login" class="btn btn-primary btn-user btn-block">
         Login
@@ -99,6 +100,17 @@ else {
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+            <Script>
+            let checkbox = document.getElementById('showPassword');
+            let passwordbox = document.getElementById('password');
+            checkbox.addEventListener('change', function() {
+                if (checkbox.checked) {
+                    passwordbox.type = 'text';
+                } else {
+                    passwordbox.type = 'password'
+                }
+            })
+        </Script>
 
 </body>
 
