@@ -12,8 +12,7 @@ include("connection.php");
                 <th>Product_ID </th>
                 <th>Product_name</th>
                 <th>Description</th>
-                <th>Quantity</th>
-                <th>Remaining</th>
+                <th>Stock</th>
                 <th>Price</th>
                 <th>Image</th>
                 <th>CategoryID</th>
@@ -41,9 +40,8 @@ include("connection.php");
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $result[5] ?></td>
                     <td><?php echo $result[6]?></td>
                     <td><?php echo $result[7]?></td>
+                    <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[9] ?>" alt=""></td>
                     <td><?php echo $result[8] ?></td>
-                    <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[10] ?>" alt=""></td>
-                    <td><?php echo $result[9] ?></td>
                     <td><a href="updatepro.php?upd_id=<?php echo $result[0] ?>" class="btn btn-warning mb-3">UPDATE</a>
                     <a href="?dlt-id=<?php echo $result[0] ?>" class="btn btn-danger">DELETE</a></td>
                 </tr>
@@ -64,7 +62,6 @@ include("connection.php");
                     <td><?php echo $allpro['Product_name'] ?></td>
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $allpro['Description'] ?></td>
                     <td><?php echo $allpro['quantity']?></td>
-                    <td><?php echo $allpro['left_quantity']?></td>
                     <td><?php echo $allpro['Price'] ?></td>
                     <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $allpro['Image'] ?>" alt=""></td>
                     <td><?php echo $allpro['category_Id'] ?></td>
@@ -89,8 +86,7 @@ include("connection.php");
                 <th>Product_ID </th>
                 <th>Product_name</th>
                 <th>Description</th>
-                <th>Quantity</th>
-                <th>Remaining</th>
+                <th>stock</th>
                 <th>Price</th>
                 <th>Image</th>
                 <th>CategoryID</th>
@@ -116,9 +112,8 @@ include("connection.php");
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $result[5] ?></td>
                     <td><?php echo $result[6]?></td>
                     <td><?php echo $result[7]?></td>
+                    <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[9] ?>" alt=""></td>
                     <td><?php echo $result[8] ?></td>
-                    <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[10] ?>" alt=""></td>
-                    <td><?php echo $result[9] ?></td>
                 </tr>
             </tbody>
             <?php
@@ -137,7 +132,6 @@ include("connection.php");
                     <td><?php echo $allpro['Product_name'] ?></td>
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $allpro['Description'] ?></td>
                     <td><?php echo $allpro['quantity']?></td>
-                    <td><?php echo $allpro['left_quantity']?></td>
                     <td><?php echo $allpro['Price'] ?></td>
                     <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $allpro['Image'] ?>" alt=""></td>
                     <td><?php echo $allpro['category_Id'] ?></td>

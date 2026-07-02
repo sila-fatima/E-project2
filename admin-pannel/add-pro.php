@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class='form-group'>
-                <label for='inputName' class='col-sm-1-12 col-form-label'>Quantity</label>
+                <label for='inputName' class='col-sm-1-12 col-form-label'>Stock</label>
                 <div class='col-sm-1-12'>
                     <input type='text' class='form-control' name='qty' id='inputName' placeholder='' required>
                 </div>

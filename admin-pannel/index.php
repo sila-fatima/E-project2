@@ -2,7 +2,6 @@
 include('header.php');
 include('connection.php');
 if(isset($_SESSION['emp_name'])){
-   
 
 ?>
 <script>

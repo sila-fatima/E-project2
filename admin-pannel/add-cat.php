@@ -13,11 +13,12 @@ include("connection.php");
             </div>
         </div>
         <div class="form-group">
-            <label for="inputName" class="col-sm-1-12 col-form-label">Image</label>
+            <label for="inputName" class="col-sm-1-12 col-form-label">Description</label>
             <div class="col-sm-1-12">
-                <input type="file" class="form-control" name="c-img" id="inputName" placeholder="" required>
+                <input type="text" class="form-control" name="c-desc" id="inputName" placeholder="" required>
             </div>
         </div>
+       
 
         <div class="form-group">
             <div>
@@ -48,21 +49,14 @@ include("footer.php")
 <?php
 if (isset($_POST['add'])) {
     $name = $_POST['c-name'];
+    $desc = $_POST['c-desc'];
     $totalproduct = 0;
-    $imageON = $_FILES['c-img']['name'];
-    $imageTN = $_FILES['c-img']['tmp_name'];
-    $path = './img/' . $imageON;
-    $extension = PATHINFO($imageON, PATHINFO_EXTENSION);
-    if ($extension == 'png' || $extension == 'jpeg' || $extension == 'jpg' || $extension == 'webp' || $extension == 'svg' || $extension == 'avif') {
-        $uploader = move_uploaded_file($imageTN, $path);
-        if ($uploader) {
-            $insert_cat = mysqli_query($con, "INSERT INTO `categories`(`name`, `items`, `Image`) VALUES ('$name','$totalproduct','$imageON')");
+    $insert_cat = mysqli_query($con, "INSERT INTO `categories`(`name`, `items`, `Description`) VALUES ('$name','$totalproduct','$desc')");
+    if($insert_cat){
             echo "<script>alert('Category Added Sucessfully')</script>";
         } else {
             echo "<script>alert('Something Went Wrong')</script>";
         }
-    } else {
-        echo "<script>alert('Extension doesn`t match')</script>";
-    }
-}
+    } 
+
 ?>

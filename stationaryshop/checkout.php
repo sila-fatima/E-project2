@@ -40,15 +40,15 @@ include('../admin-pannel/connection.php');
                             <div class="col-md-6"><label class="form-label">EMAIL</label><input type="tel" name="email" value="<?php echo $allinfo[2] ?>" class="form-control" required></div>
                         </div>
                         <div class="mb-3"><label class="form-label">Street Address</label><input type="text" name="address" class="form-control" required></div>
-                        <div class="mb-3"><label class="form-label">PHONE Number</label><input type="text" name="phone" value="<?php echo $allinfo[2] ?>" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">PHONE Number</label><input type="text" name="phone" value="<?php echo $allinfo[3] ?>" class="form-control" required></div>
                     <?php } ?>
 
 
                     <p class="section-label">Payment Method</p>
                     <div class="mb-4">
-                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="2" name="payment" id="cod"  onclick="togglePaymentFields()"> <label for="cod">Cash on Delivery (COD)</label></div>
+                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="2" name="payment" id="cod" onclick="togglePaymentFields()"> <label for="cod">Cash on Delivery (COD)</label></div>
                         <div class="payment-option-card"><input class="form-check-input" type="radio" value="1" name="payment" id="vvr" onclick="togglePaymentFields()"> <label for="vvr">VVR</label></div>
-                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="3" name="payment" id="bank"  onclick="togglePaymentFields()"> <label for="bank">Online Bank Transfer</label></div>
+                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="3" name="payment" id="bank" onclick="togglePaymentFields()"> <label for="bank">Online Bank Transfer</label></div>
 
                         <div id="payment-details" class="d-none mb-4">
                             <p class="section-label">Enter Bank Details</p>
@@ -140,6 +140,8 @@ if (isset($_SESSION['cart']) && isset($_POST['order'])) {
         $proname = $cartitems['pname'];
         $proqty = $cartitems['pqty'];
         $orderitem_insert = mysqli_query($con, "INSERT INTO `order_items`(`order_id`,`Customer`, `product_id`, `Product_name`, `quantity`) VALUES ('$orderid','$name','$proId','$proname','$proqty')");
+         $update_query = mysqli_query($con, "UPDATE `products` SET `quantity` = `quantity` - $proqty WHERE Product_ID = $proId");
+
     }
     if ($insert_query && $orderitem_insert) {
         echo "<script> alert('Order Placed Sucessfully');

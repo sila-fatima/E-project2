@@ -12,8 +12,8 @@ include("connection.php");
                 <tr>
                     <th>Category-Id</th>
                     <th>Category-Name</th>
+                    <th>Category-Description</th>
                     <th>Total Products</th>
-                    <th>Category-Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -36,8 +36,8 @@ include("connection.php");
                         <tr>
                             <td><?php echo $result[0] ?></td>
                             <td><?php echo $result[1] ?></td>
+                            <td><?php echo $result[3] ?>"</td>
                             <td><?php echo $totalproduct ?></td>
-                            <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[3] ?>" alt=""></td>
                             <td>
                                 <a href="update-cat.php?upd_id=<?php echo $result[0] ?>" class="btn btn-warning">UPDATE</a>&nbsp;
                                 <a href="?dlt-id=<?php echo $result[0] ?>" class="btn btn-danger">DELETE</a>
@@ -57,8 +57,9 @@ include("connection.php");
                         <tr>
                             <td><?php echo $eachcat['Id'] ?></td>
                             <td><?php echo $eachcat['name'] ?></td>
-                            <td><?php echo $totalproduct?></td>
-                            <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $eachcat['Image'] ?>" alt=""></td>
+                             <td><?php echo $eachcat['Description'] ?></td>
+                              <td><?php echo $totalproduct?></td>
+                           
                             <td>
                                 <a href="update-cat.php?upd_id=<?php echo $eachcat['Id'] ?>" class="btn btn-warning">UPDATE</a>&nbsp;
                                 <a href="?dlt-id=<?php echo $eachcat['Id'] ?>" class="btn btn-danger">DELETE</a>
@@ -79,8 +80,9 @@ include("connection.php");
                 <tr>
                     <th>Category-Id</th>
                     <th>Category-Name</th>
+                    <th>Category-Description</th>
                     <th>Total Products</th>
-                    <th>Category-Image</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -101,8 +103,8 @@ include("connection.php");
                         <tr>
                             <td><?php echo $result[0] ?></td>
                             <td><?php echo $result[1] ?></td>
+                            <td><?php echo $result[3] ?></td>
                             <td><?php echo $totalproduct ?></td>
-                            <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[3] ?>" alt=""></td>
                         </tr>
                         <?php
                     }
@@ -118,8 +120,8 @@ include("connection.php");
                         <tr>
                             <td><?php echo $eachcat['Id'] ?></td>
                             <td><?php echo $eachcat['name'] ?></td>
+                            <td><?php echo $eachcat['Description'] ?></td>
                             <td><?php echo $totalproduct ?></td>
-                            <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $eachcat['Image'] ?>" alt=""></td>
                         </tr>
                         <?php
                     }

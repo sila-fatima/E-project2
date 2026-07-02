@@ -1,6 +1,11 @@
 <?php
 session_start();
 include('../admin-pannel/connection.php');
+if(isset($_SESSION['userid'])){
+  echo "<script> 
+        location.assign('index.php');
+    </script>";
+}else{
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,11 +80,11 @@ if (isset($_POST['signin'])) {
         $userinfo = mysqli_fetch_array($login_query);
         $_SESSION['userid'] = $userinfo[0];
         echo "<script>alert('login Successfully')
-location.assign('checkout.php')</script>";
+location.assign('index.php')</script>";
     } else {
         echo "<script>alert('Login failed')
 location.assign('login.php')</script>";
     }
-}
+}}
 
 ?>

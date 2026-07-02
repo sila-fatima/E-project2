@@ -28,7 +28,7 @@ if (isset($_GET['upd_id'])) {
             </div>
         </div>
         <div class="form-group">
-            <label for="inputName" class="col-sm-1-12 col-form-label">Quantity</label>
+            <label for="inputName" class="col-sm-1-12 col-form-label">Stock</label>
             <div class="col-sm-1-12">
                 <input type="text" class="form-control" name="qty" value="<?php echo $autofill[6]; ?>" id="inputName"
                     placeholder="" required>
@@ -37,14 +37,14 @@ if (isset($_GET['upd_id'])) {
         <div class="form-group">
             <label for="inputName" class="col-sm-1-12 col-form-label">PRICE</label>
             <div class="col-sm-1-12">
-                <input type="text" class="form-control" name="price" value="<?php echo $autofill[8]; ?>" id="inputName"
+                <input type="text" class="form-control" name="price" value="<?php echo $autofill[7]; ?>" id="inputName"
                     placeholder="" required>
             </div>
         </div>
         <div class="form-group">
             <label for="inputName" class="col-sm-1-12 col-form-label">Image</label>
             <div class="col-sm-1-12">
-                <img src="img/<?php echo $autofill[10]; ?>" class="col-lg-2 col-md-4 col-sm-6 col-12"
+                <img src="img/<?php echo $autofill[9]; ?>" class="col-lg-2 col-md-4 col-sm-6 col-12"
                     style="height:150px;float:left;" alt="">
                 <input type="file" class="form-control  col-lg-10 col-md-8 col-sm-6 col-12" name="p-img" id="inputName"
                     placeholder="">

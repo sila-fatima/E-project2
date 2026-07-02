@@ -26,54 +26,18 @@ include('navbar.php');?>
     <section style="padding: 48px 0;">
         <div class="container-lg">
             <h3 class="mb-5">Products</h3>
-            <div class="row g-3">
+            <div class="row g-3 ">
             <?php 
             if(isset($_GET['cat_id'])){
                 $catid=$_GET['cat_id'];
-                $pro_fetch=mysqli_query($con,"SELECT * FROM `products` WHERE category_Id =$catid");
-                while($allpro=mysqli_fetch_array($pro_fetch)){
-             ?>
-                 <div class="col-md-4">
-                 <div class="gift-card">
-                <div class="card-img-top" style="font-size: 50px; text-align: center;">
-                    <img src="../admin-pannel/img/<?php echo $allpro[10] ?>" height="100%" width="100%" alt="">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="productdetail.php?proid=<?php echo $allpro[0] ?>" class="text-decoration-none text-reset">
-                            <?php echo $allpro[4]; ?>
-                        </a>
-                    </h5>
- 
-                    <form action="" method="post">
-                        <div class="input-group qty-group mt-3">
-                            <button class="btn btn-sm qty-btn" type="button" onclick="decreaseQty(this)">−</button>
-                            <input type="text" class="form-control form-control-sm text-center qty-input p-0" value="1" readonly>
-                            <button class="btn btn-sm qty-btn" type="button" onclick="increaseQty(this)">+</button>
-                        </div>
- 
-                        <div class="mt-3 d-flex justify-content-between align-items-center">
-                            <span class="card-price">PKR <?php echo $allpro[8]; ?></span>
-                            <input type="hidden" value="<?php echo $allpro[0] ?>" name="proid">
-                            <input type="hidden" value="<?php echo $allpro[3] ?>" name="proid7">
-                            <input type="hidden" value="<?php echo $allpro[4] ?>" name="proname">
-                            <input type="hidden" value="<?php echo $allpro[8] ?>" name="proprice">
-                            <input type="hidden" value="<?php echo $allpro[10] ?>" name="proimg">
-                            <input type="hidden" name="proqty" class="proqty-hidden" value="1">
-                            <button class="btn btn-primary" style="width: 180px; background-color:#C44A33" type="submit" name="addtocart">Add to cart</button>
-                        </div>
-                    </form>
-                </div>
-                </div>
-                </div> 
-        <?php }} else{
-            $pro_fetch=mysqli_query($con,"SELECT * FROM `products`");
+                $pro_fetch=mysqli_query($con,"SELECT * FROM `products` WHERE category_Id =$catid");}
+                else{$pro_fetch=mysqli_query($con,"SELECT * FROM `products`");}
                 while($allpro=mysqli_fetch_array($pro_fetch)){
              ?>
      <div class="col-md-4">
-            <div class="gift-card">
+            <div class="gift-card" style="height: 430px;">
                 <div class="card-img-top" style="font-size: 50px; text-align: center;">
-                    <img src="../admin-pannel/img/<?php echo $allpro[10] ?>" height="100%" width="100%" alt="">
+                    <img src="../admin-pannel/img/<?php echo $allpro[9] ?>" height="100%" width="100%" alt="">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">
@@ -81,6 +45,8 @@ include('navbar.php');?>
                             <?php echo $allpro[4]; ?>
                         </a>
                     </h5>
+                    <h6 style="color: red;"><?php if($allpro[6]==0){
+                                       echo "Not available";}elseif($allpro[6]<=3){echo"only $allpro[6] remaining"; }?></h6>
  
                     <form action="" method="post">
                         <div class="input-group qty-group mt-3">
@@ -90,20 +56,28 @@ include('navbar.php');?>
                         </div>
  
                         <div class="mt-3 d-flex justify-content-between align-items-center">
-                            <span class="card-price">PKR <?php echo $allpro[8]; ?></span>
+                            <span class="card-price">PKR <?php echo $allpro[7];?></span>
                             <input type="hidden" value="<?php echo $allpro[0] ?>" name="proid">
+                            <input type="hidden" value="<?php echo $allpro[3] ?>" name="proid7">
                             <input type="hidden" value="<?php echo $allpro[4] ?>" name="proname">
-                            <input type="hidden" value="<?php echo $allpro[8] ?>" name="proprice">
-                            <input type="hidden" value="<?php echo $allpro[10] ?>" name="proimg">
+                            <input type="hidden" value="<?php echo $allpro[7] ?>" name="proprice">
+                            <input type="hidden" value="<?php echo $allpro[9] ?>" name="proimg">
                             <input type="hidden" name="proqty" class="proqty-hidden" value="1">
-                            <button class="btn btn-primary" style="width: 180px; background-color:#C44A33" type="submit" name="addtocart">Add to cart</button>
+                            <?php if($allpro[6]==0){ ?>
+                                        <button class="btn btn-primary" style="width: 180px; background-color:#C44A33" onclick="alert('Not Available Currently');">Add to cart</button>
+                                        <?Php
+                                        } else{?>
+                                    
+                                        <button class="btn btn-primary" style="width: 180px; background-color:#C44A33" name="addtocart" type="submit">Add to cart</button>
+                                         <?Php
+                                        } ?>
                         </div>
                     </form>
                 </div>
             </div>
    
         </div>
-        <?php }} ?>
+        <?php } ?>
  
     </section>
  

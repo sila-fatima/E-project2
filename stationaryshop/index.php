@@ -1,6 +1,14 @@
 <?php
 include('navbar.php');
 ?>
+<script>
+        window.addEventListener('pageshow', function (event) {
+            // If the page was loaded from cache/history, force a reload
+            if (event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) {
+                window.location.reload();
+            }
+        });
+    </script>
 <div class="page active" id="homePage">
     <!-- HERO SECTION -->
     <section class="hero-section">
@@ -91,13 +99,15 @@ include('navbar.php');
                     <div class="col-md-4">
                         <div class="gift-card">
                             <div class="card-img-top" style="font-size: 50px; text-align: center;">
-                                <img src="../admin-pannel/img/<?php echo $allpro[10] ?>" height="100%" width="100%" alt="">
+                                <img src="../admin-pannel/img/<?php echo $allpro[9] ?>" height="100%" width="100%" alt="">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <a href="productdetail.php?proid=<?php echo $allpro[0] ?>" class="text-decoration-none text-reset">
                                         <?php echo $allpro[4]; ?>
                                     </a>
+                                     <h6 style="color: red;"><?php if($allpro[6]==0){
+                                       echo "Not available";}elseif($allpro[6]<=3){echo"only $allpro[6] remaining"; }?></h6>
                                 </h5>
 
                                 <form action="" method="post">
@@ -108,14 +118,21 @@ include('navbar.php');
                                     </div>
 
                                     <div class="mt-3 d-flex justify-content-between align-items-center">
-                                        <span class="card-price">PKR <?php echo $allpro[8]; ?></span>
+                                        <span class="card-price">PKR <?php echo $allpro[7]; ?></span>
                                         <input type="hidden" value="<?php echo $allpro[0] ?>" name="proid">
                                         <input type="hidden" value="<?php echo $allpro[3] ?>" name="proid7">
                                         <input type="hidden" value="<?php echo $allpro[4] ?>" name="proname">
-                                        <input type="hidden" value="<?php echo $allpro[8] ?>" name="proprice">
-                                        <input type="hidden" value="<?php echo $allpro[10] ?>" name="proimg">
+                                        <input type="hidden" value="<?php echo $allpro[7] ?>" name="proprice">
+                                        <input type="hidden" value="<?php echo $allpro[9] ?>" name="proimg">
                                         <input type="hidden" name="proqty" class="proqty-hidden" value="1">
+                                        <?php if($allpro[6]==0){ ?>
+                                        <button class="btn btn-primary" style="width: 180px; background-color:#C44A33" onclick="alert('Not Available Currently');">Add to cart</button>
+                                        <?Php
+                                        } else{?>
+                                    
                                         <button class="btn btn-primary" style="width: 180px; background-color:#C44A33" name="addtocart" type="submit">Add to cart</button>
+                                         <?Php
+                                        } ?>
                                     </div>
                                 </form>
                             </div>
