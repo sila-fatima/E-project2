@@ -30,10 +30,10 @@ if (isset($_GET['orderid'])) {
         </div>
         <label for="">Status</label>
          <select name='status' id=''>
-                        <option value="Dispatched">Dispached</option>
-                        <option value="Shipped">Shipped</option>
+                        <option value="Dispached">Dispached</option>
+                        <option value="Received">Received</option>
                         <option value="Delivered">Delivered</option>
-                        <option value="Return">Returned</option>
+                        <option value="Return">Return</option>
                     </select>
        
        
@@ -72,7 +72,7 @@ if (isset($_POST['update'])) {
     $upd_status = $_POST['status'];
     $update_query = mysqli_query($con, "UPDATE `orders` SET `status`='$upd_status' WHERE Order_id =$orderID");
     if ($update_query) {
-        echo "<script> location.assign('order.php')
+        echo "<script>alert('status changed sucessfully') location.assign('order.php')
         </script>";
     } else {
         echo "<script>alert('Status Didnt update')</script>";

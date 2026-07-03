@@ -31,11 +31,10 @@ include('../admin-pannel/connection.php');
                     if (isset($_SESSION['userid'])) {
                         $userID = $_SESSION['userid'];
                         $info_query = mysqli_query($con, "SELECT * FROM `users` WHERE Id=$userID");
-                        $allinfo = mysqli_fetch_array($info_query);
-
-                    ?>
+                        $allinfo = mysqli_fetch_array($info_query); ?>
                         <p class="section-label">Shipping Details</p>
                         <div class="row mb-3">
+                            <input  name="userid" type="hidden" value="<?php echo $allinfo[0] ?>" class="form-control">
                             <div class="col-md-6"><label class="form-label">Full Name</label><input type="text" class="form-control" name="name" value="<?php echo $allinfo[1] ?>" required></div>
                             <div class="col-md-6"><label class="form-label">EMAIL</label><input type="tel" name="email" value="<?php echo $allinfo[2] ?>" class="form-control" required></div>
                         </div>
@@ -46,7 +45,7 @@ include('../admin-pannel/connection.php');
 
                     <p class="section-label">Payment Method</p>
                     <div class="mb-4">
-                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="2" name="payment" id="cod" onclick="togglePaymentFields()"> <label for="cod">Cash on Delivery (COD)</label></div>
+                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="2" name="payment" id="cod" required onclick="togglePaymentFields()"> <label for="cod">Cash on Delivery (COD)</label></div>
                         <div class="payment-option-card"><input class="form-check-input" type="radio" value="1" name="payment" id="vvr" onclick="togglePaymentFields()"> <label for="vvr">VVR</label></div>
                         <div class="payment-option-card"><input class="form-check-input" type="radio" value="3" name="payment" id="bank" onclick="togglePaymentFields()"> <label for="bank">Online Bank Transfer</label></div>
 
@@ -54,11 +53,11 @@ include('../admin-pannel/connection.php');
                             <p class="section-label">Enter Bank Details</p>
                             <div class="mb-3">
                                 <label class="form-label">Card Number</label>
-                                <input type="text" name="cardno" class="form-control" placeholder="4242 4242 4242 4242">
+                                <input id="cardno" type="text" name="cardno" class="form-control" placeholder="4242 4242 4242 4242">
                             </div>
                             <div class="row">
-                                <div class="col-md-6"><label class="form-label">Expiry Date</label><input type="text" class="form-control" placeholder="MM/YY"></div>
-                                <div class="col-md-6"><label class="form-label">CVC</label><input type="text" class="form-control" placeholder="123"></div>
+                                <div class="col-md-6"><label class="form-label">Expiry Date</label><input type="text" id="expirydate" class="form-control" placeholder="MM/YY"></div>
+                                <div class="col-md-6"><label class="form-label">CVC</label><input type="text" id="CVC" class="form-control" placeholder="123"></div>
                             </div>
                         </div>
                     </div>
@@ -103,8 +102,22 @@ include('../admin-pannel/connection.php');
                 paymentDetails.classList.remove('d-none');
             } else {
                 paymentDetails.classList.add('d-none');
+                document.getElementById("cardno").value = "";
+            document.getElementById("expirydate").value = "";
+            document.getElementById("CVC").value = "";
+            validateCardFields();
             }
         }
+    const cardno=document.getElementById("cardno");
+    const expiry=document.getElementById("expirydate");
+    const Cvc=document.getElementById("CVC");
+    cardno.addEventListener('input', function validateCardFields(){
+    if(cardno.value.trim()!==""){
+        expiry.required=true
+        Cvc.required=true
+    }
+    else{expiry.required=false
+        Cvc.required=false}})
     </script>
 
 </body>
@@ -117,7 +130,8 @@ if (isset($_SESSION['cart']) && isset($_POST['order'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
-    $cardNo = $_POST['cardno'];
+    $cardNo = $_POST['cardno']; 
+    $userid = $_POST['userid'];
     $productid = $_SESSION['cart'][0]['pid7'];
     if ($paymentId == 1 || $paymentId == 2) {
         $status = 'Received';
@@ -130,7 +144,7 @@ if (isset($_SESSION['cart']) && isset($_POST['order'])) {
     foreach ($_SESSION['cart'] as $cartitems) {
         $total += $cartitems['pprice'] * $cartitems['pqty'];
     }
-    $insert_query = mysqli_query($con, "INSERT INTO `orders`(`payment_id`, `product_id`, `Customer`, `email`, `Card_no`, `Address`, `phone_number`, `Total amount`, `status`) VALUES ('$paymentId','$productid','$name','$email','$cardNo','$address','$phone','$total','$status')");
+    $insert_query = mysqli_query($con, "INSERT INTO `orders`(`payment_id`, `product_id`, `Customer`, `email`, `Card_no`, `Address`, `phone_number`, `Total amount`, `status`,`userID`) VALUES ('$paymentId','$productid','$name','$email','$cardNo','$address','$phone','$total','$status','$userid')");
     $insertID = mysqli_insert_id($con);
     $orderIdfetch_query = mysqli_query($con, "SELECT * FROM `orders` WHERE id=$insertID");
     $row = mysqli_fetch_array($orderIdfetch_query);
@@ -139,7 +153,7 @@ if (isset($_SESSION['cart']) && isset($_POST['order'])) {
         $proId = $cartitems['pid7'];
         $proname = $cartitems['pname'];
         $proqty = $cartitems['pqty'];
-        $orderitem_insert = mysqli_query($con, "INSERT INTO `order_items`(`order_id`,`Customer`, `product_id`, `Product_name`, `quantity`) VALUES ('$orderid','$name','$proId','$proname','$proqty')");
+        $orderitem_insert = mysqli_query($con, "INSERT INTO `order_items`(`order_id`,`Customer`, `product_id`, `Product_name`, `quantity`) VALUES ('$orderid','$userid','$proId','$proname','$proqty')");
          $update_query = mysqli_query($con, "UPDATE `products` SET `quantity` = `quantity` - $proqty WHERE Product_ID = $proId");
 
     }

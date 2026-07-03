@@ -80,7 +80,7 @@ include('../admin-pannel/connection.php');
 
         <a class="btn btn-primary w-100" href="checkout.php" style="background-color: #2D1B2E;">Checkout</a>
         <?php } else{ ?>
-          <a class="btn btn-primary w-100" href="checkout.php" style="background-color: #2D1B2E;">Checkout</a>
+          <a class="btn btn-primary w-100" href="login.php" style="background-color: #2D1B2E;">Checkout</a>
          <?php }  ?>
     </div>
 </div>
