@@ -357,28 +357,25 @@ if(isset($_SESSION['emp_name'])){
 <?php
 if (isset($_GET['search'])) {
     $search=$_GET['search'];
-    if($search=='orders'|| $search=='order'){
+    if($search==strtolower(trim('orders'))|| $search==strtolower(trim('order'))){
         echo "<script> location.assign('order.php')</script>";
     }
-    elseif($search=='category'||$search=='categories'){
+    elseif($search==strtolower(trim('category'))||$search==strtolower(trim('categories'))){
         echo "<script> location.assign('view-cat.php')</script>";
     }
-    elseif($search=='product'||$search=='products'){
+    elseif($search==strtolower(trim('product'))||$search==strtolower(trim('products'))){
         echo "<script> location.assign('view-pro.php')</script>";
     }
-    elseif($search=='payments'||$search=='payment'){
-        echo "<script> location.assign('payment.php')</script>";
-    }
-    elseif($search=='employees'){
+    elseif($search==strtolower(trim('employees'))){
         echo "<script> location.assign('emp_view.php')</script>";
     }
-    elseif($search=='refund'){
+    elseif($search==strtolower(trim('refund'))){
         echo "<script> location.assign('refund.php')</script>";
     }
-    elseif($search=='FAQ'){
+    elseif($search==strtolower(trim('FAQ'))){
         echo "<script> location.assign('faq.php')</script>";
     }
-    elseif($search=='review'){
+    elseif($search==strtolower(trim('review'))){
         echo "<script> location.assign('review.php')</script>";
     }
     else{

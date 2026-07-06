@@ -31,7 +31,8 @@ include('navbar.php');
                     <a href="?status=Received" class="btn btn-outline-warning ">Received</a>
                     <a href="?status=Dispached" class="btn btn-outline-warning ">Dispached</a>
                     <a href="?status=Delivered" class="btn btn-outline-warning ">Delivered</a>
-                    <a href="?status=Return" class="btn btn-outline-warning ">Refund</a>
+                    <a href="?status=Reviewed" class="btn btn-outline-warning ">Reviewed</a>
+                    <a href="?status=Return" class="btn btn-outline-warning ">Return</a>
                 </div>
             </div>
             
@@ -40,11 +41,9 @@ include('navbar.php');
                 $userid = $_SESSION['userid'];
                 if(isset($_GET['status'])){
                     $status = $_GET['status'];
-                    if ($status == 'Dispached' || $status == 'Received' || $status=='Return') {
+                    if ($status == 'Dispached' || $status == 'Received' || $status=='Return' || $status =="To Pay" || $status =="Reviewed" || $status=="Delivered") {
                         $orderfetch = mysqli_query($con, "SELECT * FROM `orders` WHERE status ='$status' AND userID =$userid");
-                    } else {
-                        $orderfetch = mysqli_query($con, "SELECT * FROM `orders` WHERE status ='$status' AND userID =$userid");
-                    }
+                    } 
                 }elseif(isset($_GET['search'])){
                     $search=$_GET['search'];
                     $orderfetch=mysqli_query($con,"SELECT * FROM `orders` WHERE Order_id ='$search' AND userID =$userid");
@@ -68,7 +67,7 @@ include('navbar.php');
                     } elseif ($card_status == "Dispached") {
                         $packed_active = "active";
                         $transit_active = "active";
-                    } elseif ($card_status == "Delivered" || $card_status == "Return") {
+                    } elseif ($card_status == "Delivered" || $card_status == "Return" || $card_status =="Reviewed") {
                         $packed_active = "active";
                         $transit_active = "active";
                         $delivered_active = "active";
@@ -133,7 +132,7 @@ include('navbar.php');
                                     <h5 class="modal-title">Complete Payment for Order #<?php echo $allorders['Order_id']; ?></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="process_payment.php" method="POST">
+                                <form action="" method="POST">
                                     <div class="modal-body text-start">
                                         <div class="mb-3">
                                             <label class="form-label">Order ID</label>
@@ -150,7 +149,7 @@ include('navbar.php');
                                             </div>
                                             <div class="col-6 mb-3">
                                                 <label class="form-label">CVC</label>
-                                                <input type="password" name="cvc" class="form-control" placeholder="123" maxlength="4" required>
+                                                <input type="password" name="cvc" class="form-control" placeholder="123" maxlength="3" required>
                                             </div>
                                         </div>
                                     </div>
@@ -162,6 +161,20 @@ include('navbar.php');
                             </div>
                         </div>
                     </div>
+                    <!-- paying query -->
+                     <?php 
+                     if(isset($_POST['submit_payment'])){
+                        $order_id=$_POST['order_id'];
+                        $cardNO=$_POST['card_no'];
+                        $status='Received';
+                        $Payment_query=mysqli_query($con,"UPDATE `orders` SET `Card_no`='$cardNO',`status`='$status' WHERE Order_id='$order_id'");
+                        if($Payment_query){
+                            echo "<script>
+                            alert('You have Succesfully Paid For The Order')
+                            location.assign('trackorder.php')</script>";
+                        }
+                        else{  echo "<script>alert('Something went wrong')</script>";}
+                     } ?>
                     <!-- review Model -->
 
                     <div class="modal fade" id="reviewModal_<?php echo $allorders['Order_id']; ?>" tabindex="-1" aria-hidden="true">
@@ -171,7 +184,7 @@ include('navbar.php');
                                     <h5 class="modal-title">Submit Review for your Order</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="submit_review.php" method="POST">
+                                <form action="" method="POST">
                                     <div class="modal-body text-start">
                                         <div class="mb-3">
                                             <label class="form-label">Order ID</label>
@@ -179,11 +192,11 @@ include('navbar.php');
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Name</label>
-                                            <input type="text" value="<?php echo $allorders['Customer']?>" name="customer_name" class="form-control" placeholder="Your Name" readonly>
+                                            <input type="text" value="<?php echo $allorders['Customer']?>" name="name" class="form-control" placeholder="Your Name" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Email address</label>
-                                            <input type="email" value="<?php echo $allorders['email']?>" name="customer_email" class="form-control" placeholder="name@example.com" readonly>
+                                            <input type="email" value="<?php echo $allorders['email']?>" name="email" class="form-control" placeholder="name@example.com" readonly>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Review Message</label>
@@ -192,10 +205,29 @@ include('navbar.php');
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" name="submit_review" class="btn text-white" style="background-color:#E8634A;">Submit Review</button>
+                                        <button type="submit" name="review_btn" class="btn text-white" style="background-color:#E8634A;">Submit Review</button>
                                     </div>
                                 </form>
                             </div>
+                            <!-- review query -->
+                             <?php
+                             if(isset($_POST['review_btn'])){
+                                $name=$_POST['name'];
+                                $order_id=$_POST['order_id'];
+                                $email=$_POST['email'];
+                                $review=$_POST['review_message'];
+                                $review_query=mysqli_query($con,"INSERT INTO `review`(`name`, `email`, `order_id`, `Review_message`) VALUES ('$name','$email','$order_id','$review')");
+                                if($review_query){
+                                    mysqli_query($con,"UPDATE `orders` SET `status`='Reviewed' WHERE Order_id='$order_id'");
+                                      echo "<script>alert('Review Submitted Sucessfully')
+                                      location.assign('trackorder.php')</script>";
+
+
+                                }
+                                else{  echo "<script>alert('Something went Wrong')</script>";}
+
+                             }
+                             ?>
                         </div>
                     </div>
 
@@ -210,7 +242,7 @@ include('navbar.php');
 
 <?php include('footer.php'); ?>
 </body>
-
+<!-- canclation work -->
 <?php
 if(isset($_GET['cancelid'])){
     $cancelid=$_GET['cancelid'];
@@ -221,4 +253,6 @@ if(isset($_GET['cancelid'])){
     }
 }
 ?>
+
+ 
 </html>

@@ -23,7 +23,7 @@ include("connection.php");
         <?php
         // fetch search item
         if(isset($_GET['search'])){
-            $search=$_GET['search'];
+            $search=trim($_GET['search']);
             $search_query=mysqli_query($con,"SELECT * FROM products WHERE Product_ID='$search' OR Product_name='$search'");
             if (mysqli_num_rows($search_query)<=0) {
                 echo "<script>alert('No Product Found'); location.assign('view-pro.php');</script>";

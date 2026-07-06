@@ -46,7 +46,7 @@ include('../admin-pannel/connection.php');
                     <p class="section-label">Payment Method</p>
                     <div class="mb-4">
                         <div class="payment-option-card"><input class="form-check-input" type="radio" value="2" name="payment" id="cod" required onclick="togglePaymentFields()"> <label for="cod">Cash on Delivery (COD)</label></div>
-                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="1" name="payment" id="vvr" onclick="togglePaymentFields()"> <label for="vvr">VVR</label></div>
+                        <div class="payment-option-card"><input class="form-check-input" type="radio" value="1" name="payment" id="vpp" onclick="togglePaymentFields()"> <label for="vvr">VPP</label></div>
                         <div class="payment-option-card"><input class="form-check-input" type="radio" value="3" name="payment" id="bank" onclick="togglePaymentFields()"> <label for="bank">Online Bank Transfer</label></div>
 
                         <div id="payment-details" class="d-none mb-4">

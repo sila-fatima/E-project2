@@ -21,7 +21,7 @@ include("connection.php");
                 <?php
                 // search query
                 if (isset($_GET['search']) && $_GET['search'] != "") {
-                    $search = $_GET['search'];
+                    $search =trim($_GET['search']);
                     $search_query = mysqli_query($con, "SELECT * FROM categories WHERE Id='$search' OR name='$search'");
                     
                     if (mysqli_num_rows($search_query) <= 0) {

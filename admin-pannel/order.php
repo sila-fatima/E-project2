@@ -11,7 +11,7 @@ include('connection.php');
                 <option value="">See All</option>
                 <option value="?filter=date">Filter by Date</option>
                 <option value="?filter=2">Filter by COD</option>
-                <option value="?filter=1">Filter by VVR</option>
+                <option value="?filter=1">Filter by VPP</option>
                 <option value="?filter=3">Filter by Bank Transfer</option>
                 <option value="?filter=To pay">Filter by Unpaid</option>
             </select>
@@ -46,10 +46,10 @@ include('connection.php');
                     $fetch_orders = mysqli_query($con, "SELECT * FROM orders ORDER BY Order_date ASC");
                 }
             }elseif(isset($_GET['search']) && $_GET['search'] !="" ){
-                 $search = $_GET['search'];
+                 $search =trim($_GET['search']);
                  $fetch_orders=mysqli_query($con,"SELECT * FROM `orders` WHERE Order_id ='$search' OR Customer='$search'");
                  if (mysqli_num_rows($fetch_orders)<=0) {
-echo "<script>alert('No Order Found'); location.assign('view-cat.php');</script>";
+echo "<script>alert('No Order Found'); location.assign('order.php');</script>";
                     
                  }
             }
@@ -68,7 +68,7 @@ echo "<script>alert('No Order Found'); location.assign('view-cat.php');</script>
                         <td> <?php echo $all_order[8]; ?></td>
                         <td> <?php echo $all_order[11]; ?></td>
                         <td> <?php if ($all_order[1] == 1) {
-                                    echo 'VVR';
+                                    echo 'VPP';
                                 } elseif ($all_order[1] == 2) {
                                     echo 'COD';
                                 } else {

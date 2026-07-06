@@ -68,24 +68,24 @@ include('connection.php');
                     <span>Categories</span>
                 </a>
                 <?php
-                if ($_SESSION['role']=="admin"){
+                if ($_SESSION['role'] == "admin") {
                 ?>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Categories:</h6>
-                        <a class="collapse-item" href="Add-cat.php">Add Category</a>
-                        <a class="collapse-item" href="view-cat.php">View Category</a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Categories:</h6>
+                            <a class="collapse-item" href="Add-cat.php">Add Category</a>
+                            <a class="collapse-item" href="view-cat.php">View Category</a>
+                        </div>
                     </div>
-                </div>
                 <?php
-                } else{?><div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Categories:</h6>
-                        <a class="collapse-item" href="view-cat.php">View Category</a>
+                } else { ?><div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Categories:</h6>
+                            <a class="collapse-item" href="view-cat.php">View Category</a>
+                        </div>
                     </div>
-                </div>
                 <?php
-                }?>
+                } ?>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -96,26 +96,26 @@ include('connection.php');
                     <span>Products</span>
                 </a>
                 <?php
-                if ($_SESSION['role']=="admin"){
+                if ($_SESSION['role'] == "admin") {
                 ?>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Products:</h6>
-                        <a class="collapse-item" href="add-pro.php">Add Products</a>
-                        <a class="collapse-item" href="view-pro.php">View Products</a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Products:</h6>
+                            <a class="collapse-item" href="add-pro.php">Add Products</a>
+                            <a class="collapse-item" href="view-pro.php">View Products</a>
+                        </div>
                     </div>
-                </div>
                 <?php
-                } else{?>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Products:</h6>
-                        <a class="collapse-item" href="view-pro.php">View Products</a>
+                } else { ?>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Products:</h6>
+                            <a class="collapse-item" href="view-pro.php">View Products</a>
+                        </div>
                     </div>
-                </div>
-                <?php }?>
+                <?php } ?>
             </li>
 
             <!-- Divider -->
@@ -129,18 +129,18 @@ include('connection.php');
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-    aria-expanded="true" aria-controls="collapseOrders">
+                    aria-expanded="true" aria-controls="collapseOrders">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Orders & Services</span>
                 </a>
                 <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Concerns</h6>
-        <a class="collapse-item" href="order.php">Orders</a>
-        <a class="collapse-item" href="Refund.php">Refund</a>
-        <a class="collapse-item" href="Review.php">Reviews</a>
-    </div>
-</div>
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Concerns</h6>
+                        <a class="collapse-item" href="order.php">Orders</a>
+                        <a class="collapse-item" href="Refund.php">Refund</a>
+                        <a class="collapse-item" href="Review.php">Reviews</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -204,42 +204,43 @@ include('connection.php');
                     </button>
 
                     <!-- Topbar Search -->
-                     <?php
-                     $page = basename($_SERVER['PHP_SELF']);
-                     if($page=='Add-cat.php'||$page=='view-cat.php'||$page=='update-cat.php'){
-                        $action = 'view-cat.php';
-                     }
-                     elseif($page=='view-pro.php'||$page=='add-pro.php'||$page=='updatepro.php'){
-                        $action = 'view-pro.php';
-                     }
-                     elseif($page=='emp_view.php'||$page=='add-emp.php'||$page=='update_emp.php'){
-                        $action = 'emp_view.php';
-                     }
-                     
-                     elseif($page=='order.php'||$page=='review.php'||$page=='refund.php'||$page=='update-order.php'){
-                        $action = 'order.php';
-                     }
-                     elseif($page=='index.php'){
-                        $action = 'index.php';
-                     }
-                     else{
-                        $action=$page;
-                     }
+                  <?php
+// 1. Get the current page filename, completely clean it of any hidden spaces, and lowercase it
+$page = strtolower(trim(basename($_SERVER['PHP_SELF'])));
 
-
-                     ?>
-                    <form method="GET" action="<?php echo $action?>"
+// 2. Clear, simple matching
+if (in_array($page, ['add-cat.php', 'view-cat.php', 'update-cat.php'])) {
+    $action = 'view-cat.php';
+} 
+elseif (in_array($page, ['view-pro.php', 'add-pro.php', 'updatepro.php'])) {
+    $action = 'view-pro.php';
+} 
+elseif (in_array($page, ['emp_view.php', 'add-emp.php', 'update_emp.php'])) {
+    $action = 'emp_view.php';
+} 
+// This will perfectly grab review.php, status.php, refund.php, and order.php
+elseif (in_array($page, ['order.php', 'review.php', 'refund.php', 'status.php'])) {
+    $action = 'order.php';
+} 
+elseif ($page == 'index.php') {
+    $action = 'index.php';
+} 
+else {
+    $action = $page;
+}
+?>
+                    <form method="GET" action="<?php echo $action ?>"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <?php
-                            if($action=='index.php'){?>
-                            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search pages (Orders, Products, Categories...)"
-                                aria-label="Search" aria-describedby="basic-addon2">
-                               <?php } else {?>
-                               <input type="text" class="form-control bg-light border-0 small" placeholder="Search By ID Or NAME"
-                                aria-label="Search" name="search" aria-describedby="basic-addon2">
-                                <?php
-                                }?>
+                            if ($action == 'index.php') { ?>
+                                <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search pages (Orders, Products, Categories...)"
+                                    aria-label="Search" aria-describedby="basic-addon2">
+                            <?php } else { ?>
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search By ID Or NAME"
+                                    aria-label="Search" name="search" aria-describedby="basic-addon2">
+                            <?php
+                            } ?>
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
@@ -298,9 +299,9 @@ include('connection.php');
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout.php">
-    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-    Logout
-</a>
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
                             </div>
                         </li>
 

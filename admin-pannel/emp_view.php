@@ -48,7 +48,7 @@ include('connection.php');
                             </tfoot>
                             <!-- delete query -->
                             <?php if(isset($_GET['search'])){
-                                $search=$_GET['search'];
+                                $search=trim($_GET['search']);
                                 $search_query=mysqli_query($con,"SELECT * FROM employees WHERE Id='$search' OR name='$search'");
                                 if(mysqli_num_rows($search_query)<=0){
                                     echo "<script>alert('No Record Found'); location.assign('emp_view.php');</script>";
