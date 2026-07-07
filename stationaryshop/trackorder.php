@@ -32,16 +32,17 @@ include('navbar.php');
                     <a href="?status=Dispached" class="btn btn-outline-warning ">Dispached</a>
                     <a href="?status=Delivered" class="btn btn-outline-warning ">Delivered</a>
                     <a href="?status=Reviewed" class="btn btn-outline-warning ">Reviewed</a>
-                    <a href="?status=Return" class="btn btn-outline-warning ">Return</a>
+                    <a href="?Rstatus=Return" class="btn btn-outline-warning ">Return</a>
                 </div>
             </div>
             
             <?php
+            $showReturnCards = false;
             if (isset($_SESSION['userid'])) {
                 $userid = $_SESSION['userid'];
                 if(isset($_GET['status'])){
                     $status = $_GET['status'];
-                    if ($status == 'Dispached' || $status == 'Received' || $status=='Return' || $status =="To Pay" || $status =="Reviewed" || $status=="Delivered") {
+                    if ($status == 'Dispached' || $status == 'Received'|| $status =="To Pay" || $status =="Reviewed" || $status=="Delivered") {
                         $orderfetch = mysqli_query($con, "SELECT * FROM `orders` WHERE status ='$status' AND userID =$userid");
                     } 
                 }elseif(isset($_GET['search'])){
@@ -52,9 +53,69 @@ include('navbar.php');
                        location.assign('trackorder.php')</script>";
                     }
                 }
+                elseif(isset($_GET['Rstatus'])){
+                     $showReturnCards = true;
+                    $returnfetch=mysqli_query($con, "SELECT * FROM `return` WHERE  userID =$userid");
+                    while($returnorders=mysqli_fetch_assoc($returnfetch)){
+                        $state=$returnorders['status'];
+                        $application_active = "";
+                    $transit_active = "";
+                    $quality_active="";
+                    $Return_active = "";
+                     if ($state == "Return Application Received") {
+                        $application_active = "active";
+                    } elseif ($state == "Return Item Received") {
+                        $application_active = "active";
+                        $transit_active = "active";
+                    }elseif($state == "Quality Checkup In process"){
+                         $application_active = "active";
+                        $transit_active = "active";
+                        $quality_active="active";
+                    } 
+                    elseif ($state == "Return issued" || $state =="Return Rejected") {
+                        $application_active = "active";
+                        $transit_active = "active";
+                        $quality_active="active";
+                        $Return_active="active";   
+                    }?>
+                     <div class="order-card mt-4" id="trackingResultBox">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 border-bottom pb-3 mb-4" style="border-color: var(--line) !important;">
+                            <div>
+                                <h5 class="mb-1"><a href="orderdetail.php?orderid=<?php echo $returnorders['Order_id'];?>" class="text-decoration-none text-reset">OrderID <?php echo $returnorders['Order_id']; ?></a></h5>
+                                <p class="small mb-0">Placed on: <?php echo $returnorders['Return_time'] ?></p>
+                            </div>
+                            <span class="badge" style="background-color: var(--gold); color: var(--plum);"><?php echo $returnorders['status'] ?></span>
+                        </div>
+
+                        <div class="status-timeline">
+                            <div class="timeline-step <?php echo $application_active; ?>">
+                                <div class="step-circle">✓</div>
+                                <div class="step-label">Application Received</div>
+                            </div>
+                            <div class="timeline-step <?php echo $transit_active; ?>">
+                                <div class="step-circle">🚚</div>
+                                <div class="step-label">Parcel Received</div>
+                            </div>
+                             <div class="timeline-step <?php echo $quality_active; ?>">
+                                <div class="step-circle">✓</div>
+                                <div class="step-label">Quality Check Done</div>
+                            </div>
+                            <div class="timeline-step <?php echo $Return_active; ?>">
+                                <div class="step-circle">📦</div>
+                                <div class="step-label">
+                                    Return Processing Done
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <?php }}
+                
                 else {
                     $orderfetch = mysqli_query($con, "SELECT * FROM `orders` WHERE userID =$userid");
                 }
+                  if (!$showReturnCards && isset($orderfetch)) {
 
                 while ($allorders = mysqli_fetch_assoc($orderfetch)) {
                     $card_status = $allorders['status'];
@@ -67,7 +128,7 @@ include('navbar.php');
                     } elseif ($card_status == "Dispached") {
                         $packed_active = "active";
                         $transit_active = "active";
-                    } elseif ($card_status == "Delivered" || $card_status == "Return" || $card_status =="Reviewed") {
+                    } elseif ($card_status == "Delivered" || $card_status =="Reviewed") {
                         $packed_active = "active";
                         $transit_active = "active";
                         $delivered_active = "active";
@@ -109,11 +170,16 @@ include('navbar.php');
                                         data-bs-target="#payModal_<?php echo $allorders['Order_id']; ?>">
                                     Pay
                                 </button>
-                            <?php } elseif ($card_status == 'Delivered') { ?>
+                            <?php } elseif ($card_status == 'Delivered') { 
+                                            $deliveryDate = strtotime($allorders['Order_date']);
+                                            $currentDate = strtotime(date('Y-m-d'));
+                                            $daysPassed = ($currentDate - $deliveryDate) / (60 * 60 * 24);
+                                            if ($daysPassed <= 7) {
+                                ?>
                                 <a href="return.php?Returnid=<?php echo $allorders['Order_id']; ?>" class="btn btn-outline-light" style=" background-color:#E8634A;">
                                     Return
                                 </a>
-                                
+                                <?php }?>
                                 <button type="button" 
                                         class="ms-3 btn btn-outline-light" 
                                         style="background-color:#E8634A;" 
@@ -233,7 +299,7 @@ include('navbar.php');
 
             <?php 
                 } // End while loop
-            } 
+            }}
             ?>
 
         </div>

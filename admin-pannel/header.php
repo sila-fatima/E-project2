@@ -137,7 +137,7 @@ include('connection.php');
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Concerns</h6>
                         <a class="collapse-item" href="order.php">Orders</a>
-                        <a class="collapse-item" href="Refund.php">Refund</a>
+                        <a class="collapse-item" href="Refund.php">Return</a>
                         <a class="collapse-item" href="Review.php">Reviews</a>
                     </div>
                 </div>

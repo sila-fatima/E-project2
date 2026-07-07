@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2026 at 10:08 PM
+-- Generation Time: Jul 07, 2026 at 11:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -127,18 +127,31 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `payment_id`, `product_id`, `Order_id`, `Customer`, `email`, `Card_no`, `Address`, `phone_number`, `Total amount`, `status`, `Order_date`, `userID`) VALUES
 (1, 2, '6300063', '6300063200000001', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 4300, 'Dispached', '2026-07-02 13:47:26', 1),
-(2, 3, '2800127', '2800127300000002', 'saad', 'saad@gmail.com', '7899-0999-89', 'xyzroad,kharadar,karachi', '0987654321', 13000, 'Delivered', '2026-07-02 13:47:33', 1),
-(6, 3, '0200002', '0200002300000006', 'aliraza', 'aliraza@gmail.com', '7890-0987-09', 'xyzroad,kharadar,karachi', '6789054321', 600, 'Delivered', '2026-07-02 13:47:07', 2),
+(2, 3, '2800127', '2800127300000002', 'saad', 'saad@gmail.com', '7899-0999-89', 'xyzroad,kharadar,karachi', '0987654321', 13000, 'Reviewed', '2026-07-02 13:47:33', 1),
 (7, 2, '5000050', '5000050200000007', 'aliraza', 'aliraza@gmail.com', '', 'Jamshedroad', '6789054321', 5000, 'Received', '2026-07-03 05:49:59', 2),
 (8, 2, '2600026', '2600026200000008', 'saad', 'saad@gmail.com', '', 'society i=office ', '0987654321', 550, 'Received', '2026-07-03 05:51:59', 1),
 (12, 3, '5000050', '5000050300000012', 'ahmedkhan', 'ahmed@gmail.com', '8900-9876-09', 'society i=office ', '123456777', 17500, 'received', '2026-07-03 16:16:58', 3),
 (13, 1, '4300142', '4300142100000013', 'ahmedkhan', 'ahmed@gmail.com', '', 'society i=office ', '123456777', 3000, 'Received', '2026-07-03 16:34:52', 3),
 (14, 1, '7000070', '7000070100000014', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 1500, 'Return', '2026-07-03 18:11:59', 1),
-(15, 3, '6700067', '6700067300000015', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 3000, 'To Pay', '2026-07-03 19:52:28', 1);
+(16, 1, '5800157', '5800157100000016', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 300, 'Return', '2026-07-06 20:03:35', 1),
+(17, 3, '1400113', '1400113300000017', 'saad', 'saad@gmail.com', '0987-0987-09', 'society i=office ', '0987654321', 3000, 'Received', '2026-07-06 20:07:54', 1),
+(20, 3, '4100140', '4100140300000020', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 3000, 'To Pay', '2026-07-07 21:12:22', 1);
 
 --
 -- Triggers `orders`
 --
+DELIMITER $$
+CREATE TRIGGER `restore_stock_and_delete_items` BEFORE DELETE ON `orders` FOR EACH ROW BEGIN
+    UPDATE `products`
+    INNER JOIN `order_items` ON `products`.`Product_ID` = `order_items`.product_id
+    SET `products`.quantity = `products`.quantity + `order_items`.quantity
+    WHERE `order_items`.order_id = OLD.order_id;
+    DELETE FROM `order_items` 
+    WHERE order_id = OLD.order_id;
+    
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `set_order_number` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
     DECLARE next_id INT;
@@ -180,14 +193,15 @@ INSERT INTO `order_items` (`Id`, `order_id`, `Customer`, `product_id`, `Product_
 (1, '6300063200000001', 'saad', '6300063', 'tom ', 1),
 (2, '6300063200000001', 'saad', '4100041', ' Emerald Flap', 1),
 (3, '2800127300000002', 'saad', '2800127', 'Elephant Tray', 1),
-(5, '0200002300000006', 'aliraza', '0200002', 'Wedding Keepsake Keychain', 1),
 (6, '5000050200000007', 'aliraza', '5000050', 'Monogram Bifold', 1),
 (7, '2600026200000008', 'saad', '2600026', '4-in-1 Makeup Pen', 1),
 (8, '5000050300000012', 'ahmedkhan', '5000050', 'Monogram Bifold', 1),
 (9, '5000050300000012', 'ahmedkhan', '8900089', 'Sunny Coast', 1),
 (10, '4300142100000013', 'ahmedkhan', '4300142', 'Smart Mug', 1),
-(11, '7000070100000014', '1', '7000070', 'Berry Bunny', 1),
-(12, '6700067300000015', '1', '6700067', 'Moody Octopus', 1);
+(11, '7000070100000014', 'ahmedkhan', '7000070', 'Berry Bunny', 1),
+(13, '5800157100000016', '1', '5800157', 'Simple Birthday Card', 1),
+(14, '1400113300000017', '1', '1400113', 'Vintage Glamour', 1),
+(17, '4100140300000020', '1', '4100140', 'Portable Blender', 1);
 
 -- --------------------------------------------------------
 
@@ -205,7 +219,7 @@ CREATE TABLE `payment_opts` (
 --
 
 INSERT INTO `payment_opts` (`Id`, `options`) VALUES
-(1, 'VVR'),
+(1, 'VPP'),
 (2, 'COD'),
 (3, 'ONLINEBANK TRANSFER');
 
@@ -234,7 +248,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `Product_name`, `Description`, `quantity`, `Price`, `category_Id`, `Image`) VALUES
 (1, '01', '00001', '0100001', ' LED Flashlight Keychain', 'Never get left in the dark again with this ultra-practical mini LED flashlight keychain. Designed for everyday convenience, this compact accessory features a highly efficient, bright white LED bulb activated by a simple, smooth sliding switch. Its lightweight, durable plastic casing is built to withstand daily wear, making it a reliable companion for late-night navigation or roadside emergencies. Available in a vibrant spectrum of colors including sleek black, vivid blue, deep purple, energetic green, bold pink, bright orange, and clean white, it effortlessly blends essential utility with a splash of everyday style.', 199, 180, 1, '16k.jpg'),
-(2, '02', '00002', '0200002', 'Wedding Keepsake Keychain', 'Capture the joy of matrimonial bliss with these delightfully whimsical enamel wedding-themed keychains. Featuring detailed, cartoon-style illustrations of brides and grooms in various charming poses—ranging from a playful piggyback ride to elegant formal portraits—these accessories offer a unique blend of romance and fun. Each piece is coated with high-quality, vibrant enamel paint that resists chipping and fading over time, set against a resilient silver-toned metal base. They make exceptional, memorable wedding favors for guests, sweet bridal shower gifts, or a lighthearted daily reminder of your own special big day.', 1, 600, 1, '15k.avif'),
+(2, '02', '00002', '0200002', 'Wedding Keepsake Keychain', 'Capture the joy of matrimonial bliss with these delightfully whimsical enamel wedding-themed keychains. Featuring detailed, cartoon-style illustrations of brides and grooms in various charming poses—ranging from a playful piggyback ride to elegant formal portraits—these accessories offer a unique blend of romance and fun. Each piece is coated with high-quality, vibrant enamel paint that resists chipping and fading over time, set against a resilient silver-toned metal base. They make exceptional, memorable wedding favors for guests, sweet bridal shower gifts, or a lighthearted daily reminder of your own special big day.', 2, 600, 1, '15k.avif'),
 (3, '03', '00003', '0300003', 'Pom-Pom Animal Keychain', 'Introduce an element of playful texture to your favorite handbag with this delightfully fluffy faux fur animal pom-pom keychain. Each piece features a super-soft, high-density plush sphere topped with a cute, detailed faux leather animal accent—including a trendy unicorn, an adorable french bulldog, a sleek fox, a stylish cat, a cute llama, and a sweet bunny rabbit. Complete with a premium gold-plated lobster claw clasp and a matching heavy-duty ring, this eye-catching charm easily attaches to luggage, purses, or car keys, serving as a fashionable statement piece that is incredibly satisfying to touch.', 0, 800, 1, '13k.jpg'),
 (4, '04', '00004', '0400004', 'Custom Personalized Couples Photo Keychain', 'Celebrate your unique bond with this beautiful, personalized couples keychain set. Crafted from premium, polished zinc alloy, this romantic dual-piece set features high-definition photo insertion disks alongside a beautifully stylized interlocking heart and key motif engraved with the words Forever Love You. It serves as the perfect sentimental anniversary, wedding, or Valentine Day token, allowing you to carry your most cherished shared memories wherever life takes you. The robust link chains and secure split rings guarantee that your most valued personal photos remain safely attached to your keys or daily bag.', 120, 850, 1, '8k.jpg'),
 (5, '05', '00005', '0500005', 'Crochet Vampire  Keychain Set', 'Add a touch of spooky charm to your accessory collection with this meticulously handcrafted crochet vampire amigurumi keychain duo. Skillfully knitted by hand using premium, ultra-soft cotton yarn, this set features an adorable Dracula character alongside his elegant vampire companion, complete with classic high-collared capes and tiny embroidered fangs. Their lightweight, plush structure makes them exceptionally comfortable to carry in your pocket or backpack without adding bulk. Ideal for Halloween enthusiasts, collectors of unique handmade crafts, or anyone who appreciates detailed, artisanal textile design that stands out from factory-produced novelties.', 100, 1200, 1, 'k14.jpg'),
@@ -299,7 +313,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (64, '64', '00064', '6400064', 'Chubby Bear', 'This ultra thick pastel pink teddy bear defines ultimate comfort and sweetness. It features a wonderfully round body covered in dense fluffy fur that feels like a cloud. The grey muzzle paws and feet create a beautiful contrast against the main pastel tone. Small pink pads are carefully embroidered onto the bottom of the paws for an extra touch of cuteness. Its dark glassy eyes look straight ahead with a calm gentle expression. This massive ball of joy provides great emotional comfort and serves as a lovely decorative accent', 790, 2000, 4, 'sl5.webp'),
 (65, '65', '00065', '6500065', 'Autumn Panda', 'This charming woodland creature plush features a beautiful orange coat with realistic white and brown markings. It sits patiently while wearing a small light brown neck scarf decorated with a tiny acorn patch. The white tufts inside the ears and on the cheeks frame a quiet serious face. It is stuffed firmly to maintain its shape while remaining soft enough for hugs. The rich warm colors reflect a cozy autumn aesthetic that looks great in any living space. It offers a unique alternative to traditional teddy bear gifts.', 809, 2000, 4, 'pl4.webp'),
 (66, '66', '00066', '6600066', 'Jumbo Elephant', 'This massive grey elephant plushie is designed for maximum hugging real estate. It features gigantic floppy ears a long curved trunk and two soft white tusks sticking out. The slouchy relaxed body allows it to sit comfortably on a sofa or bed as a supportive backrest. It is made from dense shaggy material that stays warm and comforting during cold nights. The oversized feet have simple round patterns to represent realistic wild animal features. It acts as a protective friendly giant for toddlers or a comfortable cushion for relaxing adults', 500, 5000, 4, 'p11.webp'),
-(67, '67', '00067', '6700067', 'Moody Octopus', 'This giant double sided floor cushion features a unique reversible design to match your daily mood. One side presents a cool mint green face with a grumpy downward frown and angry eyes. Flip the large toy over to reveal a happy pink octopus with a wide cheerful smile. The sprawling tentacles provide a wide stable base on the floor making it a fun seat for young kids. It serves as an excellent tool for emotional expression and adds an interactive element to a playroom layout.', 599, 3000, 4, 'p10.webp'),
+(67, '67', '00067', '6700067', 'Moody Octopus', 'This giant double sided floor cushion features a unique reversible design to match your daily mood. One side presents a cool mint green face with a grumpy downward frown and angry eyes. Flip the large toy over to reveal a happy pink octopus with a wide cheerful smile. The sprawling tentacles provide a wide stable base on the floor making it a fun seat for young kids. It serves as an excellent tool for emotional expression and adds an interactive element to a playroom layout.', 600, 3000, 4, 'p10.webp'),
 (68, '68', '00068', '6800068', 'Veggie Squad', 'This colorful assortment of garden vegetables features multiple smiling plush characters in one package. The collection includes a friendly brown potato a white turnip an orange carrot and a bushy green broccoli. Each piece displays a unique happy face with rosy cheeks and bright eyes to encourage healthy eating habits. They feature soft fabric leaves sprouting from the top for realistic detail. These miniature toys are perfect for educational roleplay activities or decorating a kitchen shelf with a touch of fun.', 630, 5000, 4, 'p8.jpg'),
 (69, '69', '00069', '6900069', 'Happy Panda', 'This joyful red panda plush stands out with its energetic waving pose and cheerful closed eye smile. It features deep orange fur with dark brown limbs and a thick striped tail resting behind. The round white patches above the eyes give it a highly expressive look. It sits upright easily on flat surfaces thanks to a heavy bottom filling material. The plush velvet coat is highly durable and resistant to shedding over time. It brings a bright friendly energy to any desktop workspace or children nursery room.', 890, 2000, 4, 'p7.webp'),
 (70, '70', '00070', '7000070', 'Berry Bunny', 'This innovative hide and seek toy features a snow white rabbit tucked inside a vibrant pink fruit pouch. The outer shell looks exactly like a giant ripe strawberry complete with yellow seed details and green leaves. You can pull back the fruit layers to expose a sweet white bunny with pink paw prints. This dual design offers a fun surprise element during playtime activities. It combines the beauty of nature with the cuteness of a pet into one compact cuddly companion.', 299, 1500, 4, 'pl3.webp'),
@@ -345,7 +359,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (110, '11', '00110', '1100110', 'Purple Twilight', 'This unique double band ring features a lovely rose gold finish decorated with soft pink and vibrant purple teardrop stones. The dual rows create an overlapping effect that looks contemporary and stylish. Small shimmering accents decorate the lower band to give this piece extra radiance. Because of its open design the ring can be slightly adjusted to provide a custom fit. It brings a pop of romantic color to your outfit and works well for both daytime gatherings and evening parties. The playful combination of colored gems makes it a standout choice for jewelry lovers.', 678, 4000, 11, 'j4.jpg'),
 (111, '12', '00111', '1200111', 'Golden Blossom', 'These gorgeous stud earrings display an intricate floral design crafted in textured yellow gold. Each earring features branching tendrils tipped with clear sparkling crystals that resemble morning dew on fresh leaves. The unique artistic layout creates a sense of movement and natural beauty. They sit comfortably on the earlobe making them suitable for long hours of wear at weddings or formal dinners. The rich gold hue contrasts beautifully with the bright stones to deliver a luxurious appearance. These earrings add a sophisticated botanical touch to your wardrobe and make a spectacular gift for a loved one.', 789, 3000, 11, 'j6.jpg'),
 (112, '13', '00112', '1300112', 'Endless Brilliance', 'These elegant stud earrings feature a mesmerizing swirl pattern crafted from polished yellow gold and lined with brilliant round stones. The curved lines mimic the gentle movement of waves creating a dynamic look that catches the eye. The multiple rows of pave crystals offer a continuous shimmer that brightens your face. They are designed with secure backs to ensure they stay safely in place all day long. Perfect for adding a touch of modern glamour to your style these earrings pair effortlessly with formal dresses as well as sleek contemporary suits for business events.', 548, 2000, 11, 'j8.jpg'),
-(113, '14', '00113', '1400113', 'Vintage Glamour', 'This sophisticated pair of gold earrings features a fan shaped cluster of shimmering gemstones arranged in a delicate teardrop pattern. The top portion is fully paved with smaller crystals while the bottom elements dangle gracefully to catch the light. They offer a classic aesthetic that fits formal celebrations and festive occasions. The warm golden tones enhance the brilliant white sparkle of the stones perfectly. With their secure and comfortable fit these earrings bring high fashion elegance to your collection. They represent an excellent choice for anyone looking to make a tasteful statement with traditional jewelry designs.', 789, 3000, 11, 'j9.jpg'),
+(113, '14', '00113', '1400113', 'Vintage Glamour', 'This sophisticated pair of gold earrings features a fan shaped cluster of shimmering gemstones arranged in a delicate teardrop pattern. The top portion is fully paved with smaller crystals while the bottom elements dangle gracefully to catch the light. They offer a classic aesthetic that fits formal celebrations and festive occasions. The warm golden tones enhance the brilliant white sparkle of the stones perfectly. With their secure and comfortable fit these earrings bring high fashion elegance to your collection. They represent an excellent choice for anyone looking to make a tasteful statement with traditional jewelry designs.', 788, 3000, 11, 'j9.jpg'),
 (114, '15', '00114', '1500114', 'Silver Rose', 'This delicate silver necklace features a beautifully sculpted rose pendant that serves as a symbol of love and beauty. The intricate petals are detailed with great care to create a realistic three dimensional flower. Hanging from a fine silver link chain the pendant rests elegantly near the collarbone. Its bright metallic finish brings a clean and fresh look to your attire. This necklace is highly versatile and can be paired with casual outfits or formal dresses. It makes a thoughtful present for birthdays or romantic occasions showing your appreciation with a flower that lasts forever.', 789, 1000, 11, 'j10.jpg'),
 (115, '16', '00115', '1600115', 'Triple Radiance', 'This minimalist necklace showcases a tiny pendant featuring three sparkling round stones arranged in a neat triad formation. Suspended from a thin rose gold chain it rests gently against the skin for a subtle and delicate look. The understated design makes it an ideal accessory for everyday wear or for layering with longer necklaces. It offers a gentle flash of light without overwhelming your outfit. The smooth finish and secure clasp ensure comfort and peace of mind throughout the day. This piece is perfect for individuals who love clean modern aesthetics and simple sophistication.', 725, 4000, 11, 'j11.jpg'),
 (116, '17', '00116', '1700116', 'Floral Radiance', 'This exquisite jewelry set includes a delicate pendant necklace and matching stud earrings crafted in elegant rose gold. The central design features a stunning flower motif paved with brilliant white crystals that catch the light from every angle. A circular rose gold border frames the blossoms beautifully adding structure and sophistication to the piece. This coordinated set is ideal for special occasions family gatherings or formal dinners where you want to project a classic feminine charm. The lightweight design ensures comfort all through the night while delivering a high end luxury aesthetic to your overall look.', 345, 2000, 11, 'j12.jpg'),
@@ -372,7 +386,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (137, '38', '00137', '3800137', 'Yeh Dil Mera', 'This exceptional novel by Farhat Ishtiaq delivers a suspenseful and emotionally charged romantic thriller centering on psychological trauma and revenge. The narrative brings together two broken individuals, Aman and Aina, who are unknowingly tied by a dark secret from their past. As they unravel the mysteries surrounding their families, they must confront painful truths that threaten their bond. The brilliant pacing, deep psychological insights, and intense romantic tension made this book highly acclaimed, eventually leading to a massively successful television adaptation that captured the hearts of millions.', 600, 1000, 9, 'n9.jpg'),
 (138, '39', '00138', '3900138', 'peer-e-kamil', 'This iconic novel by Umera Ahmed is widely regarded as a milestone in contemporary Urdu literature. The plot traces the intersecting paths of Imama Hashim, a girl who abandons her family for her religious convictions, and Salaar Sikandar, an eccentric genius with a very high intelligence quotient who is wandering in spiritual darkness. Their long journeys of self-correction, divine intervention, and ultimate enlightenment culminate in a beautiful connection. The book profoundly explores the concept of mentorship and spiritual perfection, leaving a permanent impact on readers worldwide.', 900, 1500, 9, 'n10.jpg'),
 (139, '40', '00139', '4000139', 'Room Humidifier', 'This compact device introduces soothing moisture into your living spaces to balance dry air and improve breathing comfort. It operates quietly on any tabletop making it perfect for bedrooms and offices during dry seasons. The elegant design complements modern home decor while creating a relaxing atmosphere.  Warranty: This product has warranty for six months and the warranty card will be issued', 900, 2000, 10, 'e10.jpg'),
-(140, '41', '00140', '4100140', 'Portable Blender', 'A compact personal mixer designed to prepare fresh smoothies and shakes on the go. Equipped with a powerful rechargeable battery it easily crushes fruits and soft vegetables anywhere you travel. The lightweight construction fits perfectly inside your gym bag or backpack for daily health routines.  Warranty: This product has warranty for three months and the warranty card will be issued', 479, 3000, 10, 'e9.webp'),
+(140, '41', '00140', '4100140', 'Portable Blender', 'A compact personal mixer designed to prepare fresh smoothies and shakes on the go. Equipped with a powerful rechargeable battery it easily crushes fruits and soft vegetables anywhere you travel. The lightweight construction fits perfectly inside your gym bag or backpack for daily health routines.  Warranty: This product has warranty for three months and the warranty card will be issued', 478, 3000, 10, 'e9.webp'),
 (141, '42', '00141', '4200141', 'Massage Gun', 'This handheld percussion massager provides deep tissue relief to soothe sore muscles and reduce tension after intense workouts. It features multiple speed levels and interchangeable heads to target specific muscle groups across the body effectively. The ergonomic handle ensures a comfortable grip during extended self massage sessions.  Warranty: This product has warranty for one year and the warranty card will be issued', 890, 3800, 10, 'e8.avif'),
 (142, '43', '00142', '4300142', 'Smart Mug', 'An insulated travel tumbler featuring an intelligent digital temperature display on the lid to show the warmth of your beverage. It keeps your coffee or tea hot for hours using advanced thermal insulation technology. The leakproof design prevents accidental spills while commuting.  Warranty: This product has warranty for six months and the warranty card will be issued', 299, 3000, 10, 'e7.webp'),
 (143, '44', '00143', '4400143', 'Wireless Earbuds', 'These sleek bluetooth earphones deliver clear sound and deep bass for an immersive audio experience. The charging case features a prominent digital battery indicator so you always know when to plug it in. Their ergonomic ear tips provide a secure and comfortable fit during exercise.  Warranty: This product has warranty for six months and the warranty card will be issued', 890, 5000, 10, 'e6.jpg'),
@@ -389,7 +403,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (154, '55', '00154', '5500154', 'Floral Eid Mubarak Card', 'A beautifully designed cultural card showcasing vibrant orange and yellow traditional patterns resembling classic mosaic tile art. It incorporates graceful white Arabic calligraphy spelling out holiday wishes beneath a vintage camera graphic layout. This design balances contemporary presentation with deep heritage roots flawlessly.', 678, 450, 12, 'c5.jpg'),
 (155, '56', '00155', '5600155', 'EID card with Gift', 'A creative multi functional item that doubles as a festive greeting and a beautiful gift holder for traditional earrings. The artistic illustration depicts a woman in traditional attire while the colorful floral panel carries joyful holiday greetings. It serves as a thoughtful all in one surprise package.', 789, 690, 12, 'c4.jpg'),
 (156, '57', '00156', '5700156', 'Bouque Birthday Card', 'An elegant rustic card crafted from premium brown kraft paper featuring a mini bouquet of genuine dried baby breath flowers. Wrapped neatly in white tissue paper and bound with a simple twine bow, it radiates a charming vintage look. It offers a warm artistic touch for celebrating another year of life.', 890, 500, 12, 'c3.jpg'),
-(157, '58', '00157', '5800157', 'Simple Birthday Card', 'A lovely personalized pink greeting adorned with a sweet graphic illustration of a girl holding roses inside a circular frame. The background is covered in subtle heart patterns and framed by delicate branches loaded with crimson heart shaped buds. It makes an excellent customized birthday option for a close friend.', 900, 300, 12, 'c2.jpg'),
+(157, '58', '00157', '5800157', 'Simple Birthday Card', 'A lovely personalized pink greeting adorned with a sweet graphic illustration of a girl holding roses inside a circular frame. The background is covered in subtle heart patterns and framed by delicate branches loaded with crimson heart shaped buds. It makes an excellent customized birthday option for a close friend.', 899, 300, 12, 'c2.jpg'),
 (158, '59', '00158', '5900158', 'Watercolor Birthday Card', 'This bright artistic print showcases a spectacular watercolor arrangement of blooming yellow flowers set against a serene sky blue wash background. The elegant text is positioned clearly at the bottom to deliver joyful greetings with a refreshing natural vibe. It is highly suitable for anyone who appreciates artistic botanical imagery.', 300, 300, 12, 'c1.jpg'),
 (159, '60', '00159', '6000159', 'Golden Bird', 'This elegant tabletop decoration features a stylized deer sculpture crafted with a glossy metallic gold finish. The figure captures a graceful pose with long slender legs and beautifully branching antlers that catch the light effortlessly. Anchored securely to a thick rectangular black base it offers a stunning contrast that fits perfectly into any upscale modern living room or executive office. The smooth polished surface adds a touch of luxury and refinement to floating shelves side tables or fireplace mantels making it an exceptional statement piece for people who love contemporary animal themed art display.', 900, 10000, 7, 'sh12.jpg'),
 (160, '61', '00160', '6100160', 'Ceramic Ginkgo', 'This beautiful ceramic ornament showcases an artistic interpretation of a ginkgo biloba leaf mounted on a sturdy stand. The fan shaped leaf features delicate ribbed textures along its surface and is finished in a brilliant matte gold coating that radiates warmth. It is supported by a thin metal rod resting on a clean cubic white base creating a highly sophisticated minimalist aesthetic. This nature inspired decorative accent piece works wonderfully as a centerpiece on coffee tables or bedroom dressers helping to bring a serene organic vibe to your indoor environment.', 345, 9000, 7, 'sh11.webp'),
@@ -411,6 +425,53 @@ CREATE TRIGGER `set_product_codes` BEFORE INSERT ON `products` FOR EACH ROW BEGI
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return`
+--
+
+CREATE TABLE `return` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `Order_id` varchar(17) NOT NULL,
+  `Return_methode` varchar(8) NOT NULL,
+  `Return_type` varchar(10) NOT NULL,
+  `Return_reason` varchar(100) NOT NULL,
+  `AccountNO` int(11) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `Return_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `userID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `return`
+--
+
+INSERT INTO `return` (`id`, `name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`, `AccountNO`, `status`, `Return_time`, `userID`) VALUES
+(1, 'saad', '5800157100000016', 'Pickup', 'Replace', ',llkahcnxb csd,mcnxcb xmc ', 0, 'Return issued', '2026-07-07 20:53:36', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `order_id` varchar(17) NOT NULL,
+  `Review_message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`id`, `name`, `email`, `order_id`, `Review_message`) VALUES
+(1, 'saad', 'saad@gmail.com', '2800127300000002', 'hsijkc[slkcoljiuhytfghbnjmk,lx cxddcxcxdcdd');
 
 -- --------------------------------------------------------
 
@@ -490,6 +551,21 @@ ALTER TABLE `products`
   ADD KEY `category_Id` (`category_Id`);
 
 --
+-- Indexes for table `return`
+--
+ALTER TABLE `return`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Order_id` (`Order_id`),
+  ADD KEY `userID` (`userID`);
+
+--
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -522,13 +598,13 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `payment_opts`
@@ -541,6 +617,18 @@ ALTER TABLE `payment_opts`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+
+--
+-- AUTO_INCREMENT for table `return`
+--
+ALTER TABLE `return`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -572,6 +660,30 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_Id`) REFERENCES `categories` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `return`
+--
+ALTER TABLE `return`
+  ADD CONSTRAINT `return_ibfk_1` FOREIGN KEY (`Order_id`) REFERENCES `orders` (`Order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `return_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`Order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `cleanup_unpaid_orders` ON SCHEDULE EVERY 1 MINUTE STARTS '2026-07-08 00:17:55' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `orders`
+    WHERE LOWER(`status`) = 'to pay'
+      AND (TRIM(`Card_no`) = '' OR `Card_no` IS NULL OR `Card_no` = '0')
+      AND `Order_Date` <= NOW() - INTERVAL 1 HOUR$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -30,3 +30,4 @@
         textInput.value = qty;
         hiddenInput.value = qty;
     }
+    

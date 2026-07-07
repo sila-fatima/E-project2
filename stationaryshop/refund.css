@@ -1,0 +1,280 @@
+/* ===========================
+   REFUND PAGE
+=========================== */
+
+body {
+    background: #2B1828;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===========================
+   Heading
+=========================== */
+
+.refund-heading h1 {
+    font-size: 58px;
+    font-weight: 700;
+    color: #F5F0EC;
+    margin-bottom: 15px;
+}
+
+.refund-heading p {
+    color: #d4c9cf;
+    font-size: 18px;
+    max-width: 700px;
+    margin: auto;
+    line-height: 30px;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.refund-card,
+.refund-info {
+    background: #3A2437;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 18px;
+    padding: 35px;
+    height: 100%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .25);
+}
+
+/* ===========================
+   Labels (WHITE)
+=========================== */
+
+.form-label {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* ===========================
+   Inputs
+=========================== */
+
+.form-control,
+.form-select {
+    background: #4B3348;
+    border: 1px solid #62485E;
+    color: #FFFFFF;
+    height: 55px;
+    border-radius: 10px;
+    padding: 12px 15px;
+}
+
+/* Placeholder */
+
+.form-control::placeholder {
+    color: #D8D8D8;
+    opacity: 1;
+}
+
+/* Textarea */
+
+textarea.form-control {
+    min-height: 140px;
+    resize: none;
+    padding-top: 15px;
+}
+
+/* Dropdown */
+
+.form-select {
+    color: #FFFFFF;
+}
+
+.form-select option {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+/* Focus */
+
+.form-control:focus,
+.form-select:focus {
+    background: #4B3348;
+    color: #FFFFFF;
+    border-color: #F1C76D;
+    box-shadow: 0 0 10px rgba(241, 199, 109, .25);
+}
+
+/* ===========================
+   Divider
+=========================== */
+
+hr {
+    border-color: rgba(255, 255, 255, .08);
+    margin: 35px 0;
+}
+
+/* ===========================
+   Return Method
+=========================== */
+
+.return-option {
+    background: #432D40;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 22px;
+    transition: .3s;
+    cursor: pointer;
+    height: 100%;
+}
+
+.return-option:hover {
+    border-color: #F1C76D;
+    transform: translateY(-3px);
+}
+
+.return-option input {
+    margin-right: 8px;
+}
+
+.return-option strong {
+    display: block;
+    color: #FFFFFF;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.return-option p {
+    color: #D8D8D8;
+    margin: 0;
+    line-height: 26px;
+}
+
+/* Active Radio Card */
+
+.active-return {
+    border: 2px solid #F1C76D !important;
+    background: #50354A !important;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.btn-primary {
+    background: #EF6B4A;
+    border: none;
+    padding: 13px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: #FF7E5F;
+}
+
+.btn-outline-secondary {
+    border: 1px solid #999;
+    color: #FFFFFF;
+    padding: 13px 28px;
+    border-radius: 10px;
+}
+
+.btn-outline-secondary:hover {
+    background: #666;
+    color: #FFFFFF;
+}
+
+/* ===========================
+   Right Side
+=========================== */
+
+.refund-info img {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto 25px;
+}
+
+.refund-info h2 {
+    color: #F1C76D;
+    font-size: 38px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.refund-info>p {
+    color: #D8D8D8;
+    line-height: 30px;
+    font-size: 17px;
+}
+
+/* ===========================
+   Features
+=========================== */
+
+.refund-features {
+    margin-top: 35px;
+}
+
+.refund-features h5 {
+    color: #F1C76D;
+    margin-bottom: 5px;
+}
+
+.refund-features p {
+    color: #D8D8D8;
+    line-height: 28px;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:991px) {
+
+    .refund-heading h1 {
+        font-size: 42px;
+    }
+
+    .refund-info {
+        margin-top: 30px;
+    }
+
+}
+
+@media(max-width:768px) {
+
+    .refund-card,
+    .refund-info {
+        padding: 25px;
+    }
+
+    .refund-heading h1 {
+        font-size: 34px;
+    }
+
+    .refund-heading p {
+        font-size: 16px;
+    }
+
+    .btn-primary,
+    .btn-outline-secondary {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .btn-outline-secondary {
+        margin-left: 0 !important;
+    }
+
+    .refund-info img {
+        max-width: 240px;
+    }
+
+}
+
+.refund-card .form-label {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    font-size: 17px !important;
+    opacity: 1 !important;
+}
