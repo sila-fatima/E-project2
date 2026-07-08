@@ -166,7 +166,7 @@ include('connection.php');
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="chart.html">
+                <a class="nav-link" href="faq.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>FAQS</span></a>
             </li>

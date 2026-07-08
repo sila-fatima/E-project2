@@ -66,6 +66,7 @@ if(isset($_SESSION['userid'])){
                 }
             })
         </Script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
@@ -79,11 +80,9 @@ if (isset($_POST['signin'])) {
     if ($checker) {
         $userinfo = mysqli_fetch_array($login_query);
         $_SESSION['userid'] = $userinfo[0];
-        echo "<script>alert('login Successfully')
-location.assign('index.php')</script>";
+        echo "<script>Swal.fire({icon: 'success',title: 'Success!',text: 'logged In successfully.'}).then(() => { window.location='index.php'; });</script>";
     } else {
-        echo "<script>alert('Login failed')
-location.assign('login.php')</script>";
+        echo " <script>Swal.fire({icon: 'error',title: 'Error!', text: 'Something went wrong.'}); </script>";
     }
 }}
 

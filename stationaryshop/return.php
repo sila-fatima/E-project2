@@ -44,6 +44,7 @@
                             } ?>
 
                             <form action="" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $autofill['userID']?>">
 
                                 <!-- Customer Name -->
                                 <div class="mb-4">
@@ -204,7 +205,7 @@
 
             if (refundTypeSelect && accountNumberBlock) {
                 refundTypeSelect.addEventListener("change", function() {
-                    if (this.value === "Get Amount Back") {
+                    if (this.value === "Refund") {
                         // Show the field smooth or instant
                         accountNumberBlock.style.display = "block";
                         // Make it required so they can't submit empty fields
@@ -219,6 +220,7 @@
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
     include('footer.php');
     ?>
@@ -228,19 +230,19 @@
 <?php 
 if (isset($_POST['Returnbtn'])) {
 $name=$_POST['name'];
+$userid=$_POST['id'];
 $OrderID=$_POST['order_id'];
 $return_reason=$_POST['return_reason'];
 $return_type=$_POST['return_type'];
 $return_method=$_POST['return_method'];
 $accounNO=$_POST['account_no'];
 if($return_type=='Replace'){
-    $insert_query=mysqli_query($con,"INSERT INTO `return`(`name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`,`status`) VALUES ('$name','$OrderID','$return_method','$return_type','$return_reason')");
+    $insert_query=mysqli_query($con,"INSERT INTO `return`(`name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`,`status,`userID`) VALUES ('$name','$OrderID','$return_method','$return_type','$return_reason','$userid')");
 
-}else{  $insert_query=mysqli_query($con,"INSERT INTO `return`(`name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`, `AccountNO`, `status`) VALUES ('$name','$OrderID','$return_method','$return_type','$return_reason','$accounNO','Return Application Received')");}
+}else{  $insert_query=mysqli_query($con,"INSERT INTO `return`(`name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`, `AccountNO`, `status`,`userID`) VALUES ('$name','$OrderID','$return_method','$return_type','$return_reason','$accounNO','Return Application Received','$userid')");}
 if($insert_query){
     mysqli_query($con,"UPDATE `orders` SET `status`='Return' WHERE Order_id =$OrderID");
-    echo "<script> alert('Return Application Submitted Sucessfully');
-  location.assign('index.php');
- </script>";
+    echo "<script>Swal.fire({icon: 'success',title: 'Success!',text: 'Your return Application has been submitted successfully.'}).then(() => { window.location='index.php'; });</script>";
+    
 }
 } ?>

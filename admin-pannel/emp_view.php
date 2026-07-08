@@ -29,7 +29,7 @@ include('connection.php');
                                     <th>Email</th>
                                     <th>Designation</th>
                                     <th>DOB</th>
-                                    <th>Start date</th>
+                                    <th>Joining date</th>
                                     <th>Salary</th>
                                     <th>Actions</th>
                                 </tr>
@@ -41,7 +41,7 @@ include('connection.php');
                                     <th>Email</th>
                                     <th>Designation</th>
                                     <th>DOB</th>
-                                    <th>Start date</th>
+                                    <th>Joining date</th>
                                     <th>Salary</th>
                                     <th>Actions</th>
                                 </tr>
@@ -105,7 +105,7 @@ include('connection.php');
                                     <th>Email</th>
                                     <th>Designation</th>
                                     <th>DOB</th>
-                                    <th>Start date</th>
+                                    <th>Joining date</th>
                                     <th>Salary</th>
                                 </tr>
                             </thead>
@@ -116,7 +116,7 @@ include('connection.php');
                                     <th>Email</th>
                                     <th>Designation</th>
                                     <th>DOB</th>
-                                    <th>Start date</th>
+                                    <th>Joining date</th>
                                     <th>Salary</th>
                                 </tr>
                             </tfoot>

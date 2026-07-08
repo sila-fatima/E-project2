@@ -119,6 +119,7 @@ include('../admin-pannel/connection.php');
     else{expiry.required=false
         Cvc.required=false}})
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
@@ -158,9 +159,7 @@ if (isset($_SESSION['cart']) && isset($_POST['order'])) {
 
     }
     if ($insert_query && $orderitem_insert) {
-        echo "<script> alert('Order Placed Sucessfully');
-  location.assign('index.php');
- </script>";
+       echo "<script>Swal.fire({icon: 'success',title: 'Success!',text: 'Your order has been placed successfully.'}).then(() => { window.location='index.php'; });</script>";
         unset($_SESSION['cart']);
     }
 }

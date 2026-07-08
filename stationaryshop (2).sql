@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2026 at 11:12 PM
+-- Generation Time: Jul 08, 2026 at 08:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,6 +99,15 @@ CREATE TABLE `faq` (
   `message` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `name`, `email`, `message`) VALUES
+(1, 'saad', 'saad@gmail.com', 'why my return got rejected'),
+(2, 'aliraza', 'aliraza@gmail.com', 'are warranty card given physically with electronics item'),
+(3, 'saad', 'saad@gmail.com', 'is there any other way to get refund amount');
+
 -- --------------------------------------------------------
 
 --
@@ -134,8 +143,10 @@ INSERT INTO `orders` (`id`, `payment_id`, `product_id`, `Order_id`, `Customer`, 
 (13, 1, '4300142', '4300142100000013', 'ahmedkhan', 'ahmed@gmail.com', '', 'society i=office ', '123456777', 3000, 'Received', '2026-07-03 16:34:52', 3),
 (14, 1, '7000070', '7000070100000014', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 1500, 'Return', '2026-07-03 18:11:59', 1),
 (16, 1, '5800157', '5800157100000016', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 300, 'Return', '2026-07-06 20:03:35', 1),
-(17, 3, '1400113', '1400113300000017', 'saad', 'saad@gmail.com', '0987-0987-09', 'society i=office ', '0987654321', 3000, 'Received', '2026-07-06 20:07:54', 1),
-(20, 3, '4100140', '4100140300000020', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 3000, 'To Pay', '2026-07-07 21:12:22', 1);
+(17, 3, '1400113', '1400113300000017', 'saad', 'saad@gmail.com', '0987-0987-09', 'society i=office ', '0987654321', 3000, 'Return', '2026-07-06 20:07:54', 1),
+(22, 2, '3200131', '3200131200000022', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 900, 'Received', '2026-07-08 17:45:55', 1),
+(23, 2, '4900049', '4900049200000023', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 1500, 'Received', '2026-07-08 18:11:43', 1),
+(24, 3, '0600105', '0600105300000024', 'saad', 'saad@gmail.com', '', 'society i=office ', '0987654321', 400, 'To Pay', '2026-07-08 18:12:19', 1);
 
 --
 -- Triggers `orders`
@@ -201,7 +212,9 @@ INSERT INTO `order_items` (`Id`, `order_id`, `Customer`, `product_id`, `Product_
 (11, '7000070100000014', 'ahmedkhan', '7000070', 'Berry Bunny', 1),
 (13, '5800157100000016', '1', '5800157', 'Simple Birthday Card', 1),
 (14, '1400113300000017', '1', '1400113', 'Vintage Glamour', 1),
-(17, '4100140300000020', '1', '4100140', 'Portable Blender', 1);
+(19, '3200131200000022', '1', '3200131', 'Shehr-e-Dil', 1),
+(20, '4900049200000023', '1', '4900049', 'Wings Bifold', 1),
+(21, '0600105300000024', '1', '0600105', 'Sweet Erasers', 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +308,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (46, '46', '00046', '4600046', 'Lattice Flap', 'A black flap bag featuring a bold cream and black diamond lattice pattern across the front flap, contrasted with a smooth black leather body and a thick gold chain strap. A gold twist lock closure with the brand name Juke sits at the center of the flap. The graphic lattice pattern makes this bag a strong statement piece, while the gold chain and hardware add a touch of glamour. This design is well suited for evening wear or occasions where the bag is meant to stand out as the main accessory of the outfit.', 230, 5000, 2, 'b1.webp'),
 (47, '47', '00047', '4700047', 'Pocket Mini', 'A compact brown leather card holder shown being tucked into a denim pocket, featuring a fold over flap secured with a small bronze tone clasp. The slim profile and minimal stitching detail make it easy to slip into tight pockets or small bags, prioritizing portability over storage capacity. Designed mainly for holding a few cards and folded cash, this style appeals to buyers who prefer a minimalist, no bulk wallet for daily carry. Its small size makes it a practical choice for quick errands or nights out where carrying a full sized wallet feels unnecessary.', 490, 1000, 3, 'w1.webp'),
 (48, '48', '00048', '4800048', 'Croc Envelope', 'A long, flat wallet in a tan croc embossed leather finish, featuring an angled envelope style flap closure. The textured crocodile pattern adds visual interest and a slightly formal, polished look compared to plain leather finishes. This wallet style typically opens to reveal multiple card slots and a bill compartment, making it suitable for everyday use while still appearing dressed up. The clean lines and structured shape give it a versatile appeal, often chosen by buyers who want a wallet that feels premium without committing to a heavily branded or logo driven design.', 800, 200, 3, 'W16.webp'),
-(49, '49', '00049', '4900049', 'Wings Bifold', 'A classic black leather bifold wallet featuring a subtle embossed wings and star logo in the bottom corner, branded Wings. The smooth leather finish and rounded corners give it a clean, understated look suited for daily use. Bifold wallets like this typically include multiple card slots and a central bill compartment, balancing slim design with practical storage. This style is a common choice for everyday carry due to its simple, versatile appearance that pairs easily with both casual and formal outfits without standing out too much.', 600, 1500, 3, 'W15.jpg'),
+(49, '49', '00049', '4900049', 'Wings Bifold', 'A classic black leather bifold wallet featuring a subtle embossed wings and star logo in the bottom corner, branded Wings. The smooth leather finish and rounded corners give it a clean, understated look suited for daily use. Bifold wallets like this typically include multiple card slots and a central bill compartment, balancing slim design with practical storage. This style is a common choice for everyday carry due to its simple, versatile appearance that pairs easily with both casual and formal outfits without standing out too much.', 599, 1500, 3, 'W15.jpg'),
 (50, '50', '00050', '5000050', 'Monogram Bifold', 'A bifold wallet featuring an all over monogram canvas pattern in brown and tan tones, shown alongside its original branded box and authenticity card. This classic monogram pattern is widely recognized in luxury leather goods and is often imitated across various price points. If purchasing this style, buyers should be cautious about authenticity, since monogram patterns like this are frequently replicated, and verifying purchase through official or authorized channels is recommended. The compact bifold shape typically holds cards and folded cash, making it a practical daily use wallet despite its iconic, instantly recognizable print.', 788, 5000, 3, 'W14.webp'),
 (51, '51', '00051', '5100051', 'Woven Clasp', 'A black bifold wallet featuring a woven basket weave leather texture across the front panel, finished with a gold tone clasp closure instead of a traditional open fold design. The interlaced pattern adds dimension and a slightly luxurious finish compared to flat leather wallets. The gold hardware against the black woven texture creates a striking contrast, making this wallet feel more like a statement accessory than a purely functional one. This style is often chosen by buyers who want a wallet that doubles as a small fashion piece.', 789, 3000, 3, 'W12.jpg'),
 (52, '52', '00052', '5200052', 'RFID Bifold', 'A tan saffiano textured bifold wallet from the brand Runbox, shown open to display multiple card slots, a clear ID window, and RFID blocking technology indicated on the interior panel. The brand tagline Focus on your life appears on the inner flap. This wallet prioritizes function and security, protecting cards from unauthorized scanning while offering ample storage for cards and cash. The structured saffiano texture resists scratching better than smooth leather, making it a practical choice for buyers who want a durable, security conscious everyday wallet.', 678, 2500, 3, 'w11.jpg'),
@@ -351,7 +364,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (102, '03', '00102', '0300102', 'Plush Unicorn', 'This incredibly soft fuzzy pencil case set features a multi colored pastel gradient background with adorable rubberized unicorn patches stitched onto the front. The thick fabric texture provides excellent shock absorption for your favorite pens while looking exceptionally cute on school desks. A smooth purple zipper runs securely along the top edge to prevent your stationery from spilling inside heavy school bags. It is an ideal gift for young students who adore tactile mythical creatures and vibrant rainbow aesthetics. This pouch brings comfort and whimsical organization to your daily educational schedule.', 345, 550, 5, 's6.webp'),
 (103, '04', '00103', '0400103', 'Pastel Planner', 'This luxury faux leather personal planner opens up to reveal an intensely organized interior designed for professional women or creative students. The left panel contains multiple custom slot compartments for credit cards paper business cards and colorful patterned memo pads. A reliable metallic button closure keeps the entire portfolio securely bound when you are traveling between office meetings. The right side holds a thick wire bound journal showcasing vibrant abstract pastel stripes on its premium cover page. It offers the ultimate all in one solution for managing hectic daily appointments flawlessly.', 789, 1850, 5, 'st4c.jpg'),
 (104, '05', '00104', '0500104', 'Standing Canvas', 'This clever standing desk pouch replicates a warm coffee cup silhouette complete with a joyful cartoon face printed across the front. The heavy duty canvas base slides downward easily to transform the portable travel container into a rigid vertical desktop pen holder. Multiple flexible pastel highlighters fit comfortably inside the wide top mouth opening for quick access during intense study sessions. A sturdy contrast zipper ensures your items stay well protected when you pack up for the library. It combines functional industrial engineering with delightful character design beautifully.', 789, 500, 5, 's4.jpg'),
-(105, '06', '00105', '0600105', 'Sweet Erasers', 'A mouth watering collection of miniature rubber erasers meticulously molded to look like delicious summer ice cream treats and glazed sprinkle donuts. The highly detailed set features vibrant color combinations including mint green banana yellow strawberry pink and deep chocolate brown. These non toxic erasers fit comfortably in little hands and rub out pencil marks cleanly without ripping fragile notebook papers. They arrive arranged inside a transparent display box making them wonderful collectibles or classroom prizes for young children. They add a delightfully sweet touch of playful decoration to homework sessions.', 678, 400, 5, 's2.webp'),
+(105, '06', '00105', '0600105', 'Sweet Erasers', 'A mouth watering collection of miniature rubber erasers meticulously molded to look like delicious summer ice cream treats and glazed sprinkle donuts. The highly detailed set features vibrant color combinations including mint green banana yellow strawberry pink and deep chocolate brown. These non toxic erasers fit comfortably in little hands and rub out pencil marks cleanly without ripping fragile notebook papers. They arrive arranged inside a transparent display box making them wonderful collectibles or classroom prizes for young children. They add a delightfully sweet touch of playful decoration to homework sessions.', 677, 400, 5, 's2.webp'),
 (106, '07', '00106', '0700106', 'Donut Pen', 'This charming set of four smooth writing gel pens features playful cartoon animals shaped like delicious frosted donuts sitting on the top clips. The collection includes a magical purple unicorn a pink teddy bear a white kitten and a classic black white panda. Every pen barrel is colored in a matching soft pastel shade that coordinates perfectly with a modern workspace aesthetic. The fine line tips glide across writing paper effortlessly delivering rich black ink without skipping or pooling during long note taking sessions. They are highly collectible desk companions.', 900, 430, 5, 'st5.jpg'),
 (107, '08', '00107', '0800107', 'Ocean Breeze', 'This beautiful gold charm bracelet features a variety of delicate marine elements including a small starfish and a tiny pearl. It captures the essence of summer days by the sea. The gold chain is lightweight and adjustable to fit your wrist perfectly. Each dangle moves gracefully as you walk making it a wonderful accessory for everyday wear or casual beach outings. It adds a touch of whimsical elegance to your jewelry collection. You can wear it alone or layer it with other gold bracelets to create a unique personalized look that showcases your love for the ocean.', 789, 4500, 11, 'j1.jpg'),
 (108, '09', '00108', '0900108', 'Golden Aura', 'This minimal gold ring showcases a slender band embedded with delicate shimmering diamonds along the front surface. It offers a subtle sparkle that looks elegant on any finger. The classic design makes it perfect for stacking with other rings or wearing solo for a clean understated style. Crafted with precision the smooth metal guarantees a comfortable fit throughout the day. It represents timeless simplicity and refined taste making it an ideal choice for modern fashion enthusiasts who appreciate fine details. This piece effortlessly elevates your everyday look with its bright metallic shine and delicate stone accents.', 908, 35000, 11, 'j2.webp'),
@@ -377,7 +390,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (128, '29', '00128', '2900128', 'Kinetic Fan', 'This captivating abstract sculpture features a series of golden metallic rods radiating outward from a central twisted axis mimicking the look of regular wings or a supersonic fan. The sleek golden lines shift dynamically depending on the angle from which you view them. Supported by a vertical stem the entire structure is anchored by a heavy square black marble base that provides excellent stability and a premium look. It acts as an outstanding modern statement piece for minimalist side tables office desks or floating shelves in luxury apartments.', 356, 10000, 7, 's1.jpg'),
 (129, '30', '00129', '3000129', 'Wapsi', 'can you give all of these decor items a two word  name set their price in pkr and give a 100 description on each of them which doesnt include inverted comas backslash semicolon and apostrophe', 789, 500, 9, 'n1.jpg'),
 (130, '31', '00130', '3100130', 'Sulfite', 'Authored by Noor Rajput, this motivational Urdu novel delves into the complex layers of human existence and personal struggle. Subtitled as a story of the seven phases of life, it provides an inspiring outlook on overcoming psychological and social challenges. The book serves as a guiding light for readers seeking encouragement and empowerment in their daily lives. Through relatable characters and engaging plot twists, the author successfully delivers a powerful message about resilience, inner strength, and the ultimate triumph of the human spirit against all odds.', 678, 600, 9, 'n2.jpg'),
-(131, '32', '00131', '3200131', 'Shehr-e-Dil', 'This engrossing novel by Umme Maryam takes readers on an emotional journey through the intricate maze of human relationships, love, and social expectations. The plot is filled with intense family drama, romance, and societal conflicts that keep the audience captivated from the very first page. It highlights how characters navigate through heartbreak and misunderstandings to protect their loved ones. The expressive language and realistic portrayal of cultural norms make it a highly relatable read for fans of contemporary Urdu fiction who enjoy deep romantic narratives.', 850, 900, 9, 'n3.jpg'),
+(131, '32', '00131', '3200131', 'Shehr-e-Dil', 'This engrossing novel by Umme Maryam takes readers on an emotional journey through the intricate maze of human relationships, love, and social expectations. The plot is filled with intense family drama, romance, and societal conflicts that keep the audience captivated from the very first page. It highlights how characters navigate through heartbreak and misunderstandings to protect their loved ones. The expressive language and realistic portrayal of cultural norms make it a highly relatable read for fans of contemporary Urdu fiction who enjoy deep romantic narratives.', 849, 900, 9, 'n3.jpg'),
 (132, '33', '00132', '3300132', 'Aab-e-Hayat', 'Aab-e-Hayat', 200, 1800, 9, 'n4.webp'),
 (133, '34', '00133', '3400133', 'Junoon-e-Ishq', 'Written by Riaz Aqib Kohler, this captivating novel is a brilliant blend of passionate love, intense devotion, and dramatic life challenges. The book features a compelling storyline set against a scenic backdrop where characters display an unmatched level of loyalty and determination for their true affection. It explores how deep passion can transform a person and give them the strength to fight against difficult social barriers. Fiction lovers appreciate the poetic flow of the language and the suspenseful progression of the plot that highlights the true essence of emotional sacrifice.', 300, 950, 9, 'n5.webp'),
 (134, '35', '00134', '3500134', 'Begmat Ke Aansu', 'This classic literary work by the prominent historical writer Khwaja Hasan Nizami offers a heartbreaking look at the aftermath of the 1857 War of Independence. Through a series of tragic short stories, it depicts the immense sufferings and struggles of the royal women of the Mughal empire who were suddenly reduced to poverty. The book serves as a crucial historical and cultural document, written with immense empathy and literary grace. It provides modern readers with a sobering perspective on the fleeting nature of worldly power and royal wealth.', 900, 500, 9, 'n6.jpg'),
@@ -386,7 +399,7 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (137, '38', '00137', '3800137', 'Yeh Dil Mera', 'This exceptional novel by Farhat Ishtiaq delivers a suspenseful and emotionally charged romantic thriller centering on psychological trauma and revenge. The narrative brings together two broken individuals, Aman and Aina, who are unknowingly tied by a dark secret from their past. As they unravel the mysteries surrounding their families, they must confront painful truths that threaten their bond. The brilliant pacing, deep psychological insights, and intense romantic tension made this book highly acclaimed, eventually leading to a massively successful television adaptation that captured the hearts of millions.', 600, 1000, 9, 'n9.jpg'),
 (138, '39', '00138', '3900138', 'peer-e-kamil', 'This iconic novel by Umera Ahmed is widely regarded as a milestone in contemporary Urdu literature. The plot traces the intersecting paths of Imama Hashim, a girl who abandons her family for her religious convictions, and Salaar Sikandar, an eccentric genius with a very high intelligence quotient who is wandering in spiritual darkness. Their long journeys of self-correction, divine intervention, and ultimate enlightenment culminate in a beautiful connection. The book profoundly explores the concept of mentorship and spiritual perfection, leaving a permanent impact on readers worldwide.', 900, 1500, 9, 'n10.jpg'),
 (139, '40', '00139', '4000139', 'Room Humidifier', 'This compact device introduces soothing moisture into your living spaces to balance dry air and improve breathing comfort. It operates quietly on any tabletop making it perfect for bedrooms and offices during dry seasons. The elegant design complements modern home decor while creating a relaxing atmosphere.  Warranty: This product has warranty for six months and the warranty card will be issued', 900, 2000, 10, 'e10.jpg'),
-(140, '41', '00140', '4100140', 'Portable Blender', 'A compact personal mixer designed to prepare fresh smoothies and shakes on the go. Equipped with a powerful rechargeable battery it easily crushes fruits and soft vegetables anywhere you travel. The lightweight construction fits perfectly inside your gym bag or backpack for daily health routines.  Warranty: This product has warranty for three months and the warranty card will be issued', 478, 3000, 10, 'e9.webp'),
+(140, '41', '00140', '4100140', 'Portable Blender', 'A compact personal mixer designed to prepare fresh smoothies and shakes on the go. Equipped with a powerful rechargeable battery it easily crushes fruits and soft vegetables anywhere you travel. The lightweight construction fits perfectly inside your gym bag or backpack for daily health routines.  Warranty: This product has warranty for three months and the warranty card will be issued', 479, 3000, 10, 'e9.webp'),
 (141, '42', '00141', '4200141', 'Massage Gun', 'This handheld percussion massager provides deep tissue relief to soothe sore muscles and reduce tension after intense workouts. It features multiple speed levels and interchangeable heads to target specific muscle groups across the body effectively. The ergonomic handle ensures a comfortable grip during extended self massage sessions.  Warranty: This product has warranty for one year and the warranty card will be issued', 890, 3800, 10, 'e8.avif'),
 (142, '43', '00142', '4300142', 'Smart Mug', 'An insulated travel tumbler featuring an intelligent digital temperature display on the lid to show the warmth of your beverage. It keeps your coffee or tea hot for hours using advanced thermal insulation technology. The leakproof design prevents accidental spills while commuting.  Warranty: This product has warranty for six months and the warranty card will be issued', 299, 3000, 10, 'e7.webp'),
 (143, '44', '00143', '4400143', 'Wireless Earbuds', 'These sleek bluetooth earphones deliver clear sound and deep bass for an immersive audio experience. The charging case features a prominent digital battery indicator so you always know when to plug it in. Their ergonomic ear tips provide a secure and comfortable fit during exercise.  Warranty: This product has warranty for six months and the warranty card will be issued', 890, 5000, 10, 'e6.jpg'),
@@ -407,7 +420,8 @@ INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `P
 (158, '59', '00158', '5900158', 'Watercolor Birthday Card', 'This bright artistic print showcases a spectacular watercolor arrangement of blooming yellow flowers set against a serene sky blue wash background. The elegant text is positioned clearly at the bottom to deliver joyful greetings with a refreshing natural vibe. It is highly suitable for anyone who appreciates artistic botanical imagery.', 300, 300, 12, 'c1.jpg'),
 (159, '60', '00159', '6000159', 'Golden Bird', 'This elegant tabletop decoration features a stylized deer sculpture crafted with a glossy metallic gold finish. The figure captures a graceful pose with long slender legs and beautifully branching antlers that catch the light effortlessly. Anchored securely to a thick rectangular black base it offers a stunning contrast that fits perfectly into any upscale modern living room or executive office. The smooth polished surface adds a touch of luxury and refinement to floating shelves side tables or fireplace mantels making it an exceptional statement piece for people who love contemporary animal themed art display.', 900, 10000, 7, 'sh12.jpg'),
 (160, '61', '00160', '6100160', 'Ceramic Ginkgo', 'This beautiful ceramic ornament showcases an artistic interpretation of a ginkgo biloba leaf mounted on a sturdy stand. The fan shaped leaf features delicate ribbed textures along its surface and is finished in a brilliant matte gold coating that radiates warmth. It is supported by a thin metal rod resting on a clean cubic white base creating a highly sophisticated minimalist aesthetic. This nature inspired decorative accent piece works wonderfully as a centerpiece on coffee tables or bedroom dressers helping to bring a serene organic vibe to your indoor environment.', 345, 9000, 7, 'sh11.webp'),
-(161, '62', '00161', '6200161', 'Crystal Blossom', 'This luxurious decorative showpiece features a golden branch arrangement adorned with multi faceted transparent crystal spheres that resemble glistening flower buds. The metal framework mimics natural organic growth patterns curving gracefully upward to create an eye catching geometric balance. Each crystal bead is designed to refract ambient light beautifully scattering bright reflections across your room. It serves as a spectacular center decoration for formal dining tables entryway consoles or luxury display cabinets instantly elevating the surrounding atmosphere with its dazzling and upscale design elements.', 100, 12000, 7, 'sh10.jpg');
+(161, '62', '00161', '6200161', 'Crystal Blossom', 'This luxurious decorative showpiece features a golden branch arrangement adorned with multi faceted transparent crystal spheres that resemble glistening flower buds. The metal framework mimics natural organic growth patterns curving gracefully upward to create an eye catching geometric balance. Each crystal bead is designed to refract ambient light beautifully scattering bright reflections across your room. It serves as a spectacular center decoration for formal dining tables entryway consoles or luxury display cabinets instantly elevating the surrounding atmosphere with its dazzling and upscale design elements.', 100, 12000, 7, 'sh10.jpg'),
+(162, '63', '00162', '6300162', 'Iphone', 'jsxujyhatgfghujikolkjhgfcvbn', 890, 67890, 4, 'Screenshot (82).png');
 
 --
 -- Triggers `products`
@@ -450,7 +464,8 @@ CREATE TABLE `return` (
 --
 
 INSERT INTO `return` (`id`, `name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`, `AccountNO`, `status`, `Return_time`, `userID`) VALUES
-(1, 'saad', '5800157100000016', 'Pickup', 'Replace', ',llkahcnxb csd,mcnxcb xmc ', 0, 'Return issued', '2026-07-07 20:53:36', 1);
+(1, 'saad', '5800157100000016', 'Pickup', 'Replace', ',llkahcnxb csd,mcnxcb xmc ', 0, 'Return issued', '2026-07-07 20:53:36', 1),
+(3, 'saad', '1400113300000017', 'DropOff', 'Refund', 'hxghczldkjhgfxhjkl./', 324567, 'Return Application Received', '2026-07-08 18:10:38', 1);
 
 -- --------------------------------------------------------
 
@@ -592,19 +607,19 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `payment_opts`
@@ -616,13 +631,13 @@ ALTER TABLE `payment_opts`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT for table `return`
 --
 ALTER TABLE `return`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `review`

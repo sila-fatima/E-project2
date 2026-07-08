@@ -379,8 +379,7 @@ if (isset($_GET['search'])) {
         echo "<script> location.assign('review.php')</script>";
     }
     else{
-        echo "<script> alert('Page Not Found')
-        location.assign('index.php')</script>";
+        echo "<script>location.assign('404.html')</script>";
     }
 
 
