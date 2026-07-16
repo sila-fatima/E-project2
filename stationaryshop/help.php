@@ -158,7 +158,7 @@ include('../admin-pannel/connection.php');
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            You can drop off the parcel on the nearest inkwell warehouse
+                            You can drop off the parcel on the nearest arts warehouse
                         </div>
                     </div>
                 </div>
@@ -277,8 +277,8 @@ include('../admin-pannel/connection.php');
                         <h6 class="gold-title small fw-bold mb-2" style="color: #C9A35D;"><i
                                 class="fa-solid fa-phone me-2"></i>Quick Connect Contacts</h6>
                         <p class="small mb-0">
-                            Email: <a href="mailto:hello@inkwell.com"
-                                class="contact-link text-decoration-none text-reset">hello@inkwell.com</a><br>
+                            Email: <a href="mailto:hello@arts.com"
+                                class="contact-link text-decoration-none text-reset">hello@arts.com</a><br>
                             Phone: <span class="contact-link">+1 (555) 010-2231</span>
                         </p>
                     </div>

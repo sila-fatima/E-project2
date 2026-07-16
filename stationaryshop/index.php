@@ -47,7 +47,7 @@ include('navbar.php');
                                 <div style="display:flex; justify-content: space-between; align-items: center;">
                                     <span style="font-size: 24px;">✒️</span>
                                     <span
-                                        style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--plum); opacity: 0.5;">Inkwell
+                                        style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--plum); opacity: 0.5;">arts
                                         Co.</span>
                                 </div>
                             </div>

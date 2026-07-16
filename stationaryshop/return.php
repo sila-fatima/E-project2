@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="refund.css">
-    <title>Inkwell</title>
+    <title>Arts</title>
 </head>
 <body>
 <!-- Refund Section Start -->

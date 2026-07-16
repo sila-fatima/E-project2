@@ -9,7 +9,7 @@ include('../admin-pannel/connection.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inkwell - Premium Stationery Shop</title>
+    <title>arts - Premium Stationery Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -21,7 +21,7 @@ include('../admin-pannel/connection.php');
 
     <nav class="navbar navbar-expand-lg">
         <div class="container-lg">
-            <a class="navbar-brand" style="color: #F2E9DD;" href="#">✒️ Inkwell</a>
+            <a class="navbar-brand" style="color: #F2E9DD;" href="#">✒️ Arts</a>
             <div class="d-flex align-items-center gap-2 gap-sm-3 ms-auto">
                 <ul class="navbar-nav flex-row gap-3 me-2 me-sm-3 d-flex">
                     <li class="nav-item"><a class="nav-link" href="index.php">Shop</a></li>

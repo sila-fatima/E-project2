@@ -13,7 +13,7 @@ include('connection.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Art-pannel - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@ include('connection.php');
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">ARTS Admin </div>
             </a>
 
             <!-- Divider -->
@@ -171,21 +171,6 @@ include('connection.php');
                     <span>FAQS</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -222,7 +207,7 @@ elseif (in_array($page, ['emp_view.php', 'add-emp.php', 'update_emp.php'])) {
 elseif (in_array($page, ['order.php', 'review.php', 'refund.php', 'status.php'])) {
     $action = 'order.php';
 } 
-elseif ($page == 'index.php') {
+elseif (in_array($page, ['index.php', '404.php'])) {
     $action = 'index.php';
 } 
 else {
@@ -233,7 +218,7 @@ else {
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <?php
-                            if ($action == 'index.php') { ?>
+                            if ($action == 'index.php'||$action=='404.php') { ?>
                                 <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search pages (Orders, Products, Categories...)"
                                     aria-label="Search" aria-describedby="basic-addon2">
                             <?php } else { ?>

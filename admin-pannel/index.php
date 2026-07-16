@@ -3,9 +3,9 @@ include('header.php');
 include('connection.php');
 if (isset($_SESSION['emp_name'])) {
 
-    ?>
+?>
     <script>
-        window.addEventListener('pageshow', function (event) {
+        window.addEventListener('pageshow', function(event) {
             // If the page was loaded from cache/history, force a reload
             if (event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) {
                 window.location.reload();
@@ -49,7 +49,7 @@ WHERE orders.status != 'return'
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,9 @@ WHERE orders.status != 'return'
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+
+                                <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+
                             </div>
                         </div>
                     </div>
@@ -104,10 +106,7 @@ WHERE orders.status != 'return'
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +138,7 @@ WHERE orders.status != 'return'
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                <i class="fas fa-cubes fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -154,29 +153,60 @@ WHERE orders.status != 'return'
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7">
                 <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+                    <div class="card-header py-3 ">
+                        <h6 class="m-0 font-weight-bold text-primary pt-2">Sales & Performance Dashboard </h6>
                     </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
+                    <?php
+                    //  totalorders
+                    $totalorders = mysqli_query($con, "SELECT COUNT(*) as total_orders FROM orders;");
+                    $totalorders_row = mysqli_fetch_assoc($totalorders);
+                    $total = $totalorders_row['total_orders'];
+                    //    delivere orders
+                    $succesfulorders = mysqli_query($con, "SELECT COUNT(*) as delivered_orders FROM orders where status ='delivered'");
+                    $succesful_row = mysqli_fetch_assoc($succesfulorders);
+                    $succesful = $succesful_row['delivered_orders'];
+                    // process orders
+                    $Inprocess_orders = mysqli_query($con, "SELECT COUNT(*) as inprocess_orders FROM orders where status ='dispatched'or status='received'");
+                    $inprocess_row = mysqli_fetch_assoc($Inprocess_orders);
+                    $inprocess = $inprocess_row['inprocess_orders'];
+                    // refund orders
+                    $refund = mysqli_query($con, "SELECT COUNT(*) as refund FROM `return` WHERE Return_type = 'refund'");
+                    $refund_row = mysqli_fetch_assoc($refund);
+                    $refund_count = $refund_row['refund'];
+                    // replace orders
+                    $replace = mysqli_query($con, "SELECT COUNT(*) as replac FROM `return` WHERE Return_type = 'replace'");
+                    $replace_row = mysqli_fetch_assoc($replace);
+                    $replace_count = $replace_row['replac'];
+
+
+                    // progress bar
+                    $success =($succesful / $total) * 100;
+                    $process=($inprocess/$total)*100;
+                    $refund=($refund_count/$total)*100;
+                    $replace=($replace_count/$total)*100;
+                    ?>
+                    <div class="card-body py-5">
+                        <h4 class="small font-weight-bold">Order Delivered <span class="float-right"><?php echo (int)$success?>%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo (int)$success?>%" aria-valuenow="20"
+                                aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
+                        <h4 class="small font-weight-bold">Orders In process<span class="float-right"><?php echo (int)$process?>%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo (int)$process?>%" aria-valuenow="40"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Replace Orders <span class="float-right"><?php echo (int)$replace?>%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo (int)$replace?>%" aria-valuenow="60"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Refund order <span class="float-right"><?php echo (int)$refund?>%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo (int)$refund?>%" aria-valuenow="80"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -188,18 +218,7 @@ WHERE orders.status != 'return'
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
                         <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
+                            
                         </div>
                     </div>
                     <!-- Card Body -->
@@ -209,7 +228,7 @@ WHERE orders.status != 'return'
                         </div>
                         <div class="mt-4 text-center small">
                             <span class="mr-2">
-                                <i class="fas fa-circle text-primary"></i> Direct
+                                <i class="fas fa-circle text-primary"></i> Shop
                             </span>
                             <span class="mr-2">
                                 <i class="fas fa-circle text-success"></i> Social
@@ -228,106 +247,13 @@ WHERE orders.status != 'return'
 
             <!-- Content Column -->
             <div class="col-lg-6 mb-4">
-
-                <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">About Us</h6>
                     </div>
-                    <div class="card-body">
-                        <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Color System -->
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-primary text-white shadow">
-                            <div class="card-body">
-                                Primary
-                                <div class="text-white-50 small">#4e73df</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-success text-white shadow">
-                            <div class="card-body">
-                                Success
-                                <div class="text-white-50 small">#1cc88a</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-info text-white shadow">
-                            <div class="card-body">
-                                Info
-                                <div class="text-white-50 small">#36b9cc</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-warning text-white shadow">
-                            <div class="card-body">
-                                Warning
-                                <div class="text-white-50 small">#f6c23e</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-danger text-white shadow">
-                            <div class="card-body">
-                                Danger
-                                <div class="text-white-50 small">#e74a3b</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-secondary text-white shadow">
-                            <div class="card-body">
-                                Secondary
-                                <div class="text-white-50 small">#858796</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-light text-black shadow">
-                            <div class="card-body">
-                                Light
-                                <div class="text-black-50 small">#f8f9fc</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <div class="card bg-dark text-white shadow">
-                            <div class="card-body">
-                                Dark
-                                <div class="text-white-50 small">#5a5c69</div>
-                            </div>
-                        </div>
+                    <div class="card-body py-5">
+                        <p>Arts" is a premier, specialized retail stationary shop dedicated to bringing color, creativity, and convenience to our customers' lives. We offer an extensive and diverse selection of high-quality products, ranging from artistic supplies, unique gift articles, and expressive greeting cards to dolls, files, wallets, stylish handbags, and select beauty essentials. Over the years, we have built a reputation for housing a massive variety of combinations and products under one roof, making us a beloved go-to destination for shoppers looking to find the perfect item for any occasion.</p>
+                        <p class="mb-0">As the physical market becomes increasingly crowded and fast-paced, we recognize that our customers lead busy lives with precious little time to spare for traditional in-store shopping. Despite the growing competition among retail dealers, our core mission remains unchanged: to retain the trust of our loyal clients while continuously adapting to modern demands. We pride ourselves on our rich product inventory and our dedication to helping clients find exactly what they need, when they need it.</p>
                     </div>
                 </div>
 
@@ -338,33 +264,12 @@ WHERE orders.status != 'return'
                 <!-- Illustrations -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Future Plans</h6>
                     </div>
                     <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                src="img/undraw_posting_photo.svg" alt="...">
-                        </div>
-                        <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow"
-                                href="https://undraw.co/">unDraw</a>, a
-                            constantly updated collection of beautiful svg images that you can use
-                            completely free and without attribution!</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                            unDraw &rarr;</a>
-                    </div>
-                </div>
 
-                <!-- Approach -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                    </div>
-                    <div class="card-body">
-                        <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                            CSS bloat and poor page performance. Custom CSS classes are used to create
-                            custom components and custom utility classes.</p>
-                        <p class="mb-0">Before working with this theme, you should become familiar with the
-                            Bootstrap framework, especially the utility classes.</p>
+                        <p>To thrive in today’s highly competitive market and better serve our community, we are launching an advanced, automated online shopping cart application. This digital transition will allow customers to browse our entire catalog, view detailed descriptions and pricing, and seamlessly place orders from the comfort of their homes or offices. To make this experience as smooth as possible, we are implementing secure, multi-channel payment options—including credit cards, cheques, and Cash on Delivery (VPP)—alongside a reliable home-delivery system that brings purchases directly to our customers' doorsteps.</p>
+                        <p class="mb-0 py-1">Behind the scenes, our future operations will be fully modernized through a robust database management system. We are integrating automated tracking for our stock, employee roles, and order processing, which features unique 7-digit product IDs and 16-digit order tracking numbers to ensure absolute accuracy. Furthermore, we are establishing a dedicated customer account portal featuring advanced search tools, a flexible 7-day return and replacement policy, and a direct feedback system. This ensures that as we scale our business digitally, our commitment to customer satisfaction and operational excellence remains at the forefront.</p>
                     </div>
                 </div>
 
@@ -378,7 +283,7 @@ WHERE orders.status != 'return'
     <!-- End of Main Content -->
 
     <!-- Footer -->
-    <?php
+<?php
     include('footer.php');
 } else {
     echo "<script> location.assign('login.php')</script>";
@@ -386,32 +291,23 @@ WHERE orders.status != 'return'
 ?>
 <!-- search program -->
 <?php if (isset($_GET['search'])) {
-    $search=$_GET['search'];
-    if($search==strtolower(trim('orders'))|| $search==strtolower(trim('order'))){
+    $search = $_GET['search'];
+    if ($search == strtolower(trim('orders')) || $search == strtolower(trim('order'))) {
         echo "<script> location.assign('order.php')</script>";
-    }
-    elseif($search==strtolower(trim('category'))||$search==strtolower(trim('categories'))){
+    } elseif ($search == strtolower(trim('category')) || $search == strtolower(trim('categories'))) {
         echo "<script> location.assign('view-cat.php')</script>";
-    }
-    elseif($search==strtolower(trim('product'))||$search==strtolower(trim('products'))){
+    } elseif ($search == strtolower(trim('product')) || $search == strtolower(trim('products'))) {
         echo "<script> location.assign('view-pro.php')</script>";
-    }
-    elseif($search==strtolower(trim('employees'))){
+    } elseif ($search == strtolower(trim('employees'))) {
         echo "<script> location.assign('emp_view.php')</script>";
-    }
-    elseif($search==strtolower(trim('refund'))){
+    } elseif ($search == strtolower(trim('refund'))) {
         echo "<script> location.assign('refund.php')</script>";
-    }
-    elseif($search==strtolower(trim('FAQ'))){
+    } elseif ($search == strtolower(trim('FAQ'))) {
         echo "<script> location.assign('faq.php')</script>";
-    }
-    elseif($search==strtolower(trim('review'))){
+    } elseif ($search == strtolower(trim('review'))) {
         echo "<script> location.assign('review.php')</script>";
+    } else {
+        echo "<script>location.assign('404.php')</script>";
     }
-    else{
-        echo "<script>location.assign('404.html')</script>";
-    }
-
-
 }
-            ?> 
+?>

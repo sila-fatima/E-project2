@@ -4,7 +4,7 @@
                 <div class="col-md-4">
                     <div class="d-flex align-items-center gap-2">
                         <span style="color: var(--gold); font-size: 20px;">✒️</span>
-                        <span style="font-family: 'Fraunces', serif; font-size: 17px;">Inkwell</span>
+                        <span style="font-family: 'Fraunces', serif; font-size: 17px;">Arts</span>
                     </div>
                 </div>
                 <div class="col-md-4 text-md-center">
