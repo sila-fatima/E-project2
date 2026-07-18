@@ -261,8 +261,16 @@ else {
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="changepassword.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Update password&username
+                                    Change Username &<br>Password 
                                 </a>
+                                <?php if($_SESSION['role'] =='admin'){?>
+                                <a class="dropdown-item" href="add-emp.php">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Register Employee 
+                                </a>
+                                <?php
+                                }
+                                ?>
 
 
                                 <div class="dropdown-divider"></div>
