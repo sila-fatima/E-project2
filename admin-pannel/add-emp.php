@@ -43,16 +43,29 @@ include("connection.php");
                 </div>
             </div>
             <div class="form-group">
+                <label for="inputName" class="col-sm-1-12 col-form-label">User_name</label>
+                <div class="col-sm-1-12" >
+                    <input type="text" class="form-control" name="u-name" id="inputName" placeholder="" required>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="inputName" class="col-sm-1-12 col-form-label">Password</label>
                 <div class="col-sm-1-12" >
-                    <input type="text" class="form-control" name="password" id="inputName" placeholder="" required>
+                    <input type="text" class="form-control" name="password" maxlength="12" id="inputName" placeholder="" required>
                 </div>
             </div>
             
             <div class="form-group">
                 <div>
-                    <button type="submit" name="add" class="btn btn-primary">Add</button>
-                    <a href="emp_view.php" class="btn btn-dark">ViewAll</a>
+                    <button type="submit" name="add" class="btn btn-primary">Register</button>
+                    <?Php if (isset($_POST['add'])){
+                        $email=$_POST['email'];?>
+                    <a href="https://mail.google.com/mail/?view=cm&to=<?php echo $email?>"  class="btn btn-dark">Confirmation Mail</a>
+                     <?php } else{ 
+                        ?>
+                     <a onclick="alert('Register First')"  class="btn btn-dark">Confirmation Mail</a>
+                     <?php
+                     }?>
                 </div>
             </div>
         </form>
@@ -84,8 +97,9 @@ if(isset($_POST['add'])){
     $date=$_POST['date'];
     $salary=$_POST['salary'];
     $email=$_POST['email'];
+    $username=$_POST['u-name'];
     $password=$_POST['password'];
-    $insert_query=mysqli_query($con,"INSERT INTO `employees`(`name`, `designation`, `DOB`, `Joining_date`, `salary`, `email`, `password`) VALUES ('$name','$designation','$dob','$date','$salary','$email','$password')");
+    $insert_query=mysqli_query($con,"INSERT INTO `employees`(`name`, `designation`, `DOB`, `Joining_date`, `salary`, `email`,`user_name`, `password`) VALUES ('$name','$designation','$dob','$date','$salary','$email','$username','$password')");
     if($insert_query){
         echo "<script>alert('Record Added Sucessfully')</script>";
     }

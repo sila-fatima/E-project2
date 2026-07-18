@@ -44,26 +44,37 @@ session_start();
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
+                                    <?php if(isset($_SESSION['emp_id'])){
+                                        $id=$_SESSION['emp_id'];
+                                        $autofillQuery=mysqli_query($con,"SELECT * FROM `employees` WHERE Id =$id");
+                                        $autofil=mysqli_fetch_array($autofillQuery);
+                                        }
+                                        ?>
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">NEW PASSWORD</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Update Profile</h1>
                                     </div>
                                     <form class="user" method="POST">
                                         <div class="form-group">
-                                            <input type="email" required name="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" required name="u-name" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp" readonly value="<?php echo $autofil[7];?>"
+                                                placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" required  name="pass" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         
-                                    <hr>
+                                    <hr><div class="form-group">
+                                            <input type="text"  name="new_u-name" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Enter New Username ...">
+                                        </div>
+                                    
                                     <div class="form-group">
-                                            <input type="password" name="newpass" required class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Enter New Password">
+                                            <input type="password" name="newpass"  class="form-control form-control-user"
+                                                id="exampleInputPassword" maxlength="12" placeholder="Enter New Password">
                                         </div> 
-                                    <button type="submit" name="save" class="btn btn-primary btn-user btn-block">Change Password
+                                    <button type="submit" name="save" class="btn btn-primary btn-user btn-block">Update
     </button>
                                         </form>
                                 </div>
@@ -93,16 +104,28 @@ session_start();
 </html>
 <?php
 if (isset($_POST['save'])){
-$email=$_POST['email'];
+$u_name=$_POST['u-name'];
 $password=$_POST['pass'];
+$newU_name=$_POST['new_u-name'];
 $newpass=$_POST['newpass'];
-$changepass_query=mysqli_query($con,"UPDATE `employees` SET `password`='$newpass' WHERE email='$email' AND password='$password' ");
-if (mysqli_affected_rows($con) > 0) {
-        echo "<script>alert('Password Changed Successfully')
-    location.assign('login.php')</script>";
-    } else {
-        echo "<script>alert('Something Went Wrrong')
-    location.assign('changepassword.php')</script>";
+    if($newU_name==""){
+        $updatequery=mysqli_query($con,"UPDATE `employees` SET `password`='$newpass' WHERE user_name='$u_name' AND password='$password' ");
     }
+    elseif($newpass ==""){
+        $updatequery=mysqli_query($con,"UPDATE `employees` SET `user_name`='$newU_name' WHERE user_name='$u_name' AND password='$password' ");
+    }
+    elseif($newpass!="" && $newU_name != ""){
+        $updatequery=mysqli_query($con,"UPDATE `employees` SET `password`='$newpass',`user_name`='$newU_name' WHERE user_name='$u_name' AND password='$password' ");
+    }
+    else{echo "<script>alert('Something Went Wrrong')
+    location.assign('changepassword.php')</script>";}
+
+if ($updatequery) {
+    if (!empty($newU_name)) {
+            $_SESSION['emp_uname'] = $newU_name;
+        }
+        echo "<script>alert('Update Profile Successfully')
+    location.assign('login.php')</script>";
+    } 
 }
 ?>

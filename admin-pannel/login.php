@@ -1,7 +1,7 @@
 <?php
 include('connection.php');
 session_start();
-if(isset($_SESSION['emp_name'])){
+if(isset($_SESSION['emp_uname'])){
     echo "<script> location.assign('index.php')</script>";
 }
 else {
@@ -55,13 +55,13 @@ else {
                                     </div>
                                     <form class="user" method="POST">
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" name="name" class="form-control form-control-user"
+                                                id="exampleInputEmail" required aria-describedby="emailHelp"
+                                                placeholder="Enter User Name...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="pass" class="form-control form-control-user"
-                                                id="password" placeholder="Password">
+                                                id="password" placeholder="Password" required>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-check mt-2 d-flex justify-content-flexstart gap-1">
@@ -115,19 +115,20 @@ else {
 </html>
 <?php
 if (isset($_POST['login'])){
-$email=$_POST['email'];
+$name=$_POST['name'];
 $password=$_POST['pass'];
-$login_query=mysqli_query($con,"SELECT * FROM `employees` WHERE email='$email' AND password='$password' ");
+$login_query=mysqli_query($con,"SELECT * FROM `employees` WHERE user_name='$name' AND password='$password' ");
 $array=mysqli_fetch_array($login_query);
-$_SESSION['emp_name']=$array[1];
-$_SESSION['role']=$array[8];
+$_SESSION['emp_uname']=$array[7];
+$_SESSION['emp_id']=$array[0];
+$_SESSION['role']=$array[9];
 $checker=mysqli_num_rows($login_query);
 if ($checker) {
         echo "<script>alert('login Successfully')
     location.assign('index.php')</script>";
     }else {
-        $email_check=mysqli_query($con,"SELECT * FROM `employees` WHERE email='$email'"); 
-        if(mysqli_num_rows($email_check) > 0) {
+        $user_check=mysqli_query($con,"SELECT * FROM `employees` WHERE user_name='$name'"); 
+        if(mysqli_num_rows($user_check) > 0) {
             // Email exists but password wrong
             echo "<script>alert('Login failed');
             location.assign('login.php')</script>";

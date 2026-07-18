@@ -7,7 +7,7 @@ include("connection.php");
                  <?php
                  if (isset($_GET['upd_id'])) {
                     $upd_id=$_GET['upd_id'];
-                    $autofill_query=mysqli_query($con,"SELECT * FROM `employees`");
+                    $autofill_query=mysqli_query($con,"SELECT * FROM `employees` where id =$upd_id");
                     $autofill=mysqli_fetch_array($autofill_query);
                  }?>
               <div class="container-fluid">

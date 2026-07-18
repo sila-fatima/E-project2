@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('connection.php');
-if (isset($_SESSION['emp_name'])) {
+if (isset($_SESSION['emp_uname'])) {
 
 ?>
     <script>
