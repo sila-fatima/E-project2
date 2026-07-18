@@ -61,7 +61,7 @@ else {
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="pass" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="form-check mt-2 d-flex justify-content-flexstart gap-1">
@@ -76,9 +76,7 @@ else {
     </button>
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="changepassword.php">Change Password?</a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -127,9 +125,16 @@ $checker=mysqli_num_rows($login_query);
 if ($checker) {
         echo "<script>alert('login Successfully')
     location.assign('index.php')</script>";
-    } else {
-        echo "<script>alert('Login failed')
-    location.assign('login.php')</script>";
+    }else {
+        $email_check=mysqli_query($con,"SELECT * FROM `employees` WHERE email='$email'"); 
+        if(mysqli_num_rows($email_check) > 0) {
+            // Email exists but password wrong
+            echo "<script>alert('Login failed');
+            location.assign('login.php')</script>";
+        } else {
+            echo "<script>alert('Employee Not Found');
+            location.assign('login.php')</script>";
+        }
     }
 }
 }

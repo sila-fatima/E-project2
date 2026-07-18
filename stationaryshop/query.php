@@ -6,13 +6,16 @@ if(isset($_POST['addtocart'])){
     }
     $_SESSION['cart'][] = array("pid"=> $_POST['proid'],"pid7"=> $_POST['proid7'],"pname"=> $_POST['proname'],"pimg"=> $_POST['proimg'],"pprice"=> $_POST['proprice'],"pqty"=> $_POST['proqty'] );
     echo "<script> alert('Product Added To Cart');
-        location.assign('index.php');
+        window.location.href = window.location.href;
     </script>";
 }
 if (isset($_GET['dlt'])&& $_SESSION['cart']) { 
     $dlt_item = array_search($_GET['dlt'], array_column($_SESSION['cart'], 'pid'));
     if ($dlt_item !== false) {
         unset($_SESSION['cart'][$dlt_item]);
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+        
     }
 }
 ?>

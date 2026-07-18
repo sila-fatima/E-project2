@@ -38,7 +38,7 @@ include("connection.php");
                     <td><?php echo $result[3] ?></td>
                     <td ><?php echo $result[4] ?></td>
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $result[5] ?></td>
-                    <td><?php echo $result[6]?></td>
+                    <td <?php if($result[6] <=3){echo "class='text-danger'";}?>><?php  echo $result[6]?><br> low stock</td>
                     <td><?php echo $result[7]?></td>
                     <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[9] ?>" alt=""></td>
                     <td><?php echo $result[8] ?></td>
@@ -61,7 +61,7 @@ include("connection.php");
                     <td><?php echo $allpro['Product_ID'] ?></td>
                     <td><?php echo $allpro['Product_name'] ?></td>
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $allpro['Description'] ?></td>
-                    <td><?php echo $allpro['quantity']?></td>
+                     <td <?php if($allpro['quantity'] <=3){echo "class='text-danger'";}?>><?php  echo $allpro['quantity']?><br> low stock</td>
                     <td><?php echo $allpro['Price'] ?></td>
                     <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $allpro['Image'] ?>" alt=""></td>
                     <td><?php echo $allpro['category_Id'] ?></td>
@@ -110,7 +110,7 @@ include("connection.php");
                     <td><?php echo $result[3] ?></td>
                     <td><?php echo $result[4] ?></td>
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $result[5] ?></td>
-                    <td><?php echo $result[6]?></td>
+                     <td <?php if($result[6] <=3){echo "class='text-danger '";}?>><?php  echo $result[6]?><br> low stock</td>
                     <td><?php echo $result[7]?></td>
                     <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $result[9] ?>" alt=""></td>
                     <td><?php echo $result[8] ?></td>
@@ -131,7 +131,7 @@ include("connection.php");
                     <td><?php echo $allpro['Product_ID'] ?></td>
                     <td><?php echo $allpro['Product_name'] ?></td>
                     <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><?php echo $allpro['Description'] ?></td>
-                    <td><?php echo $allpro['quantity']?></td>
+                   <td <?php if($allpro['quantity'] <=3){echo "class='text-danger'";}?>><?php  echo $allpro['quantity']?><br> low stock</td>
                     <td><?php echo $allpro['Price'] ?></td>
                     <td><img style="width:150px; height:100px; object-fit:cover;" src="./img/<?php echo $allpro['Image'] ?>" alt=""></td>
                     <td><?php echo $allpro['category_Id'] ?></td>

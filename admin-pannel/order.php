@@ -8,7 +8,7 @@ include('connection.php');
         <h1 class="h3 mb-2 text-gray-800">
             Orders
             <select class="form-control form-control-sm d-inline-block ml-2" style="width: auto;" onchange="location = this.value;">
-                <option value="">See All</option>
+                <option value="?filter=dateold">See All</option>
                 <option value="?filter=date">Filter by Date</option>
                 <option value="?filter=2">Filter by COD</option>
                 <option value="?filter=1">Filter by VPP</option>
@@ -43,6 +43,9 @@ include('connection.php');
                 } elseif ($filterby == "To pay") {
                     $fetch_orders = mysqli_query($con, "SELECT * FROM `orders` WHERE status='$filterby'");
                 } elseif ($filterby == "date") {
+                    $fetch_orders = mysqli_query($con, "SELECT * FROM orders ORDER BY Order_date DESC");
+                }
+                elseif($filterby == "dateold"){
                     $fetch_orders = mysqli_query($con, "SELECT * FROM orders ORDER BY Order_date ASC");
                 }
             }elseif(isset($_GET['search']) && $_GET['search'] !="" ){

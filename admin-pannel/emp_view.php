@@ -49,7 +49,7 @@ include('connection.php');
                             <!-- delete query -->
                             <?php if(isset($_GET['search'])){
                                 $search=trim($_GET['search']);
-                                $search_query=mysqli_query($con,"SELECT * FROM employees WHERE Id='$search' OR name='$search'");
+                                $search_query=mysqli_query($con,"SELECT * FROM employees WHERE Id='$search' OR name='$search'and `role`='employee'");
                                 if(mysqli_num_rows($search_query)<=0){
                                     echo "<script>alert('No Record Found'); location.assign('emp_view.php');</script>";
                                 }
@@ -74,7 +74,7 @@ include('connection.php');
                                <?php }
                             }else{
                             // all dATA query
-                            $fetch_query=mysqli_query($con,"SELECT * FROM `employees`");
+                            $fetch_query=mysqli_query($con,"SELECT * FROM `employees` where `role` ='employee'");
                             while( $all_info=mysqli_fetch_array($fetch_query)){
                             ?>
                             <tbody>
@@ -123,7 +123,7 @@ include('connection.php');
                                                         <!-- delete query -->
                             <?php if(isset($_GET['search'])){
                                 $search=$_GET['search'];
-                                $search_query=mysqli_query($con,"SELECT * FROM employees WHERE Id='$search' OR name='$search'");
+                                $search_query=mysqli_query($con,"SELECT * FROM employees WHERE Id='$search' OR name='$search' and `role`='employee'");
                                 if(mysqli_num_rows($search_query)<=0){
                                     echo "<script>alert('No Record Found'); location.assign('emp_view.php');</script>";
                                 }
@@ -148,7 +148,7 @@ include('connection.php');
                                <?php }
                             }else{
                             // all data query
-                            $fetch_query=mysqli_query($con,"SELECT * FROM `employees`");
+                            $fetch_query=mysqli_query($con,"SELECT * FROM `employees` where `role` ='employee'");
                             while( $all_info=mysqli_fetch_array($fetch_query)){
                             ?>
                             <tbody>

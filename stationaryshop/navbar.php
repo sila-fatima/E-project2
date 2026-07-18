@@ -20,22 +20,27 @@ include('../admin-pannel/connection.php');
 <body>
 
     <nav class="navbar navbar-expand-lg">
-        <div class="container-lg">
-            <a class="navbar-brand" style="color: #F2E9DD;" href="#">✒️ Arts</a>
-            <div class="d-flex align-items-center gap-2 gap-sm-3 ms-auto">
-                <ul class="navbar-nav flex-row gap-3 me-2 me-sm-3 d-flex">
-                    <li class="nav-item"><a class="nav-link" href="index.php">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link " href="trackorder.php">Orders</a></li>
-                    <li class="nav-item"><a class="nav-link " href="help.php">Help</a></li>
+         <div class="container-lg">
+        <a class="navbar-brand" style="color: #F2E9DD;" href="#">✒️ Arts</a>
+        <div class="d-flex align-items-center gap-2 gap-sm-3 ms-auto">
+            <ul class="navbar-nav flex-row gap-3 me-2 me-sm-3 d-flex">
+                <li class="nav-item"><a class="nav-link" href="index.php">Shop</a></li>
+                <li class="nav-item"><a class="nav-link " href="trackorder.php">Orders</a></li>
+                <li class="nav-item"><a class="nav-link " href="help.php">Help</a></li>
+                <?php if (isset($_SESSION['userid']) && $_SESSION['userid']){?>
                     <li class="nav-item"><a class="nav-link " href="Logout.php">Logout</a></li>
-                </ul>
-                <a href="login.php" class="btn btn-link text-decoration-none text-light px-1 px-sm-2">👤 Account</a>
-                <button class="btn btn-link text-decoration-none text-light position-relative px-1 px-sm-2"
+                <?php } else{?>
+                    <li class=""><a href="login.php" class="btn btn-link text-decoration-none text-light px-1 px-sm-2">👤 Account</a></li>
+                <?php }?>
+            </ul>
+             <button class="btn btn-link text-decoration-none text-light position-relative px-1 px-sm-2"
                     onclick="toggleCart()">
                     🛒 <span class="d-none d-sm-inline">Cart</span>
                 </button>
-            </div>
         </div>
+    </div>
+
+           
     </nav>
     <!-- cart html -->
    <div class="drawer-overlay" id="cartOverlay" onclick="toggleCart()"></div>

@@ -142,20 +142,6 @@ include('connection.php');
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.php">Login</a>
-                        <a class="collapse-item" href="changepassword.php">Change Password</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -218,19 +204,19 @@ else {
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <?php
-                            if ($action == 'index.php'||$action=='404.php') { ?>
-                                <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search pages (Orders, Products, Categories...)"
-                                    aria-label="Search" aria-describedby="basic-addon2">
+                            if ($action == 'index.php') { ?>
+                               
                             <?php } else { ?>
                                 <input type="text" class="form-control bg-light border-0 small" placeholder="Search By ID Or NAME"
                                     aria-label="Search" name="search" aria-describedby="basic-addon2">
-                            <?php
-                            } ?>
-                            <div class="input-group-append">
+                                     <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
+                            <?php
+                            } ?>
+                            
                         </div>
                     </form>
 
@@ -277,10 +263,7 @@ else {
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
                                 </a>
-                                <a class="dropdown-item" href="order.php">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    activities
-                                </a>
+
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout.php">

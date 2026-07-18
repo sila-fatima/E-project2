@@ -290,24 +290,3 @@ WHERE orders.status != 'return'
 }
 ?>
 <!-- search program -->
-<?php if (isset($_GET['search'])) {
-    $search = $_GET['search'];
-    if ($search == strtolower(trim('orders')) || $search == strtolower(trim('order'))) {
-        echo "<script> location.assign('order.php')</script>";
-    } elseif ($search == strtolower(trim('category')) || $search == strtolower(trim('categories'))) {
-        echo "<script> location.assign('view-cat.php')</script>";
-    } elseif ($search == strtolower(trim('product')) || $search == strtolower(trim('products'))) {
-        echo "<script> location.assign('view-pro.php')</script>";
-    } elseif ($search == strtolower(trim('employees'))) {
-        echo "<script> location.assign('emp_view.php')</script>";
-    } elseif ($search == strtolower(trim('refund'))) {
-        echo "<script> location.assign('refund.php')</script>";
-    } elseif ($search == strtolower(trim('FAQ'))) {
-        echo "<script> location.assign('faq.php')</script>";
-    } elseif ($search == strtolower(trim('review'))) {
-        echo "<script> location.assign('review.php')</script>";
-    } else {
-        echo "<script>location.assign('404.php')</script>";
-    }
-}
-?>
