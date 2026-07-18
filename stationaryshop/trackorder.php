@@ -146,7 +146,7 @@ include('navbar.php');
                         <div class="status-timeline">
                             <div class="timeline-step <?php echo $packed_active; ?>">
                                 <div class="step-circle">✓</div>
-                                <div class="step-label">Packed</div>
+                                <div class="step-label">Received</div>
                             </div>
                             <div class="timeline-step <?php echo $transit_active; ?>">
                                 <div class="step-circle">🚚</div>
