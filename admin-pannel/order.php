@@ -18,23 +18,27 @@ include('connection.php');
         </h1>
     </div>
 
-
     <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0" style="font-size: 0.85rem;">
             <thead>
                 <tr>
                     <th>OrderID</th>
                     <th>Customer</th>
                     <th>Email</th>
                     <th>Address</th>
-                    <th>Phone Number</th>
+                    <th>Phone</th> 
                     <th>Order Date</th>
-                    <th>Payment Methode</th>
+                    <th>Payment</th> 
                     <th>Status</th>
                     <th>Amount</th>
                     <th>Action</th>
+                    <?php if($_SESSION['role'] == 'admin'){ ?>
+                        <th>Cancel</th> 
+                    <?php } ?>
                 </tr>
             </thead>
+            
+            <tbody>
             <?php
             if (isset($_GET['filter'])) {
                 $filterby = $_GET['filter'];
@@ -44,57 +48,57 @@ include('connection.php');
                     $fetch_orders = mysqli_query($con, "SELECT * FROM `orders` WHERE status='$filterby'");
                 } elseif ($filterby == "date") {
                     $fetch_orders = mysqli_query($con, "SELECT * FROM orders ORDER BY Order_date DESC");
-                }
-                elseif($filterby == "dateold"){
+                } elseif($filterby == "dateold"){
                     $fetch_orders = mysqli_query($con, "SELECT * FROM orders ORDER BY Order_date ASC");
                 }
-            }elseif(isset($_GET['search']) && $_GET['search'] !="" ){
-                 $search =trim($_GET['search']);
-                 $fetch_orders=mysqli_query($con,"SELECT * FROM `orders` WHERE Order_id ='$search' OR Customer='$search'");
-                 if (mysqli_num_rows($fetch_orders)<=0) {
-echo "<script>alert('No Order Found'); location.assign('order.php');</script>";
-                    
+            } elseif(isset($_GET['search']) && $_GET['search'] !="" ){
+                 $search = trim($_GET['search']);
+                 $fetch_orders = mysqli_query($con,"SELECT * FROM `orders` WHERE Order_id ='$search' OR Customer='$search'");
+                 if (mysqli_num_rows($fetch_orders) <= 0) {
+                    echo "<script>alert('No Order Found'); location.assign('order.php');</script>";
                  }
-            }
-            
-            else {
+            } else {
                 $fetch_orders = mysqli_query($con, "SELECT * FROM `orders`");
             }
+            
             while ($all_order = mysqli_fetch_array($fetch_orders)) { ?>
-
-                <tbody>
-                    <tr>
-                        <td> <?php echo $all_order[3]; ?></td>
-                        <td> <?php echo $all_order[4]; ?></td>
-                        <td> <?php echo $all_order[5]; ?></td>
-                        <td> <?php echo $all_order[7]; ?></td>
-                        <td> <?php echo $all_order[8]; ?></td>
-                        <td> <?php echo $all_order[11]; ?></td>
-                        <td> <?php if ($all_order[1] == 1) {
-                                    echo 'VPP';
-                                } elseif ($all_order[1] == 2) {
-                                    echo 'COD';
-                                } else {
-                                    echo 'Online Transfer';
-                                } ?></td>
-                        <td> <?php echo $all_order[10]; ?></td>
-                        <td> <?php echo $all_order[9]; ?></td>
-                        <td>
-                             <a href="orderdetail.php?orderid=<?php echo $all_order[3] ?>" class="btn btn-outline-info mb-3">See Details</a>
-                            <?php if($all_order[10]=="To Pay") {?>
-                            <a onclick="alert('Order Need To Be Paid first');" class="btn btn-outline-success">Update Status</a>
-                            <?php } else { ?>
-
-                            <a href="status.php?orderid=<?php echo $all_order[3] ?>" class="btn btn-outline-success">Update Status</a>
-                            <?php } ?>
-                           
+                <tr>
+                    <td><?php echo $all_order[3]; ?></td>
+                    <td><?php echo $all_order[4]; ?></td>
+                    <td><?php echo $all_order[5]; ?></td>
+                    <td><?php echo $all_order[7]; ?></td>
+                    <td><?php echo $all_order[8]; ?></td>
+                    <!-- Added nowrap to dates so they don't break onto multiple lines awkwardly -->
+                    <td style="white-space: nowrap;"><?php echo $all_order[11]; ?></td>
+                    <td>
+                        <?php 
+                        if ($all_order[1] == 1) {
+                            echo 'VPP';
+                        } elseif ($all_order[1] == 2) {
+                            echo 'COD';
+                        } else {
+                            echo 'Online Transfer';
+                        } 
+                        ?>
+                    </td>
+                    <td><?php echo $all_order[10]; ?></td>
+                    <td><?php echo $all_order[9]; ?></td>
+                    <td style="white-space: nowrap;">
+                        <a href="orderdetail.php?orderid=<?php echo $all_order[3] ?>" class="btn btn-sm btn-outline-info d-block mb-1" style="font-size: 0.75rem;">Details</a>
+                        <?php if($all_order[10] == "To Pay") { ?>
+                            <a onclick="alert('Order Need To Be Paid first');" class="btn btn-sm btn-outline-success d-block" style="font-size: 0.75rem;">Status</a>
+                        <?php } else { ?>
+                            <a href="status.php?orderid=<?php echo $all_order[3] ?>" class="btn btn-sm btn-outline-success d-block" style="font-size: 0.75rem;">Status</a>
+                        <?php } ?>
+                    </td>
+                    <?php if($_SESSION['role'] == 'admin'){ ?>
+                        <td class="text-center align-middle">
+                            <a href="?cancelid=<?php echo $all_order[0] ?>" style="text-decoration: none;">❌</a>
                         </td>
-
-                    </tr>
-                </tbody>
+                    <?php } ?>
+                </tr>
             <?php  } ?>
-
-
+            </tbody> <!-- MOVED THIS OUTSIDE THE WHILE LOOP -->
         </table>
     </div>
 </div>
@@ -105,4 +109,12 @@ echo "<script>alert('No Order Found'); location.assign('order.php');</script>";
 
 <?php
 include('footer.php');
+
+if(isset($_GET['cancelid'])){
+    $id = ($_GET['cancelid']);
+    $query = mysqli_query($con, "UPDATE `orders` SET `status`='Cancelled By Admin' WHERE id = $id");
+    if($query){
+        echo "<script>alert('Order cancelled'); location.assign('order.php');</script>";
+    }
+}
 ?>

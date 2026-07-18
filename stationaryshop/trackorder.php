@@ -33,6 +33,7 @@ include('navbar.php');
                     <a href="?status=Delivered" class="btn btn-outline-warning ">Delivered</a>
                     <a href="?status=Reviewed" class="btn btn-outline-warning ">Reviewed</a>
                     <a href="?Rstatus=Return" class="btn btn-outline-warning ">Return</a>
+                    <a href="?status=Cancelled By Admin" class="btn btn-outline-warning ">Cancel By Seller</a>
                 </div>
             </div>
             
@@ -42,7 +43,7 @@ include('navbar.php');
                 $userid = $_SESSION['userid'];
                 if(isset($_GET['status'])){
                     $status = $_GET['status'];
-                    if ($status == 'Dispached' || $status == 'Received'|| $status =="To Pay" || $status =="Reviewed" || $status=="Delivered") {
+                    if ($status == 'Dispached' || $status == 'Received'|| $status =="To Pay" || $status =="Reviewed" || $status=="Delivered" || $status="Cancelled By Admin") {
                         $orderfetch = mysqli_query($con, "SELECT * FROM `orders` WHERE status ='$status' AND userID =$userid");
                     } 
                 }elseif(isset($_GET['search'])){

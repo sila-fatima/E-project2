@@ -38,7 +38,7 @@ if (isset($_SESSION['emp_uname'])) {
 FROM orders
 LEFT JOIN `return`
 ON orders.Order_id = `return`.Order_id
-WHERE orders.status != 'return'
+WHERE orders.status != 'return'and orders.status != 'Cancelled By Admin'
    OR orders.status = 'return'
    AND `return`.Return_type = 'Replace';");
                                 $totaldata = mysqli_fetch_array($totalquery);

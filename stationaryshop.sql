@@ -1,0 +1,712 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 18, 2026 at 01:32 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `stationaryshop`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `Id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `items` bigint(100) NOT NULL,
+  `Description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`Id`, `name`, `items`, `Description`) VALUES
+(1, 'keychains', 0, 'Make Bags Classy'),
+(2, 'Bags', 0, 'Asthetic For Life'),
+(3, 'Wallets', 0, 'Trendy and Stylish'),
+(4, 'Plushies', 0, 'A perfect Cuddler'),
+(5, 'Stationary', 0, 'Make Studies An Addiction'),
+(6, 'Makeup', 0, 'Perfect Gift For Women'),
+(7, 'Showpieces', 0, 'Give Your Home A LIfe'),
+(8, 'Paintings', 0, 'A must For Walls'),
+(9, 'Novels', 0, 'A Bestfreind Of Readers'),
+(10, 'Mini Electric Devices', 0, 'Need Of ALL'),
+(11, 'Jewellery', 0, 'Make a dazzling statement with this luxurious,  '),
+(12, 'Cards', 0, 'For all Occasion ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `Id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `designation` varchar(100) NOT NULL,
+  `DOB` varchar(11) NOT NULL,
+  `Joining_date` varchar(10) DEFAULT '0000-00-00',
+  `salary` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `user_name` varchar(100) NOT NULL,
+  `password` varchar(11) NOT NULL,
+  `Role` varchar(50) NOT NULL DEFAULT 'Employee'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`Id`, `name`, `designation`, `DOB`, `Joining_date`, `salary`, `email`, `user_name`, `password`, `Role`) VALUES
+(1, 'Abdullah', 'Creator&owner', '2000-09-12', '0000-00-00', 100000, 'abdullah@gmail.com', 'abdullah', 'abdullah', 'admin'),
+(3, 'aisha', 'order processing staff', '1999-08-07', '2023-02-01', 60000, '456@gmail.com', 'user1', 'qwert', 'Employee'),
+(4, 'saad', 'order processing staff', '2002-04-20', '2021-09-04', 60000, '678@gmail.com', 'saad', 'asdfghjklo', 'Employee'),
+(5, 'maida', 'Supply Chain Executive', '2006-06-23', '2023-04-07', 50000, '789@gmail.com', 'user3', 'yuiop', 'Employee'),
+(6, 'hamid', 'Supply Chain Executive', '2004-11-06', '2022-09-04', 60000, 'Abc@gmail.com', 'user4', 'asdfg', 'Employee'),
+(7, 'fahim', 'Logistics Coordinator', '2001-12-11', '2026-08-11', 40000, 'efg@gmail.com', 'user5', 'hjklz', 'Employee'),
+(8, 'haris', 'Logistics Coordinator', '1998-07-08', '2024-07-03', 40000, 'xyz@gmail.com', 'user6', 'xcvbnm', 'Employee'),
+(9, 'raza', 'order processing staff', '2003-11-10', '2025-09-10', 60000, 'stp@gmail.com', 'user7', '123456789', 'Employee'),
+(10, 'ahmed', 'order processing staff', '2005-11-31', '2020-06-24', 60000, 'wvy@gmail.com', 'user8', '0987654321', 'Employee'),
+(13, 'fatima', 'assistant', '2000-08-07', '2020-03-04', 50000, 'fatima@gmail.com', 'user15', '12345', 'Employee');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `message` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `name`, `email`, `message`) VALUES
+(1, 'saad', 'saad@gmail.com', 'why my return got rejected'),
+(2, 'aliraza', 'aliraza@gmail.com', 'are warranty card given physically with electronics item'),
+(3, 'saad', 'saad@gmail.com', 'is there any other way to get refund amount');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `payment_id` int(11) NOT NULL,
+  `product_id` char(7) NOT NULL,
+  `Order_id` char(16) NOT NULL,
+  `Customer` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `Card_no` varchar(12) NOT NULL,
+  `Address` varchar(100) NOT NULL,
+  `phone_number` varchar(11) NOT NULL,
+  `Total amount` int(11) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `Order_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `userID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `payment_id`, `product_id`, `Order_id`, `Customer`, `email`, `Card_no`, `Address`, `phone_number`, `Total amount`, `status`, `Order_date`, `userID`) VALUES
+(1, 2, '6300063', '6300063200000001', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 4300, 'Cancelled By Admin', '2026-07-02 13:47:26', 1),
+(2, 3, '2800127', '2800127300000002', 'saad', 'saad@gmail.com', '7899-0999-89', 'xyzroad,kharadar,karachi', '0987654321', 13000, 'Reviewed', '2026-07-02 13:47:33', 1),
+(7, 2, '5000050', '5000050200000007', 'aliraza', 'aliraza@gmail.com', '', 'Jamshedroad', '6789054321', 5000, 'Cancelled By Admin', '2026-07-03 05:49:59', 2),
+(8, 2, '2600026', '2600026200000008', 'saad', 'saad@gmail.com', '', 'society i=office ', '0987654321', 550, 'Received', '2026-07-03 05:51:59', 1),
+(12, 3, '5000050', '5000050300000012', 'ahmedkhan', 'ahmed@gmail.com', '8900-9876-09', 'society i=office ', '123456777', 17500, 'Delivered', '2026-07-03 16:16:58', 3),
+(13, 1, '4300142', '4300142100000013', 'ahmedkhan', 'ahmed@gmail.com', '', 'society i=office ', '123456777', 3000, 'Received', '2026-07-03 16:34:52', 3),
+(14, 1, '7000070', '7000070100000014', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 1500, 'Return', '2026-07-03 18:11:59', 1),
+(16, 1, '5800157', '5800157100000016', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 300, 'Return', '2026-07-06 20:03:35', 1),
+(17, 3, '1400113', '1400113300000017', 'saad', 'saad@gmail.com', '0987-0987-09', 'society i=office ', '0987654321', 3000, 'Return', '2026-07-06 20:07:54', 1),
+(23, 2, '4900049', '4900049200000023', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 1500, 'Delivered', '2026-07-08 18:11:43', 1),
+(25, 2, '0600006', '0600006200000025', 'saad', 'saad@gmail.com', '', 'xyzroad,kharadar,karachi', '0987654321', 790, 'Delivered', '2026-07-17 06:57:18', 1),
+(26, 2, '0900009', '0900009200000026', 'farris', 'faris@gmail.com', '', 'xyzroad,kharadar,karachi', '0987655432', 700, 'Dispached', '2026-07-18 06:13:04', 4),
+(27, 1, '3300132', '3300132100000027', 'farris', 'faris@gmail.com', '', 'society i=office ', '0987655432', 1800, 'Dispached', '2026-07-18 07:48:12', 4);
+
+--
+-- Triggers `orders`
+--
+DELIMITER $$
+CREATE TRIGGER `restore_stock_and_delete_items` BEFORE DELETE ON `orders` FOR EACH ROW BEGIN
+    UPDATE `products`
+    INNER JOIN `order_items` ON `products`.`Product_ID` = `order_items`.product_id
+    SET `products`.quantity = `products`.quantity + `order_items`.quantity
+    WHERE `order_items`.order_id = OLD.order_id;
+    DELETE FROM `order_items` 
+    WHERE order_id = OLD.order_id;
+    
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `set_order_number` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
+    DECLARE next_id INT;
+
+    SELECT AUTO_INCREMENT INTO next_id
+    FROM information_schema.TABLES
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'orders';
+
+    SET NEW.Order_id = CONCAT(
+        NEW.product_id,
+        NEW.Payment_id,
+        LPAD(next_id, 8, '0')
+    );
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `Id` int(11) NOT NULL,
+  `order_id` char(17) NOT NULL,
+  `Customer` varchar(50) NOT NULL,
+  `product_id` char(7) NOT NULL,
+  `Product_name` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`Id`, `order_id`, `Customer`, `product_id`, `Product_name`, `quantity`) VALUES
+(1, '6300063200000001', 'saad', '6300063', 'tom ', 1),
+(2, '6300063200000001', 'saad', '4100041', ' Emerald Flap', 1),
+(3, '2800127300000002', 'saad', '2800127', 'Elephant Tray', 1),
+(6, '5000050200000007', 'aliraza', '5000050', 'Monogram Bifold', 1),
+(7, '2600026200000008', 'saad', '2600026', '4-in-1 Makeup Pen', 1),
+(8, '5000050300000012', 'ahmedkhan', '5000050', 'Monogram Bifold', 1),
+(9, '5000050300000012', 'ahmedkhan', '8900089', 'Sunny Coast', 1),
+(10, '4300142100000013', 'ahmedkhan', '4300142', 'Smart Mug', 1),
+(11, '7000070100000014', 'ahmedkhan', '7000070', 'Berry Bunny', 1),
+(13, '5800157100000016', '1', '5800157', 'Simple Birthday Card', 1),
+(14, '1400113300000017', '1', '1400113', 'Vintage Glamour', 1),
+(20, '4900049200000023', '1', '4900049', 'Wings Bifold', 1),
+(22, '0600006200000025', '1', '0600006', ' Mini Camera Keychain ', 1),
+(23, '0900009200000026', '4', '0900009', ' Cherry Pom-Pom Bag Charm', 1),
+(24, '3300132100000027', '4', '3300132', 'Aab-e-Hayat', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_opts`
+--
+
+CREATE TABLE `payment_opts` (
+  `Id` int(11) NOT NULL,
+  `options` varchar(46) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payment_opts`
+--
+
+INSERT INTO `payment_opts` (`Id`, `options`) VALUES
+(1, 'VPP'),
+(2, 'COD'),
+(3, 'ONLINEBANK TRANSFER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `Product_code` char(2) DEFAULT NULL,
+  `Product_number` char(5) DEFAULT NULL,
+  `Product_ID` char(7) DEFAULT NULL,
+  `Product_name` varchar(100) DEFAULT NULL,
+  `Description` text DEFAULT NULL,
+  `quantity` bigint(100) NOT NULL,
+  `Price` int(11) DEFAULT NULL,
+  `category_Id` int(11) DEFAULT NULL,
+  `Image` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `Product_name`, `Description`, `quantity`, `Price`, `category_Id`, `Image`) VALUES
+(1, '01', '00001', '0100001', ' LED Flashlight Keychain', 'Never get left in the dark again with this ultra-practical mini LED flashlight keychain. Designed for everyday convenience, this compact accessory features a highly efficient, bright white LED bulb activated by a simple, smooth sliding switch. Its lightweight, durable plastic casing is built to withstand daily wear, making it a reliable companion for late-night navigation or roadside emergencies. Available in a vibrant spectrum of colors including sleek black, vivid blue, deep purple, energetic green, bold pink, bright orange, and clean white, it effortlessly blends essential utility with a splash of everyday style.', 199, 180, 1, '16k.jpg'),
+(2, '02', '00002', '0200002', 'Wedding Keepsake Keychain', 'Capture the joy of matrimonial bliss with these delightfully whimsical enamel wedding-themed keychains. Featuring detailed, cartoon-style illustrations of brides and grooms in various charming poses—ranging from a playful piggyback ride to elegant formal portraits—these accessories offer a unique blend of romance and fun. Each piece is coated with high-quality, vibrant enamel paint that resists chipping and fading over time, set against a resilient silver-toned metal base. They make exceptional, memorable wedding favors for guests, sweet bridal shower gifts, or a lighthearted daily reminder of your own special big day.', 2, 600, 1, '15k.avif'),
+(3, '03', '00003', '0300003', 'Pom-Pom Animal Keychain', 'Introduce an element of playful texture to your favorite handbag with this delightfully fluffy faux fur animal pom-pom keychain. Each piece features a super-soft, high-density plush sphere topped with a cute, detailed faux leather animal accent—including a trendy unicorn, an adorable french bulldog, a sleek fox, a stylish cat, a cute llama, and a sweet bunny rabbit. Complete with a premium gold-plated lobster claw clasp and a matching heavy-duty ring, this eye-catching charm easily attaches to luggage, purses, or car keys, serving as a fashionable statement piece that is incredibly satisfying to touch.', 0, 800, 1, '13k.jpg'),
+(4, '04', '00004', '0400004', 'Custom Personalized Couples Photo Keychain', 'Celebrate your unique bond with this beautiful, personalized couples keychain set. Crafted from premium, polished zinc alloy, this romantic dual-piece set features high-definition photo insertion disks alongside a beautifully stylized interlocking heart and key motif engraved with the words Forever Love You. It serves as the perfect sentimental anniversary, wedding, or Valentine Day token, allowing you to carry your most cherished shared memories wherever life takes you. The robust link chains and secure split rings guarantee that your most valued personal photos remain safely attached to your keys or daily bag.', 120, 850, 1, '8k.jpg'),
+(5, '05', '00005', '0500005', 'Crochet Vampire  Keychain Set', 'Add a touch of spooky charm to your accessory collection with this meticulously handcrafted crochet vampire amigurumi keychain duo. Skillfully knitted by hand using premium, ultra-soft cotton yarn, this set features an adorable Dracula character alongside his elegant vampire companion, complete with classic high-collared capes and tiny embroidered fangs. Their lightweight, plush structure makes them exceptionally comfortable to carry in your pocket or backpack without adding bulk. Ideal for Halloween enthusiasts, collectors of unique handmade crafts, or anyone who appreciates detailed, artisanal textile design that stands out from factory-produced novelties.', 100, 1200, 1, 'k14.jpg'),
+(6, '06', '00006', '0600006', ' Mini Camera Keychain ', 'Click into style with this incredibly cute retro mini camera keychain collection. Designed in soft, dreamy pastel hues including lavender, mint green, lemon yellow, baby blue, and blush pink, these interactive charms feature adorable cartoon graphics that evoke a nostalgic aesthetic. Pushing the miniature shutter button activates a bright built-in flash and a realistic mechanical camera click sound effect, making it an engaging conversation starter. Equipped with a matching pastel bell accent and a secure metallic clip, it is the ultimate trendy accessory for students, photographers, and lovers of aesthetic tech novelties.', 299, 790, 1, '12k.webp'),
+(7, '07', '00007', '0700007', ' Sneaker Keychain', 'Showcase your love for streetwear fashion with these incredibly detailed mini high-top sneaker keychains. Perfectly replicating classic basketball shoes in miniature form, these charms feature realistic canvas textures, white rubber soles, and real woven fabric shoelaces tied in a neat bow. Coated in a striking, high-gloss metallic finish, they are available in brilliant shades of sun yellow, deep purple, hot pink, and fire engine red. They offer a fun, sporty way to personalize your gym bag, locker keys, or sneaker collection backpack, making them an excellent gift for athletes and sneakerheads alike.', 290, 290, 1, '11k.jpg'),
+(8, '08', '00008', '0800008', 'Fast & Furious\" Biker Keychain', 'Fuel your passion for high-speed adventure with this dynamic Fast and Furious inspired chibi racer and sports bike keychain series. Molded from premium, flexible, non-toxic PVC rubber, you can choose between a cool street racer character in sleek black gear or a highly detailed racing motorcycle available in bright blue, crimson red, and neon orange. Every piece is accompanied by a durable, thick black wristlet strap stamped with bold motivational typography, offering a secure, comfortable grip while emphasizing a modern streetwear look perfect for motorcycle enthusiasts, racers, and action movie fans.', 245, 500, 1, '10k.webp'),
+(9, '09', '00009', '0900009', ' Cherry Pom-Pom Bag Charm', 'Elevate your luxury handbag presentation with this elegant, boutique-inspired velvet cherry pom-pom bag charm. Designed to emulate a pair of ripe cherries, this luxury keychain consists of rich, deep red and soft pink plush spheres suspended from intricate braided cords, topped with delicate emerald green velvet leaves featuring realistic embroidered veins. The high-polished gold hardware includes an easy-open spring gate ring and a classic lobster clasp. It serves as a sophisticated, high-end accent that adds a touch of classic, feminine charm to luxury designer totes, backpacks, and high-end key sets.', 566, 700, 1, '9k.webp'),
+(10, '10', '00010', '1000010', ' Tumbler Cup Keychain', 'Carry the viral hydration trend wherever you go with these adorable miniature travel tumbler cup keychains. Inspired by iconic modern insulated mugs, these detailed 3D replicas feature a realistic tiny drinking straw, a sturdy side handle, and a contrasting white lid gasket. Molded from durable, impact-resistant matte silicone, they are offered in beautiful pastel sky blue and soft rose pink tones. Each tumbler is accented with a delicate, matching enamel flower charm dangling from a premium gold-toned split ring, creating a trendy, lighthearted accessory perfect for fitness enthusiasts and trendsetters.', 600, 350, 1, '7k.jpg'),
+(11, '11', '00011', '1100011', ' Labubu Blind Box Keychain', 'Elevate your hype-culture collection with this highly sought-after authentic design blind box plush keychain featuring Labubu from Pop Mart The Monsters series. This premium collector item features a fuzzy, soft-textured brown monster suit complete with long bunny ears, framing a detailed vinyl face that highlights Labubu iconic mischievous, wide-toothed grin and expressive eyes. Outfitted with a high-end gold hardware ring, this designer toy crossover brings a slice of urban vinyl culture directly to your daily style, making it an absolute must-have accessory for fashion trendsetters and art toy collectors alike.', 100, 2500, 1, '4k.jpg'),
+(12, '12', '00012', '1200012', 'Stitch Wristlet Keychain', 'Bring your favorite extraterrestrial companion along for the ride with this vibrant 3D silicone Stitch wristlet keychain. Molded from premium, impact-resistant, non-toxic silicone, this durable charm features a beautifully detailed character design available in classic deep blue or soft pastel pink. Every piece includes a wide, heavy-duty matching rubber wrist strap embossed with bold lettering and a mini character charm for an extra layer of style. Complete with a high-shine gold-plated ring and an easy-snap lobster claw clasp, it offers a secure and incredibly trendy way to carry your car keys or accessorize backpacks.', 400, 400, 1, 'k5.avif'),
+(13, '13', '00013', '1300013', ' Bear Plush Keychain', 'Dive headfirst into cuteness with this adorable fuzzy summer swim bear plush keychain. Available in classic golden-brown or icy polar white, each ultra-soft teddy bear comes ready for a pool day, sporting a pair of retro colored sunglasses on its head and nestled inside a miniature inflatable swim ring. The translucent inner tubes are decorated with playful graphics and colorful internal beads that shake when moved. Equipped with a premium gold-toned lobster clasp and matching split ring, it is the perfect poolside statement piece to clip onto summer beach bags, travel luggage, or keys.', 300, 400, 1, '6k.jpg'),
+(14, '14', '00014', '1400014', 'Rhinestone Heart Keychain', 'Make a dazzling statement with this luxurious, full-crystal rhinestone paved heart keychain. The centerpiece features a beautifully weighted 3D heart charm entirely encrusted with dozens of multi-faceted, diamond-cut crystals that catch and reflect the light from every angle. It is paired with an elegant, white faux-leather braided wrist loop anchored by a glittering crystal-paved band. Accented with a polished gold-tone split ring and an engraved circular emblem, this ultra-glamorous accessory brings a sophisticated touch of high-end boutique elegance to designer handbags, car fobs, and vanity keys alike.', 234, 750, 1, '3k.webp'),
+(15, '15', '00015', '1500015', ' Beaded Bow Keychain', 'Channel ultimate Y2K nostalgia with this dreamy, pastel-infused iridescent beaded bow keychain. This trendy accessory features a beautiful assortment of chunky candy-colored acrylic beads, holographic pearls, transparent stars, and a glossy centerpiece bow charm hung on a coordinated pastel-painted lobster clip. Available in a lovely variety of monochromatic schemes including candy pink, lavender purple, mint green, and sky blue, its lightweight construction adds zero bulk to your pockets. It is the perfect aesthetic charm for personalizing school backpacks, pencil cases, or creating a retro look for your car keys.', 230, 350, 1, '2k.webp'),
+(16, '16', '00016', '1600016', 'Rainbow & Friends Chibi Keychain', 'Brighten up your daily routine with this incredibly sweet pastel kawaii rainbow and friends chibi keychain set. Crafted from high-density, matte-finish PVC, each charm features a super-cute, minimalist animal friend including a creamy yellow kitten, a rosy-cheeked pink bunny, or a cheerful soft-blue puppy set against a dreamy, multi-layered pastel rainbow arch backdrop. Their smooth, flexible, and dirt-resistant texture ensures they stay looking perfectly clean over time. It makes a wonderful, heartwarming gift for students, kids, or anyone looking to add a gentle splash of colorful joy to their keys and bags.', 122, 350, 1, '1k.jpg'),
+(17, '17', '00017', '1700017', 'Sire Fragrance Incense Sticks Set (5 boxes)', 'This is a set of five tall incense agarbatti boxes from the brand Sire, each in a different colorway red, purple, blue, yellow, and green with striped packaging. These are typically long-burning fragrance sticks used for home freshening, often sold in bulk packs. The variety of box colors usually indicates different scent profiles within the same brand line, such as floral, woody, or musk-based fragrances. Popular in South Asian markets for daily use or gifting, these are budget-friendly home fragrance products rather than cosmetics, often stocked alongside perfumes and body sprays in general stores or online beauty lifestyle shops.', 500, 1800, 6, 'm15.jpg'),
+(18, '18', '00018', '1800018', 'Scenteurs Pocket Perfume Sampler Box (5 sprays)', 'A green branded gift box from Scenteurs, opened to reveal five small pocket perfume sprays in a foam-lined tray. The brand tagline encourages customers to explore, test, and find the best one. This is a discovery sampler set, ideal for trying multiple scents in travel-sized bottles before committing to a full-size purchase. The pink-tinted bottle suggests a sweeter, floral fragrance among the set. These kits are popular with influencers and social media unboxing content, and are marketed as affordable, portable luxury easy to carry in a bag or pocket for fragrance touch-ups throughout the day.', 120, 3500, 6, 'm14.webp'),
+(19, '19', '00019', '1900019', 'Bonanza Satrangi Perfume Collection', 'A six-bottle lineup from Bonanza Satrangi fragrance line, including scents like Delilah, Code Green for Men, Dreams, Ruby, Safari for Men, and Nova. Each bottle is roughly 30 to 50ml and color-coded to hint at its scent family green for fresh woody, pink for fruity-floral, beige for warm oriental. Bonanza Satrangi is a well-known Pakistani fashion brand that has expanded into affordable perfumes marketed alongside their clothing lines. This set spans both men and women fragrances, making it a versatile gifting option, and is commonly sold with seasonal discounts, as shown by the Flat 10% Off promotional banner.', 100, 8500, 6, 'm12.jpg'),
+(20, '20', '00020', '2000020', 'Pink Velvet Travel Makeup Pouch (Mini Set)', 'A soft pink velvet clutch-style pouch opened to display a coordinated mini vanity set: a lipstick tube, a cylindrical compact, a heart-shaped charm-decorated compact mirror, a small perfume bottle, and a pearl bracelet tucked alongside. Every item features matching rose-gold and pearl embellishments with vintage-inspired engraved designs. This is a themed ', 90, 3500, 6, 'm10.jpg'),
+(21, '21', '00021', '2100021', 'LArobine Magic Ballet Heart Eyeshadow Palette', 'An ornate  ballerina themed eyeshadow palette housed in a heart shaped silver compact with intricate baroque detailing presented inside a plush pink jewelry box style case The palette includes four eyeshadow pans two shimmer two matte satin finishes in pink-brown tones flanked by two blush sticks on either side. This is a Y2Kcoquette aesthetic beauty product designed for collectors who value packaging as much as pigment payoff. Its commonly seen in girly,princess core beauty hauls and Asian cosmetic brand showcases, with the ballet and heart motifs appealing strongly to a younger aestheticdriven makeup audience on social media.', 213, 4000, 6, 'm11.webp'),
+(22, '22', '00022', '2200022', 'Mini Pink Makeup Bundle ', 'A budget haul of tiny pink-themed makeup items held in hand, including a Hold Morning matte lip gloss tube, a small round blush compact, a Sweet Cheek cheek tint pot, and a pink bear-shaped keychain charm. Labeled Cutest Makeup Products Under Rs. 100, this is clearly part of an affordable haul series (Part 7) aimed at showing budget-conscious shoppers cute, low-cost beauty finds. These items are typical of small online cosmetic resellers in Pakistan who source cheap, aesthetically packaged products, appealing mainly to teens and young shoppers seeking trendy items at pocket-money prices.', 800, 1000, 6, 'm9.jpg'),
+(23, '23', '00023', '2300023', 'Mermaid Tail Makeup Brush Set', 'A set of makeup brushes with handles shaped like mermaid tails, each set including 5 brushes in coordinated ombre colors — gold, teal, pink, purple, and rainbow finishes — packaged in clear plastic with holographic backing. Each set includes a mix of brush head sizes for foundation, powder, blending, and detail work. This novelty-shaped brush set is a popular gifting and self-purchase item among younger makeup users who enjoy whimsical, fantasy-themed beauty tools. They are widely sold across online marketplaces as affordable starter brush kits, prioritizing visual appeal over professional-grade bristle quality.', 400, 900, 6, 'm8.jpg'),
+(24, '24', '00024', '2400024', 'Candy-Shaped Mini Lipstick Set', 'A playful set of miniature lipsticks designed to look like wrapped candies, each in a different pastel color (blue, beige, lilac, green, coral, orange) with a twist-up lipstick bullet inside. They come housed in a blister tray, similar to how actual candy or chocolate would be packaged. This is a novelty cosmetic item targeted at younger users or as a fun gift or stocking stuffer, often sold as part of cute makeup finds content. The actual lipstick formula inside is typically a basic tinted balm, with the packaging and gimmick being the main selling point.', 600, 1000, 6, 'm7.jpg'),
+(25, '25', '00025', '2500025', 'RU Pink Heart-Shaped Compact Lip Brush Set', 'A pink heart or square-shaped compact case that unfolds to reveal a built-in mirror and two retractable lip brush applicators tucked into the lid, branded RU. This is a multi-functional touch-up tool, combining a mirror with lip brushes (likely paired with a lip product or gloss not shown) for quick on-the-go application. The soft pink colorway and compact heart shape position this as a cute, portable accessory rather than a standalone product — popular for makeup bag organization or paired with lip kits as a bundled set in beauty subscription boxes.', 290, 1200, 6, 'm6.jpg'),
+(26, '26', '00026', '2600026', '4-in-1 Makeup Pen', 'A twist-mechanism pen styled with a cartoon face on the body, offering four shades in one tool — visible as red, white or highlight, brown, and black tips, used for lips, eyebrows, eyeliner, and possibly contour. The Twist Me label indicates a rotating mechanism to switch between colors without needing separate pencils. This is a multitasking, travel-friendly makeup tool aimed at simplifying routines, especially appealing for quick touch-ups or minimalist makeup bags. Often sold on platforms like Amazon or local online stores, it is marketed toward beginners or anyone wanting an all-in-one compact solution.', 779, 550, 6, 'm5.jpg'),
+(27, '27', '00027', '2700027', 'Heart-Shaped Lip Tint Compact', 'A glossy pink heart-shaped compact case containing a cream lip or cheek tint, paired with a small doe-foot or brush applicator. The Chinese-language text suggests this product originates from a Chinese beauty brand, with marketing emphasizing a soft, silky finish on lips (shown in the inset photo of tinted lips). This type of product is typically a multi-use tint for lips and cheeks, blending easily for a natural flush. The cute heart packaging makes it popular in kawaii or aesthetic makeup hauls, often imported and resold through Pakistani online beauty stores targeting younger demographics.', 900, 900, 6, 'm4.jpg'),
+(28, '28', '00028', '2800028', ' Teddy Bear Lipstick Keychain Set', 'A set of soft, rubbery teddy bear-shaped lipstick keychains in dark rose, maroon, and berry tones, each bear functioning as a mini lipstick (twist-up bullet hidden inside the bears body) attached to a keyring. The side panel shows the actual lip-color swatches achievable from each bear shade. This novelty item merges functionality with cuteness, allowing users to carry lipstick attached to their bag or keys. It is a popular gifting product and a common feature in cute accessories or lipstick keychain haul content, especially among younger audiences who enjoy collectible, character-shaped beauty tools.', 780, 1400, 6, 'm3.jpg'),
+(29, '29', '00029', '2900029', 'Butterfly/Bug-Shaped Makeup Kit', 'A novelty makeup palette shaped like a butterfly or beetle with blue wings that fold open to reveal multiple eyeshadow shades, blush pans, and a lip gloss compartment, plus a small applicator brush and mirror tucked inside. This all-in-one kit is designed as a complete starter makeup set, often marketed toward teens, beginners, or as a fun gift. The bug or insect shape is a recurring novelty design trend in budget cosmetic kits, prioritizing a playful unboxing experience. These kits are common in gift shops and online bazaars, usually offering basic pigment quality suited for casual or occasional use.', 180, 1800, 6, 'm2.jpg'),
+(30, '30', '00030', '3000030', 'Mecow Highlighter Baked Powder', 'Four jars of baked highlighter powder from the brand Mecow, each featuring a marbled, moon-surface-like texture in different shimmer tones — champagne, gold, bronze, and rose. Packaged in clear jars with purple lids labeled Highlight, these are designed to give an intense, glowing finish when swept onto cheekbones, brow bones, or collarbones. The baked powder formula typically offers a multi-tonal, foil-like shimmer effect. This brand is popular in South Asian and Middle Eastern beauty markets for affordable yet high-impact highlighters, often featured in glow up makeup tutorials and budget highlighter comparison videos.', 200, 1200, 6, 'm1.jpg'),
+(31, '31', '00031', '3100031', 'Quilted Hobo', 'A large quilted leather hobo bag in black, featuring a diamond-stitch pattern across the entire body and a bold gold logo plaque on the front. The oversized, slouchy silhouette and single top handle give it a relaxed yet luxurious look, designed to be worn over the shoulder. This style closely resembles the It-bag aesthetic seen on runways, blending soft structure with a roomy interior suited for everyday essentials. The combination of quilted leather and polished gold hardware signals a premium positioning, often associated with designer or designer-inspired handbag lines aimed at fashion forward buyers.', 890, 9000, 2, 'b18.jpg'),
+(32, '32', '00032', '3200032', 'Metallic Clutch', 'A sleek rectangular clutch in a soft rose gold metallic finish, fitted with a chain strap for optional crossbody or shoulder wear. The front flap closes with a small clasp, and the smooth metallic texture gives it an evening or formal occasion appeal. This compact silhouette is designed to hold only the essentials, such as a phone, cards, and lipstick, making it a popular choice for parties, weddings, or dressed up outings. The combination of muted metallic tone and chain detailing positions it as a versatile accessory that pairs well with both glamorous and minimalist outfits.', 800, 3000, 2, 'b17.jpg'),
+(33, '33', '00033', '3300033', ' Fashion Crossbody', 'A black crossbody bag with multiple stacked pouches, gold chain strap detailing, and a decorative bow charm on the front flap, branded simply Fashion in gold lettering. The layered pouch design offers separate compartments for organizing items like a phone, wallet, and makeup essentials. Photographed in a retail-style setting with a marble surface, this bag reflects a budget friendly, trend driven design commonly found in online clothing and accessories stores. The gold hardware against black fabric gives it a dressed up appearance despite its accessible price point, appealing to younger shoppers seeking statement pieces.', 300, 2000, 2, 'b16.webp'),
+(34, '34', '00034', '3400034', 'Sequin Shoulder', 'A fully sequined silver shoulder bag with a sculpted, structured silhouette and a thick silver chain handle. The dense sequin coverage catches light from multiple angles, giving the bag a sparkly, party ready finish. Shown being held against a sequined outfit, this bag is clearly styled for evening wear, festive occasions, or nightlife. The compact size suggests it is meant to carry minimal items, prioritizing style over capacity. This type of bag is popular during wedding season and holiday parties, often chosen as a statement accessory rather than a daily use bag.', 200, 2500, 2, 'b15.jpg'),
+(35, '35', '00035', '3500035', 'Checkered Tote', 'A structured tote bag featuring a grey and black checkered pattern across the entire body, paired with tall black handles fastened through silver buckle hardware. The pattern is reminiscent of designer monogram prints often seen on luxury checkered canvas bags. Its boxy, structured shape and tall handle drop make it suitable for everyday carrying, office use, or running errands. The combination of muted tones and structured design gives it a versatile, low maintenance appeal, allowing it to pair easily with both casual and semi formal outfits without clashing.', 568, 4000, 2, 'b14.webp'),
+(36, '36', '00036', '3600036', ' Curved Mini', 'A small, curved half moon shaped shoulder bag in a soft taupe or blush tone, held by a slim top handle. The rounded silhouette and minimal hardware give it a clean, understated look that leans toward a quiet luxury aesthetic. Designed for carrying just the basics, this bag style has become especially popular for its compact, body hugging shape that pairs well with casual outfits like denim and oversized shirts. The soft leather texture and simple design make it a versatile everyday piece, often favored for its comfort and lightweight feel.', 367, 3000, 2, 'b13.webp'),
+(37, '37', '00037', '3700037', 'Sage Shoulder', 'A smooth, structured shoulder bag in a muted sage green tone, featuring gold hardware at the strap connections and a curved bottom silhouette. The single adjustable strap allows it to be worn on the shoulder or slightly crossbody depending on preference. Photographed against a vanity mirror backdrop, this bag style suggests a soft, romantic aesthetic often associated with feminine, everyday luxury bags. The matte finish and gentle color tone make it easy to pair with both neutral and colorful outfits, positioning it as a versatile, season spanning accessory.', 569, 3000, 2, 'b12.jpg'),
+(38, '38', '00038', '3800038', 'Red Crossbody', 'A vibrant red crossbody phone bag with a vertical zip pocket, gold accent hardware, and a long adjustable strap. Labeled with the brand name Endaycon along with the phrase Originally from fashion, this bag is designed primarily for carrying a phone, cards, and small essentials while keeping hands free. The compact vertical design makes it a popular choice for travel, shopping trips, or daily errands where convenience matters more than capacity. Bright red tones like this are often chosen as a bold accent piece to elevate an otherwise neutral outfit.', 1000, 2000, 2, 'b11.jpg'),
+(39, '39', '00039', '3900039', ' Blue Snakeskin Set', 'A six piece matching handbag set in royal blue with silver snakeskin textured panels, including a top handle tote, a round crossbody bag, a small wallet, a clutch, and an additional crossbody pouch, all finished with a decorative bow charm. This type of coordinated bag set is popular for buyers wanting a complete matching accessory collection without having to shop separately. The bold blue and silver combination makes it eye catching, often marketed toward shoppers who want a versatile set covering multiple occasions, from daily use to evening outings, all in one cohesive purchase.', 654, 5000, 2, 'b10.jpg'),
+(40, '40', '00040', '4000040', 'Pebbled Hobo', 'A textured pebbled leather hobo bag in a deep blue grey tone, featuring a soft slouchy shape and a single top handle. The pebbled grain texture adds durability and a slightly casual finish compared to smooth leather bags. Shown being held close in a natural outdoor setting, this bag style emphasizes comfort and everyday practicality over flashy branding. The rounded silhouette and minimal hardware suggest a focus on quiet, functional design, appealing to buyers who prefer understated accessories that still carry a premium, well made appearance.', 568, 5000, 2, 'b9.webp'),
+(41, '41', '00041', '4100041', ' Emerald Flap', 'A textured pebbled leather hobo bag in a deep blue grey tone, featuring a soft slouchy shape and a single top handle. The pebbled grain texture adds durability and a slightly casual finish compared to smooth leather bags. Shown being held close in a natural outdoor setting, this bag style emphasizes comfort and everyday practicality over flashy branding. The rounded silhouette and minimal hardware suggest a focus on quiet, functional design, appealing to buyers who prefer understated accessories that still carry a premium, well made appearance.', 788, 3000, 2, 'b8.webp'),
+(42, '42', '00042', '4200042', 'Lilac Crossbody', 'A soft lilac crossbody bag with a rounded, slightly curved silhouette and a front zip pocket detail. The light pastel tone and minimal gold hardware give it a gentle, understated look suited for everyday casual wear. Its compact size and adjustable strap make it practical for quick outings where only essentials need to be carried. The pastel color palette positions this bag as a seasonal favorite, particularly during spring and summer, often chosen by buyers wanting a soft, feminine accessory that still feels functional for daily use rather than purely decorative.', 678, 2500, 2, 'b7.jpg'),
+(43, '43', '00043', '4300043', 'Embossed Tote', 'A textured tote bag set shown with measurement guides indicating 13 inch width and 11 inch height, featuring an embossed pattern with the word Adour visible on the body, paired with a smaller flap bag in matching texture and a gold accent strap. This appears to be a marketing image emphasizing exact dimensions for online shoppers, a common practice for bag listings to help buyers gauge capacity before purchasing. The textured, embossed finish gives it a premium look, while the included smaller bag suggests this is sold as a coordinated two piece set.', 789, 4000, 2, 'b5.webp'),
+(44, '44', '00044', '4400044', 'Taupe Slouch', 'A soft, pebbled leather shoulder bag in a warm taupe tone, featuring a curved slouchy silhouette, gold hardware, and both a top handle and an adjustable crossbody strap for versatile wear. The brand name is subtly embossed on the front in small lettering. This bag style balances a relaxed, slightly slouched shape with structured stitching along the edges, giving it a polished yet comfortable look. The neutral taupe color makes it highly versatile, pairing easily with most outfits, which is likely why this shape and tone are popular in minimalist, everyday handbag collections.', 890, 4000, 2, 'b3.webp'),
+(45, '45', '00045', '4500045', 'Pearl Satchel', 'A structured satchel bag in a pearlescent white or champagne tone, featuring double top handles, an additional crossbody strap, and a decorative rhinestone charm with tassel detailing hanging from the handle. The boxy, structured shape and gold tone hardware give it a classic, formal handbag appearance suited for office wear or dressier occasions. The added charm and tassel provide a small decorative touch without overwhelming the overall clean design. This style is commonly chosen for its versatility, working well as both a daily work bag and an evening accessory.', 675, 4000, 2, 'b2.jpg'),
+(46, '46', '00046', '4600046', 'Lattice Flap', 'A black flap bag featuring a bold cream and black diamond lattice pattern across the front flap, contrasted with a smooth black leather body and a thick gold chain strap. A gold twist lock closure with the brand name Juke sits at the center of the flap. The graphic lattice pattern makes this bag a strong statement piece, while the gold chain and hardware add a touch of glamour. This design is well suited for evening wear or occasions where the bag is meant to stand out as the main accessory of the outfit.', 230, 5000, 2, 'b1.webp'),
+(47, '47', '00047', '4700047', 'Pocket Mini', 'A compact brown leather card holder shown being tucked into a denim pocket, featuring a fold over flap secured with a small bronze tone clasp. The slim profile and minimal stitching detail make it easy to slip into tight pockets or small bags, prioritizing portability over storage capacity. Designed mainly for holding a few cards and folded cash, this style appeals to buyers who prefer a minimalist, no bulk wallet for daily carry. Its small size makes it a practical choice for quick errands or nights out where carrying a full sized wallet feels unnecessary.', 490, 1000, 3, 'w1.webp'),
+(48, '48', '00048', '4800048', 'Croc Envelope', 'A long, flat wallet in a tan croc embossed leather finish, featuring an angled envelope style flap closure. The textured crocodile pattern adds visual interest and a slightly formal, polished look compared to plain leather finishes. This wallet style typically opens to reveal multiple card slots and a bill compartment, making it suitable for everyday use while still appearing dressed up. The clean lines and structured shape give it a versatile appeal, often chosen by buyers who want a wallet that feels premium without committing to a heavily branded or logo driven design.', 800, 200, 3, 'W16.webp'),
+(49, '49', '00049', '4900049', 'Wings Bifold', 'A classic black leather bifold wallet featuring a subtle embossed wings and star logo in the bottom corner, branded Wings. The smooth leather finish and rounded corners give it a clean, understated look suited for daily use. Bifold wallets like this typically include multiple card slots and a central bill compartment, balancing slim design with practical storage. This style is a common choice for everyday carry due to its simple, versatile appearance that pairs easily with both casual and formal outfits without standing out too much.', 599, 1500, 3, 'W15.jpg'),
+(50, '50', '00050', '5000050', 'Monogram Bifold', 'A bifold wallet featuring an all over monogram canvas pattern in brown and tan tones, shown alongside its original branded box and authenticity card. This classic monogram pattern is widely recognized in luxury leather goods and is often imitated across various price points. If purchasing this style, buyers should be cautious about authenticity, since monogram patterns like this are frequently replicated, and verifying purchase through official or authorized channels is recommended. The compact bifold shape typically holds cards and folded cash, making it a practical daily use wallet despite its iconic, instantly recognizable print.', 788, 5000, 3, 'W14.webp'),
+(51, '51', '00051', '5100051', 'Woven Clasp', 'A black bifold wallet featuring a woven basket weave leather texture across the front panel, finished with a gold tone clasp closure instead of a traditional open fold design. The interlaced pattern adds dimension and a slightly luxurious finish compared to flat leather wallets. The gold hardware against the black woven texture creates a striking contrast, making this wallet feel more like a statement accessory than a purely functional one. This style is often chosen by buyers who want a wallet that doubles as a small fashion piece.', 789, 3000, 3, 'W12.jpg'),
+(52, '52', '00052', '5200052', 'RFID Bifold', 'A tan saffiano textured bifold wallet from the brand Runbox, shown open to display multiple card slots, a clear ID window, and RFID blocking technology indicated on the interior panel. The brand tagline Focus on your life appears on the inner flap. This wallet prioritizes function and security, protecting cards from unauthorized scanning while offering ample storage for cards and cash. The structured saffiano texture resists scratching better than smooth leather, making it a practical choice for buyers who want a durable, security conscious everyday wallet.', 678, 2500, 3, 'w11.jpg'),
+(53, '53', '00053', '5300053', ' Coach Snap', 'A small black leather wallet from Coach, featuring a snap button closure and a gold tone zipper pull with a decorative charm. Shown alongside its branded box, this compact wallet style is designed for minimal carry, typically holding a few cards and coins or small bills. The structured shape and subtle branding give it a polished, recognizable look without being overly flashy. This size and style are often chosen as an everyday or travel wallet, small enough to fit easily into a larger bag or coat pocket.', 789, 4000, 3, 'w10.jpg'),
+(54, '54', '00054', '5400054', 'Textured Bifold', 'A bifold wallet combining smooth dark brown leather on one half with a textured crocodile embossed panel on the other, finished with a small star emblem near the corner. Photographed on a wooden desk alongside cufflinks and a fountain pen, this styling suggests a sophisticated, business oriented presentation. The mixed texture design adds visual interest while keeping the overall look professional. This wallet style is well suited for office settings or formal occasions, appealing to buyers who want a refined accessory with a subtle design detail.', 400, 3000, 3, 'w9.jpg'),
+(55, '55', '00055', '5500055', 'Chevron Trifold', 'A compact wallet available in cognac brown and sage green, featuring a structured flap closure with a gold chevron shaped clasp detail. The suede like texture on the flap contrasts with the smoother leather body, giving it a layered, textured appearance. This wallet style leans toward a soft, feminine aesthetic, often paired with similarly toned accessories. The compact size suggests it is designed for minimal essentials such as cards and small bills, making it a popular choice for buyers who prefer a petite, structured wallet over a larger bifold style.', 1000, 2000, 3, 'w8.jpg'),
+(56, '56', '00056', '5600056', 'Suede Bifold', 'A small, soft suede textured wallet in a muted taupe tone, featuring a subtle embossed letter M near the bottom corner. The matte, brushed finish gives it a casual, understated look compared to glossy leather alternatives. This compact bifold style appears designed for minimal everyday carry, holding a few cards and folded cash without added bulk. The soft texture and neutral color make it easy to pair with most outfits, appealing to buyers who prefer a low key, practical wallet over one with bold branding or hardware.', 600, 1500, 3, 'w6.jpg'),
+(57, '57', '00057', '5700057', 'Deer Clasp', 'A small, structured wallet available in black and dusty rose, featuring a vintage style kiss lock clasp closure and a gold deer emblem on the front panel. Decorative text reading phrases like Leather bring everyone nature appears below the emblem, giving it a whimsical, slightly nostalgic feel. This wallet style is designed for minimal carry, typically holding a few cards, coins, and small bills. The vintage inspired clasp and playful branding make it a popular choice among buyers drawn to cute, retro styled accessories rather than minimalist designs.', 300, 2000, 3, 'w5.webp'),
+(58, '58', '00058', '5800058', 'Monogram Trifold', 'A black leather wallet featuring a subtle embossed monogram style logo near the bottom corner, with visible stitching detail in a deep red tone along the edges. The smooth, structured leather and minimal branding give it a clean, versatile look suited for both casual and formal settings. This wallet style typically opens to reveal multiple compartments for cards and cash, balancing a slim profile with practical storage. The understated design makes it easy to pair with various outfits, appealing to buyers who want subtle detailing rather than bold logos or patterns.', 790, 3000, 3, 'w4.webp'),
+(59, '59', '00059', '5900059', 'Two Tone', 'A bifold wallet combining tan leather on the front panel with a dark brown trim along the edges, finished with a small gold logo mark near the corner. The contrasting two tone design and visible orange stitching add a subtle pop of detail against the otherwise classic leather look. This wallet style is designed for everyday use, typically including multiple card slots and a bill compartment. The combination of warm tan and deep brown tones gives it a slightly rugged yet polished appearance, suitable for casual and semi formal occasions alike.', 765, 2500, 3, 'w3.webp'),
+(60, '60', '00060', '6000060', 'Tassel Zip', 'A soft blue wallet featuring a zip around closure, an embossed bow and cat shaped design on the front panel, and a decorative tassel charm with a small rabbit shaped tag. Branded with the phrase Forever Memory, this wallet leans into a playful, youthful aesthetic. Photographed alongside a coffee cup and magazine, the styling suggests a casual, lifestyle oriented presentation. The zip around design typically offers secure, full closure for cards and cash, making it a practical choice for buyers who want both function and a cute, decorative design element.', 678, 3000, 3, 'w2.jpg'),
+(61, '61', '00061', '6100061', 'Tweety Bird', 'This adorable yellow canary plush toy brings classic cartoon joy right into your bedroom. It features a large round head with bright blue embroidered eyes and long lashes. The soft body includes tiny wings along with oversized orange feet that allow it to balance against surfaces. It is crafted from premium velvet material that feels incredibly smooth against the skin. Perfect for collectors of nostalgia or children who love cuddly animal companions. This vibrant character design adds a cheerful splash of bright color to any display shelf or bedding arrangement.', 800, 1500, 4, 'pl1.jpg'),
+(62, '62', '00062', '6200062', 'Space Child', 'Bring home the cutest alien creature from a far away galaxy with this delightful round plushie. The toy shows off signature oversized ears with soft pink inner linings and large dark glossy eyes full of wonder. It sits snugly inside a built in fluffy brown collar that mimics a cozy space robe. The compact spherical shape makes it wonderful for squeezing or using as a small travel pillow. Its friendly smiling face is stitched with great care to ensure durability during playtime. Any fan of science fiction adventures will cherish this galactic companion.', 330, 1700, 4, 'p15.jpg'),
+(63, '63', '00063', '6300063', 'tom ', 'This mischievous feline companion is ready to bring laughter to your daily routine. Inspired by legendary retro animations it features a striking blue coat with contrast grey patches on the paws chest and muzzle. The bright yellow eyes and wide open red mouth capture a playful happy expression. Its upright ears are detailed with a vibrant pink interior fabric that stands out. The sturdy stitching ensures it survives countless hours of games and adventures. It makes an excellent gift option for cartoon enthusiasts of all ages.', 699, 1300, 4, 'p14.webp'),
+(64, '64', '00064', '6400064', 'Chubby Bear', 'This ultra thick pastel pink teddy bear defines ultimate comfort and sweetness. It features a wonderfully round body covered in dense fluffy fur that feels like a cloud. The grey muzzle paws and feet create a beautiful contrast against the main pastel tone. Small pink pads are carefully embroidered onto the bottom of the paws for an extra touch of cuteness. Its dark glassy eyes look straight ahead with a calm gentle expression. This massive ball of joy provides great emotional comfort and serves as a lovely decorative accent', 790, 2000, 4, 'sl5.webp'),
+(65, '65', '00065', '6500065', 'Autumn Panda', 'This charming woodland creature plush features a beautiful orange coat with realistic white and brown markings. It sits patiently while wearing a small light brown neck scarf decorated with a tiny acorn patch. The white tufts inside the ears and on the cheeks frame a quiet serious face. It is stuffed firmly to maintain its shape while remaining soft enough for hugs. The rich warm colors reflect a cozy autumn aesthetic that looks great in any living space. It offers a unique alternative to traditional teddy bear gifts.', 809, 2000, 4, 'pl4.webp'),
+(66, '66', '00066', '6600066', 'Jumbo Elephant', 'This massive grey elephant plushie is designed for maximum hugging real estate. It features gigantic floppy ears a long curved trunk and two soft white tusks sticking out. The slouchy relaxed body allows it to sit comfortably on a sofa or bed as a supportive backrest. It is made from dense shaggy material that stays warm and comforting during cold nights. The oversized feet have simple round patterns to represent realistic wild animal features. It acts as a protective friendly giant for toddlers or a comfortable cushion for relaxing adults', 500, 5000, 4, 'p11.webp'),
+(67, '67', '00067', '6700067', 'Moody Octopus', 'This giant double sided floor cushion features a unique reversible design to match your daily mood. One side presents a cool mint green face with a grumpy downward frown and angry eyes. Flip the large toy over to reveal a happy pink octopus with a wide cheerful smile. The sprawling tentacles provide a wide stable base on the floor making it a fun seat for young kids. It serves as an excellent tool for emotional expression and adds an interactive element to a playroom layout.', 600, 3000, 4, 'p10.webp'),
+(68, '68', '00068', '6800068', 'Veggie Squad', 'This colorful assortment of garden vegetables features multiple smiling plush characters in one package. The collection includes a friendly brown potato a white turnip an orange carrot and a bushy green broccoli. Each piece displays a unique happy face with rosy cheeks and bright eyes to encourage healthy eating habits. They feature soft fabric leaves sprouting from the top for realistic detail. These miniature toys are perfect for educational roleplay activities or decorating a kitchen shelf with a touch of fun.', 630, 5000, 4, 'p8.jpg'),
+(69, '69', '00069', '6900069', 'Happy Panda', 'This joyful red panda plush stands out with its energetic waving pose and cheerful closed eye smile. It features deep orange fur with dark brown limbs and a thick striped tail resting behind. The round white patches above the eyes give it a highly expressive look. It sits upright easily on flat surfaces thanks to a heavy bottom filling material. The plush velvet coat is highly durable and resistant to shedding over time. It brings a bright friendly energy to any desktop workspace or children nursery room.', 890, 2000, 4, 'p7.webp'),
+(70, '70', '00070', '7000070', 'Berry Bunny', 'This innovative hide and seek toy features a snow white rabbit tucked inside a vibrant pink fruit pouch. The outer shell looks exactly like a giant ripe strawberry complete with yellow seed details and green leaves. You can pull back the fruit layers to expose a sweet white bunny with pink paw prints. This dual design offers a fun surprise element during playtime activities. It combines the beauty of nature with the cuteness of a pet into one compact cuddly companion.', 299, 1500, 4, 'pl3.webp'),
+(71, '71', '00071', '7100071', 'Pinkie Fox', 'This delightful pastel pink fox toy is dressed up beautifully in a matching checkered dress. The character features oversized pointed ears with soft white inner linings and large purple eyes with tiny flower star reflections inside. A small pink blossom detail sits neatly right on top of its head. The white muzzle and chest add a soft contrast to the bright pink coat. It sits securely on shelves or tabletops thanks to its well balanced leg structure. This elegant plush toy brings a sense of charm and royalty to any collection.', 789, 2500, 4, 'p5.webp'),
+(72, '72', '00072', '7200072', 'Blush Axolotl', 'This adorable aquatic creature plushie captures the sweet essence of the famous pink salamander. It features a round chubby body covered in ultra soft low pile fleece fabric. Bright pink gill extensions stick out from both sides of its head to create a playful frame. The face displays simple brown embroidered eyes and a tiny cheerful mouth alongside rosy stitched cheeks. Its small front paws are stitched forward to give it a highly welcoming stance. This trending plushie makes a wonderful gift for fans of unique sea life creatures.', 600, 1200, 4, 'pl2.webp'),
+(73, '73', '00073', '7300073', 'boba duck', 'This whimsical white duck toy stands tall while holding a cute blue bubble tea drink container. The plush features a round fluffy body with bright orange feet and a matching flat beak. It displays prominent fluffy pink cheeks that add an intense level of cuteness to the face layout. Small pink and white striped candy cane details peek out from behind its back like little wings. The miniature boba cup is firmly attached to the front paws to ensure it stays in place during play. It brings a fun modern aesthetic to any desk space.', 790, 2200, 4, 'pl.jpg'),
+(74, '74', '00074', '7400074', 'Kitty Loaf', 'this simple round kitten plush features a minimal geometric design that is perfect for stacking or squeezing. The spherical body is stuffed with high density memory foam material that bounces back to shape instantly. Minimalist facial details include small dark eyes a tiny nose bead and simple stitched whiskers on the cheeks. Small pointed ears stick out from the top of the smooth fabric head. It comes in clean solid colors like white black and tan to match any modern bedroom theme easily.', 567, 1600, 4, 'p2.webp'),
+(75, '75', '00075', '7500075', 'Cozy Penguin', 'This traditional arctic bird plush features a classic black and white coat with bright yellow accents. The round heavy body is covered in thick dense fabric that mimics the smooth texture of real penguin feathers. It displays a small yellow beak alongside matching webbed feet that sit flat on any surface. Large glassy black eyes look out to provide a friendly lifelike expression to the toy. The white belly area is extra soft and perfect for resting your chin against during naps. It serves as a great winter season decoration.', 789, 1900, 4, 'p1.avif'),
+(76, '76', '00076', '7600076', 'Crimson Bloom', ': This canvas displays a single vibrant red rose standing tall against a dreamy background of blue and green tones. Subtle light accentuates the layers of soft petals while dark green leaves provide a grounding natural contrast. The bold choice of colors brings warmth and romantic charm into a contemporary room. It serves as an elegant focal point that elevates a minimalist home aesthetic.', 200, 14500, 8, 'p13.jpg');
+INSERT INTO `products` (`id`, `Product_code`, `Product_number`, `Product_ID`, `Product_name`, `Description`, `quantity`, `Price`, `category_Id`, `Image`) VALUES
+(77, '77', '00077', '7700077', 'Floral Leopard', 'A striking wild cat rests amidst a dense arrangement of soft pink hibiscus flowers and lush tropical leaves. The contrast between the fierce patterns of the leopard and the gentle nature of the flora creates a balanced composition. Dark undertones help the pastel shades pop beautifully making it an ideal choice for modern artistic spaces. It brings a unique wilderness charm indoors.', 200, 12000, 8, 'p12.jpg'),
+(78, '78', '00078', '7800078', 'Divine Light', 'Gorgeous Islamic calligraphy floats over an energetic background of deep blues turquoise and vibrant orange paint strokes. The spiritual text is executed with expressive movement giving the traditional art a modern abstract twist. Bright accents add visual energy to the sacred words making it a peaceful yet visually stimulating piece for any living space. It combines faith and modern design.', 100, 16500, 8, 'p11.jpg'),
+(79, '79', '00079', '7900079', 'Golden Verses', 'Elegant Arabic script is beautifully layered over a textured backdrop of rich gold yellow and dark earthy tones. The intricate lettering stands out boldly against the abstract patterns creating a sophisticated look. This large wall piece radiates a sense of warmth and reverence making it perfect for a formal sitting area or a quiet prayer room. It reflects a timeless heritage.', 120, 18000, 8, 'p10.jpg'),
+(80, '80', '00080', '8000080', 'Prophet`s Name', 'The name of the Holy Prophet is masterfully crafted in flowing white and orange scripts over a deep blue oceanic background. Surrounding text adds a layer of depth and devotion to the vertical layout. Positioned elegantly on an easel this artwork brings a sense of serenity and spiritual protection into the household. The cool tones provide a calming atmospheric effect.', 250, 15000, 8, 'p9.webp'),
+(81, '81', '00081', '8100081', 'Mystic Dance', 'A dervish is depicted in a mesmerizing swirling motion wearing a traditional white skirt and a flowing blue robe. The brushwork captures the speed and spiritual ecstasy of the ritual dance against a soft background of trees and light. It evokes feelings of peace mindfulness and deep cultural history. This piece creates a serene atmosphere in any room.', 200, 22000, 8, 'p8.webp'),
+(82, '82', '00082', '8200082', 'Golden Dome', 'This textured painting showcases a historic holy site with its famous golden dome shining under a bright blue textured sky. Warm autumn trees and a solid stone wall line the foreground adding rich color contrast to the blue backdrop. The heavy paint application gives the scene a tactile and historic feel. It is an inspiring view for historical art enthusiasts.', 100, 13500, 8, 'p7.jpg'),
+(83, '83', '00083', '8300083', 'Autumn Path', 'A solitary figure walks down a path covered in rich red fallen leaves surrounded by tall slender trees in shades of yellow and green. Sunlight filters through the upper branches creating a bright glow at the end of the forest trail. The vibrant color palette captures the cozy essence of a brisk autumn afternoon. It adds a peaceful reflective mood to home decor.', 140, 19000, 8, 'p6.jpg'),
+(84, '84', '00084', '8400084', 'Lonely Tree', 'A single stylized tree with bright golden leaves stands gracefully against a contrasting background of stark black and light grey textures. The curved trunk and scattering leaves give the composition a poetic sense of movement. It serves as a powerful symbol of resilience and beauty amid contrasting elements. This artwork fits perfectly within a sleek industrial interior design.', 200, 17000, 8, 'p4.jpg'),
+(85, '85', '00085', '8500085', 'Radiant Swans', 'Two elegant white swans glide gracefully on glowing blue water beneath a large colorful feather floating in the dark sky. Sparkles and magical light effects surround the birds creating a dreamlike fantasy scene. The bright yellow highlights on the feathers of the birds match the glowing background elements. It brings a sense of wonder and romance to the bedroom.', 100, 15550, 8, 'p3.jpg'),
+(86, '86', '00086', '8600086', 'Lunar Blossom', 'A beautiful silhouette of a tree bearing bright purple blossoms stands on the edge of a dark cliff. Behind the branches a massive full moon glows softly against a serene blue sky that transitions into gentle pink tones at the bottom. Tiny stars dot the upper sky adding a touch of nocturnal magic to the scene. The composition feels peaceful and poetic making it an ideal choice for a quiet bedroom or study. It brings a sense of calm and nighttime wonder to your wall.', 130, 15000, 8, 'p16.jpg'),
+(87, '87', '00087', '8700087', 'Pink River', 'A twisting tree trunk covered in vibrant pink cherry blossoms drops its colorful petals over a monochrome landscape. A white river winds gracefully between dark grey mountains under a soft sky filled with drifting petals. This striking contrast between the vivid pink hues and the monochromatic background creates a powerful visual focus. It captures the fleeting beauty of spring in a stylized modern presentation. The piece adds a fresh artistic energy and dynamic movement to any minimalist living room decor.', 140, 13000, 8, 'p15.webp'),
+(88, '88', '00088', '8800088', 'Orange Monarchs', 'Two detailed monarch butterflies with bright orange and black wings fly across a textured royal blue background. The bright warm tones of the insects contrast sharply against the cool background making the butterflies appear to pop off the canvas. Fine white details accentuate the edges of their wings to give a realistic touch to this simple yet striking piece. It is perfect for nature lovers looking to add a splash of color to their spaces. The artwork radiates joy and natural simplicit', 100, 10500, 8, 'p14.jpg'),
+(89, '89', '00089', '8900089', 'Sunny Coast', 'This overhead view captures a lively sandy beach meeting bright turquoise ocean waves with white foam. Several colorful striped umbrellas are scattered along the shore casting soft shadows on the golden sand below. The vibrant shades of blue green yellow and red give the entire artwork a joyful summer holiday feel. It instantly brightens up a room and evokes relaxing memories of sunny days by the seaside. This canvas is an excellent choice for modern kitchens or bright open lounges.', 119, 12500, 8, 'p1.jpg'),
+(90, '90', '00090', '9000090', 'Cosmic Reflection', 'A spectacular starry night sky filled with deep purple and vibrant pink nebula clouds hangs over a quiet lake. The dark silhouettes of pine trees stand firmly on a rocky shore while their shapes reflect beautifully in the rippling water below. A bright full moon sits in the corner illuminating the entire celestial display with a mystical glow. This vivid artwork brings the vast beauty of outer space right into your home. It creates an enchanting and imaginative atmosphere on any plain wall.', 123, 14000, 8, 'p2.jpg'),
+(91, '91', '00091', '9100091', 'Pastel Folders', 'This collection features sweet pastel document holders decorated with gentle white floral patterns. Each folder includes a curved top flap secured by a single sturdy button snap to protect loose paperwork. The soft colors like pink mint and light blue make organization look highly appealing for students or office workers. They easily fit standard sized pages while preventing annoying creases. These lightweight organizers help you categorize school subjects or home bills beautifully while keeping desks completely clutter free.', 908, 500, 5, 's16.jpg'),
+(92, '92', '00092', '9200092', 'Space Organizers', 'These durable multi pocket expanding files showcase fun cartoon astronauts floating in deep space among rockets and planets. A thick dark blue strap with a secure metal snap button keeps your documents perfectly enclosed during travel. Inside you will find multiple expandable dividers that allow for seamless separation of monthly bills or class assignments. The playful graphics bring a youthful energy to everyday administrative chores. It is an amazing organizational companion for young school children or whimsical stargazers.', 567, 600, 5, 's15.jpg'),
+(93, '93', '00093', '9300093', 'Mint Organizer', 'An elegant mint green expanding file folder comes paired with a delightful set of dog themed page marker flags. The front cover displays a subtle minimalist smiley face and a friendly text message to brighten your mood. Multiple pink internal tabs peek out gracefully to help you categorize important medical files or work contracts efficiently. The durable outer plastic shell resists water spills and unexpected drops. It provides a highly functional yet incredibly cute system for busy home makers.', 870, 860, 5, 's14.jpg'),
+(94, '94', '00094', '9400094', 'Purple Pouch', 'This coordinate stationery set arrives packed inside a translucent purple zip pouch for quick visual identification. Inside you receive a purple fountain pen multi color ballpoint ink pen matching mechanical pencil and soft floral erasers. Every item follows a strict lilac aesthetic that looks wonderfully coordinated on any study desk. The compact travel pouch fits easily into standard backpacks without taking up much space. It makes a thoughtful present for teenagers who love collecting matching workspace accessories.', 900, 750, 5, 's13.webp'),
+(95, '95', '00095', '9500095', 'Note book set', 'A beautiful gift box collection containing four distinctly styled unicorn notebooks accompanied by matching graphic writing pens. Each journal cover features inspiring quotes about dreams rainbows and magical fairies rendered in beautiful pastel typography. Brightly colored gel ink pens sit snugly inside the custom cardboard packaging for a premium presentation. The smooth lined pages are great for daily journaling practicing creative poetry or sketching cute doodles. It makes a magical birthday gift for young imaginative girls.', 490, 950, 5, 's12.jpg'),
+(96, '96', '00096', '9600096', 'Paw Collection', 'Animal lovers will adore this comprehensive workspace collection entirely themed around adorable pink cat paws. The extensive bundle includes sticky note flags a plastic measuring ruler correction tape pocket utility knife and matching erasers. Every individual item mimics a soft kitten foot to add instant joy to mundane study sessions. The premium materials ensure smooth writing lines clean erasing and safe paper cutting whenever needed. It transforms any boring office desk into a playful haven for pet enthusiasts.', 789, 1200, 5, 's11.webp'),
+(97, '97', '00097', '9700097', 'Jeweled Pens', 'This sophisticated writing set presents four slim metallic ballpoint pens topped with large shimmering crystal diamonds. Hanging from each golden clip is a detailed metal charm featuring a sleepy white cat sitting inside a crescent moon. The smooth pastel barrels come in classic white blush pink soft lavender and fresh seafoam green. These pens glide across paper with rich black ink for an effortless cursive writing experience. They add a sophisticated touch of luxury to your daily planning.', 890, 500, 5, 'st1.webp'),
+(98, '98', '00098', '9800098', 'Unicorn Pack', 'A budget friendly school starter kit featuring a classic wooden pencil clear plastic ruler manual sharpener block eraser and safety scissors. Every item is covered in matching pink unicorn patterns making it highly attractive to kindergarten kids. The lightweight plastic scissors have blunt tips to ensure absolute safety during classroom crafting projects. All components come neatly sealed in a clear blister card pack for easy storage. It provides all the foundational tools needed for early childhood drawing.', 567, 400, 5, 's9.webp'),
+(99, '99', '00099', '9900099', 'Ocean Journals', 'This premium trio features deep blue notebooks in various sizes decorated with minimalist silver foil fish illustrations. The dark covers are secured by thick turquoise elastic bands to prevent the pages from opening accidentally inside bags. The set includes a spiral wire bound pad for quick note taking and two classic hardbacks for long term records. High grade paper prevents ink bleeding when using fountain pens or heavy markers. It looks professional yet uniquely artistic on any executive desk.', 950, 1500, 5, 'st2.webp'),
+(100, '01', '00100', '0100100', 'Bear Writing', 'Six adorable gel pens feature cartoon bear figurines food icons and cute rabbit characters mounted on the clickable tops. The neutral beige cream and white barrels provide a cozy minimalist aesthetic that is very popular today. Each pen utilizes fine point black gel ink that dries incredibly fast to eliminate annoying hand smudges. The comfortable rubberized bodies reduce finger fatigue during long lecture marathons. They are fantastic everyday writing tools for modern college students or diligent office employees.', 567, 400, 5, 'st3.jpg'),
+(102, '03', '00102', '0300102', 'Plush Unicorn', 'This incredibly soft fuzzy pencil case set features a multi colored pastel gradient background with adorable rubberized unicorn patches stitched onto the front. The thick fabric texture provides excellent shock absorption for your favorite pens while looking exceptionally cute on school desks. A smooth purple zipper runs securely along the top edge to prevent your stationery from spilling inside heavy school bags. It is an ideal gift for young students who adore tactile mythical creatures and vibrant rainbow aesthetics. This pouch brings comfort and whimsical organization to your daily educational schedule.', 345, 550, 5, 's6.webp'),
+(103, '04', '00103', '0400103', 'Pastel Planner', 'This luxury faux leather personal planner opens up to reveal an intensely organized interior designed for professional women or creative students. The left panel contains multiple custom slot compartments for credit cards paper business cards and colorful patterned memo pads. A reliable metallic button closure keeps the entire portfolio securely bound when you are traveling between office meetings. The right side holds a thick wire bound journal showcasing vibrant abstract pastel stripes on its premium cover page. It offers the ultimate all in one solution for managing hectic daily appointments flawlessly.', 789, 1850, 5, 'st4c.jpg'),
+(104, '05', '00104', '0500104', 'Standing Canvas', 'This clever standing desk pouch replicates a warm coffee cup silhouette complete with a joyful cartoon face printed across the front. The heavy duty canvas base slides downward easily to transform the portable travel container into a rigid vertical desktop pen holder. Multiple flexible pastel highlighters fit comfortably inside the wide top mouth opening for quick access during intense study sessions. A sturdy contrast zipper ensures your items stay well protected when you pack up for the library. It combines functional industrial engineering with delightful character design beautifully.', 789, 500, 5, 's4.jpg'),
+(105, '06', '00105', '0600105', 'Sweet Erasers', 'A mouth watering collection of miniature rubber erasers meticulously molded to look like delicious summer ice cream treats and glazed sprinkle donuts. The highly detailed set features vibrant color combinations including mint green banana yellow strawberry pink and deep chocolate brown. These non toxic erasers fit comfortably in little hands and rub out pencil marks cleanly without ripping fragile notebook papers. They arrive arranged inside a transparent display box making them wonderful collectibles or classroom prizes for young children. They add a delightfully sweet touch of playful decoration to homework sessions.', 678, 400, 5, 's2.webp'),
+(106, '07', '00106', '0700106', 'Donut Pen', 'This charming set of four smooth writing gel pens features playful cartoon animals shaped like delicious frosted donuts sitting on the top clips. The collection includes a magical purple unicorn a pink teddy bear a white kitten and a classic black white panda. Every pen barrel is colored in a matching soft pastel shade that coordinates perfectly with a modern workspace aesthetic. The fine line tips glide across writing paper effortlessly delivering rich black ink without skipping or pooling during long note taking sessions. They are highly collectible desk companions.', 900, 430, 5, 'st5.jpg'),
+(107, '08', '00107', '0800107', 'Ocean Breeze', 'This beautiful gold charm bracelet features a variety of delicate marine elements including a small starfish and a tiny pearl. It captures the essence of summer days by the sea. The gold chain is lightweight and adjustable to fit your wrist perfectly. Each dangle moves gracefully as you walk making it a wonderful accessory for everyday wear or casual beach outings. It adds a touch of whimsical elegance to your jewelry collection. You can wear it alone or layer it with other gold bracelets to create a unique personalized look that showcases your love for the ocean.', 789, 4500, 11, 'j1.jpg'),
+(108, '09', '00108', '0900108', 'Golden Aura', 'This minimal gold ring showcases a slender band embedded with delicate shimmering diamonds along the front surface. It offers a subtle sparkle that looks elegant on any finger. The classic design makes it perfect for stacking with other rings or wearing solo for a clean understated style. Crafted with precision the smooth metal guarantees a comfortable fit throughout the day. It represents timeless simplicity and refined taste making it an ideal choice for modern fashion enthusiasts who appreciate fine details. This piece effortlessly elevates your everyday look with its bright metallic shine and delicate stone accents.', 908, 35000, 11, 'j2.webp'),
+(109, '10', '00109', '1000109', 'Eternal Grace', 'This stunning engagement ring features a prominent oval cut center diamond that catches the light beautifully from every single angle. The brilliant center stone is flanked by smaller marquise cut diamonds along the band creating a graceful leaf pattern. Its silver band offers a classic polished finish that highlights the clarity of the stones. This exquisite piece is designed for memorable milestones and symbolizes everlasting commitment. The intricate craftsmanship ensures that each stone is securely held in place while maximizing brilliance. It serves as a breathtaking statement of luxury and romance for someone truly special.', 600, 4500, 11, 'j3.jpg'),
+(110, '11', '00110', '1100110', 'Purple Twilight', 'This unique double band ring features a lovely rose gold finish decorated with soft pink and vibrant purple teardrop stones. The dual rows create an overlapping effect that looks contemporary and stylish. Small shimmering accents decorate the lower band to give this piece extra radiance. Because of its open design the ring can be slightly adjusted to provide a custom fit. It brings a pop of romantic color to your outfit and works well for both daytime gatherings and evening parties. The playful combination of colored gems makes it a standout choice for jewelry lovers.', 678, 4000, 11, 'j4.jpg'),
+(111, '12', '00111', '1200111', 'Golden Blossom', 'These gorgeous stud earrings display an intricate floral design crafted in textured yellow gold. Each earring features branching tendrils tipped with clear sparkling crystals that resemble morning dew on fresh leaves. The unique artistic layout creates a sense of movement and natural beauty. They sit comfortably on the earlobe making them suitable for long hours of wear at weddings or formal dinners. The rich gold hue contrasts beautifully with the bright stones to deliver a luxurious appearance. These earrings add a sophisticated botanical touch to your wardrobe and make a spectacular gift for a loved one.', 789, 3000, 11, 'j6.jpg'),
+(112, '13', '00112', '1300112', 'Endless Brilliance', 'These elegant stud earrings feature a mesmerizing swirl pattern crafted from polished yellow gold and lined with brilliant round stones. The curved lines mimic the gentle movement of waves creating a dynamic look that catches the eye. The multiple rows of pave crystals offer a continuous shimmer that brightens your face. They are designed with secure backs to ensure they stay safely in place all day long. Perfect for adding a touch of modern glamour to your style these earrings pair effortlessly with formal dresses as well as sleek contemporary suits for business events.', 548, 2000, 11, 'j8.jpg'),
+(113, '14', '00113', '1400113', 'Vintage Glamour', 'This sophisticated pair of gold earrings features a fan shaped cluster of shimmering gemstones arranged in a delicate teardrop pattern. The top portion is fully paved with smaller crystals while the bottom elements dangle gracefully to catch the light. They offer a classic aesthetic that fits formal celebrations and festive occasions. The warm golden tones enhance the brilliant white sparkle of the stones perfectly. With their secure and comfortable fit these earrings bring high fashion elegance to your collection. They represent an excellent choice for anyone looking to make a tasteful statement with traditional jewelry designs.', 788, 3000, 11, 'j9.jpg'),
+(114, '15', '00114', '1500114', 'Silver Rose', 'This delicate silver necklace features a beautifully sculpted rose pendant that serves as a symbol of love and beauty. The intricate petals are detailed with great care to create a realistic three dimensional flower. Hanging from a fine silver link chain the pendant rests elegantly near the collarbone. Its bright metallic finish brings a clean and fresh look to your attire. This necklace is highly versatile and can be paired with casual outfits or formal dresses. It makes a thoughtful present for birthdays or romantic occasions showing your appreciation with a flower that lasts forever.', 789, 1000, 11, 'j10.jpg'),
+(115, '16', '00115', '1600115', 'Triple Radiance', 'This minimalist necklace showcases a tiny pendant featuring three sparkling round stones arranged in a neat triad formation. Suspended from a thin rose gold chain it rests gently against the skin for a subtle and delicate look. The understated design makes it an ideal accessory for everyday wear or for layering with longer necklaces. It offers a gentle flash of light without overwhelming your outfit. The smooth finish and secure clasp ensure comfort and peace of mind throughout the day. This piece is perfect for individuals who love clean modern aesthetics and simple sophistication.', 725, 4000, 11, 'j11.jpg'),
+(116, '17', '00116', '1700116', 'Floral Radiance', 'This exquisite jewelry set includes a delicate pendant necklace and matching stud earrings crafted in elegant rose gold. The central design features a stunning flower motif paved with brilliant white crystals that catch the light from every angle. A circular rose gold border frames the blossoms beautifully adding structure and sophistication to the piece. This coordinated set is ideal for special occasions family gatherings or formal dinners where you want to project a classic feminine charm. The lightweight design ensures comfort all through the night while delivering a high end luxury aesthetic to your overall look.', 345, 2000, 11, 'j12.jpg'),
+(117, '18', '00117', '1800117', 'Coastal Harmony', 'This dainty necklace features a delicate rose gold chain adorned with a cluster of small natural elements including a smooth freshwater pearl and tiny colorful gemstone drops. The soft pink white and deep blue tones create a peaceful beach inspired palette that feels fresh and organic. Its minimalist design makes it perfect for daily wear layering with longer chains or pairing with summer dresses. The simple clasp ensures it stays securely around your neck while adding a subtle touch of elegance. It serves as a beautiful understated piece for anyone who loves nature and modern fashion.', 300, 3000, 11, 'j13.jpg'),
+(118, '19', '00118', '1900118', 'Twin Stars', 'This charming minimalist necklace features a sleek gold chain highlighting two joined star charms at the center. One star sits slightly higher than the other creating a beautiful sense of depth and cosmic harmony. The polished gold finish gives the pendant a brilliant shine against the skin making it an eye catching accessory for everyday wear. It serves as a lovely symbolic piece representing friendship guidance or dreams. The lightweight structure ensures maximum comfort throughout the day. It makes a wonderful thoughtful gift for a close friend or a chic addition to your own jewelry box.', 756, 1890, 11, 'j14.jpg'),
+(119, '20', '00119', '2000119', 'Clover Shimmer', 'This beautiful wrist accessory features a layered combination of a thin solid gold bangle paired with a delicate chain link bracelet. The chain is adorned with small evenly spaced four leaf clover motifs embedded with glittering white crystals. This elegant contrast between the smooth rigid metal and the fluid stone studded chain creates a contemporary stacked appearance. It looks exceptionally graceful against lace cuffs or bare wrists alike. Representing good luck and refined style this dual bracelet set is versatile enough for both professional workplace environments and romantic evening dinners.', 590, 2000, 11, 'j15.jpg'),
+(120, '21', '00120', '2100120', 'Peacock Pride', 'This exquisite home decoration showpiece features two majestic peacocks perched gracefully on a textured tree branch. The figure displays striking details with vibrant blue bodies and gleaming golden wings that contrast beautifully. Long flowing tail feathers drape downward showcasing detailed circular patterns. Perfect for a living room coffee table or entrance console this elegant statue brings a touch of traditional royalty and sophistication to your interior space. The solid base ensures excellent stability while the fine craftsmanship highlights a luxurious texture making it a wonderful focal point that will easily impress your guests.', 567, 14500, 7, 's11.jpg'),
+(121, '22', '00121', '2200121', 'Golden Tree', 'This unique table ornament presents a stylized metal tree bursting with vibrant life. The trunk and round base are finished in a smooth golden polish while the branches support numerous teardrop leaves painted in a striking gradient of green and yellow. Three small green leaf clusters sit neatly on the base adding symmetry to the design. This modern piece brings a refreshing natural element indoors and fits perfectly on shelves side tables or office desks. Its bright reflective surface catches ambient light effortlessly to create a cheerful and warm atmosphere in any contemporary room.', 567, 6500, 7, 's10.webp'),
+(122, '23', '00122', '2300122', 'Iron Plume', 'This striking iron sculpture offers an abstract interpretation of a magnificent peacock with its feathers fully fanned out. Crafted from dark metal rods tipped with round golden beads the circular arrangement creates a powerful sense of radial symmetry and texture. The sleek minimalist body curves gently in the center resting securely on a flat black rectangular base. This artistic piece blends modern geometric style with traditional animal motifs making it an exceptional decoration for contemporary homes. It stands out beautifully against plain white walls providing an artistic silhouette.', 234, 8200, 7, 's8.webp'),
+(123, '24', '00123', '2400123', 'White Ripples', 'This contemporary tabletop sculpture consists of two interconnected oval discs with textured pleated surfaces resembling fine paper fans or sea shells. The clean white finish brings a crisp modern feel to your decor while the hollow centers add visual lightness to the structure. Supported by thin white metal rods the entire piece stands firmly on a solid rectangular marble block. This elegant art object works wonderfully as a centerpiece on round coffee tables or sideboards helping to create a serene minimalist aesthetic in your living room or study.', 784, 7800, 7, 's6.jpg'),
+(124, '25', '00124', '2500124', 'Equine Bond', 'This emotionally resonant statue captures a tender moment between a majestic horse and its young foal. Finished in a rich antiqued bronze coating the sculpture highlights realistic textures along the manes and muscular facial features of the animals. The figures emerge smoothly from a rocky base creating an elegant artistic bust. This piece brings a sense of strength warmth and familial love to your home office study or living room shelf. It serves as a great conversation starter and appeals deeply to animal lovers and collectors of classic fine art sculptures.', 435, 11000, 7, 's5.jpg'),
+(125, '26', '00125', '2600125', 'Global Explorer', 'This sophisticated desktop globe features a vintage color palette with sepia tones and golden continents. It is mounted on a sturdy metallic axis and stand with a dark brass finish adding an antique scholarly vibe to your workspace. Perfect for placing on top of stacked books on a side table or executive desk this item inspires a sense of wanderlust and intellectual curiosity. Its compact size allows it to fit easily into smaller spaces while still providing a classic decorative impact that elevates the overall study environment.', 678, 5500, 6, 's4.webp'),
+(126, '27', '00126', '2700126', 'Ceramic Swirl', 'This modern ceramic art set features a large abstract ribbon sculpture alongside two matching round accent pieces. The main sculpture loops gracefully in a fluid motion blending glossy white ceramic with brilliant metallic gold lining along the inner curves. The small spherical companions mirror this design with gold notches along their smooth white surfaces. This luxury trio adds an upscale artistic vibe to dining tables or television consoles. The contrasting textures of smooth white glaze and polished gold create a sophisticated look that complements upscale contemporary interior styling.', 236, 12000, 7, 's3.webp'),
+(127, '28', '00127', '2800127', 'Elephant Tray', 'This functional home decor item features a beautifully sculpted white elephant holding a wide shallow tray above its back. The elephant figure is completely covered in intricate traditional patterns giving it a heavily textured stone appearance. Its trunk is raised high in a cheerful gesture. The tray on top serves as a perfect holding spot for small books jewelry keys or decorative bead strands on your entryway table. Combining practical utility with beautiful artistic design this piece brings a unique global style and bohemian texture to your living space.', 677, 13000, 7, 's2.jpg'),
+(128, '29', '00128', '2900128', 'Kinetic Fan', 'This captivating abstract sculpture features a series of golden metallic rods radiating outward from a central twisted axis mimicking the look of regular wings or a supersonic fan. The sleek golden lines shift dynamically depending on the angle from which you view them. Supported by a vertical stem the entire structure is anchored by a heavy square black marble base that provides excellent stability and a premium look. It acts as an outstanding modern statement piece for minimalist side tables office desks or floating shelves in luxury apartments.', 356, 10000, 7, 's1.jpg'),
+(129, '30', '00129', '3000129', 'Wapsi', 'can you give all of these decor items a two word  name set their price in pkr and give a 100 description on each of them which doesnt include inverted comas backslash semicolon and apostrophe', 789, 500, 9, 'n1.jpg'),
+(130, '31', '00130', '3100130', 'Sulfite', 'Authored by Noor Rajput, this motivational Urdu novel delves into the complex layers of human existence and personal struggle. Subtitled as a story of the seven phases of life, it provides an inspiring outlook on overcoming psychological and social challenges. The book serves as a guiding light for readers seeking encouragement and empowerment in their daily lives. Through relatable characters and engaging plot twists, the author successfully delivers a powerful message about resilience, inner strength, and the ultimate triumph of the human spirit against all odds.', 678, 600, 9, 'n2.jpg'),
+(131, '32', '00131', '3200131', 'Shehr-e-Dil', 'This engrossing novel by Umme Maryam takes readers on an emotional journey through the intricate maze of human relationships, love, and social expectations. The plot is filled with intense family drama, romance, and societal conflicts that keep the audience captivated from the very first page. It highlights how characters navigate through heartbreak and misunderstandings to protect their loved ones. The expressive language and realistic portrayal of cultural norms make it a highly relatable read for fans of contemporary Urdu fiction who enjoy deep romantic narratives.', 850, 900, 9, 'n3.jpg'),
+(132, '33', '00132', '3300132', 'Aab-e-Hayat', 'Aab-e-Hayat', 199, 1800, 9, 'n4.webp'),
+(133, '34', '00133', '3400133', 'Junoon-e-Ishq', 'Written by Riaz Aqib Kohler, this captivating novel is a brilliant blend of passionate love, intense devotion, and dramatic life challenges. The book features a compelling storyline set against a scenic backdrop where characters display an unmatched level of loyalty and determination for their true affection. It explores how deep passion can transform a person and give them the strength to fight against difficult social barriers. Fiction lovers appreciate the poetic flow of the language and the suspenseful progression of the plot that highlights the true essence of emotional sacrifice.', 300, 950, 9, 'n5.webp'),
+(134, '35', '00134', '3500134', 'Begmat Ke Aansu', 'This classic literary work by the prominent historical writer Khwaja Hasan Nizami offers a heartbreaking look at the aftermath of the 1857 War of Independence. Through a series of tragic short stories, it depicts the immense sufferings and struggles of the royal women of the Mughal empire who were suddenly reduced to poverty. The book serves as a crucial historical and cultural document, written with immense empathy and literary grace. It provides modern readers with a sobering perspective on the fleeting nature of worldly power and royal wealth.', 900, 500, 9, 'n6.jpg'),
+(135, '36', '00135', '3600135', 'Jannat Kay Pattay', 'This remarkably popular novel by Nemrah Ahmed follows the transformative journey of a modern law student named Haya Suleman. After facing unexpected trials during an exchange program in Turkey, she undergoes a profound spiritual awakening and adopts the hijab. The story seamlessly weaves elements of romance, mystery, secret intelligence operations, and deep religious devotion together. It highlights the struggles of staying true to moral values in the face of intense social pressure. The book has achieved a massive cult following among young readers across the country.', 789, 1500, 9, 'n7.jpg'),
+(136, '37', '00136', '3700136', 'Authored by Sadia Rajput, this engaging novel tells a gripping tale of love, societal pressures, and', 'Authored by Sadia Rajput, this engaging novel tells a gripping tale of love, societal pressures, and the fiery trials of the human heart. The story revolves around complex family ties and the heavy sacrifices characters must make to protect their honor and relationships. It vividly illustrates how misunderstandings can create rifts between loved ones and how true devotion eventually heals wounds over time. The dramatic tension and the eloquent Urdu prose ensure that readers remain fully invested in the destiny of the main characters until the final resolution.', 870, 800, 9, 'n8.jpg'),
+(137, '38', '00137', '3800137', 'Yeh Dil Mera', 'This exceptional novel by Farhat Ishtiaq delivers a suspenseful and emotionally charged romantic thriller centering on psychological trauma and revenge. The narrative brings together two broken individuals, Aman and Aina, who are unknowingly tied by a dark secret from their past. As they unravel the mysteries surrounding their families, they must confront painful truths that threaten their bond. The brilliant pacing, deep psychological insights, and intense romantic tension made this book highly acclaimed, eventually leading to a massively successful television adaptation that captured the hearts of millions.', 600, 1000, 9, 'n9.jpg'),
+(138, '39', '00138', '3900138', 'peer-e-kamil', 'This iconic novel by Umera Ahmed is widely regarded as a milestone in contemporary Urdu literature. The plot traces the intersecting paths of Imama Hashim, a girl who abandons her family for her religious convictions, and Salaar Sikandar, an eccentric genius with a very high intelligence quotient who is wandering in spiritual darkness. Their long journeys of self-correction, divine intervention, and ultimate enlightenment culminate in a beautiful connection. The book profoundly explores the concept of mentorship and spiritual perfection, leaving a permanent impact on readers worldwide.', 900, 1500, 9, 'n10.jpg'),
+(139, '40', '00139', '4000139', 'Room Humidifier', 'This compact device introduces soothing moisture into your living spaces to balance dry air and improve breathing comfort. It operates quietly on any tabletop making it perfect for bedrooms and offices during dry seasons. The elegant design complements modern home decor while creating a relaxing atmosphere.  Warranty: This product has warranty for six months and the warranty card will be issued', 900, 2000, 10, 'e10.jpg'),
+(140, '41', '00140', '4100140', 'Portable Blender', 'A compact personal mixer designed to prepare fresh smoothies and shakes on the go. Equipped with a powerful rechargeable battery it easily crushes fruits and soft vegetables anywhere you travel. The lightweight construction fits perfectly inside your gym bag or backpack for daily health routines.  Warranty: This product has warranty for three months and the warranty card will be issued', 479, 3000, 10, 'e9.webp'),
+(141, '42', '00141', '4200141', 'Massage Gun', 'This handheld percussion massager provides deep tissue relief to soothe sore muscles and reduce tension after intense workouts. It features multiple speed levels and interchangeable heads to target specific muscle groups across the body effectively. The ergonomic handle ensures a comfortable grip during extended self massage sessions.  Warranty: This product has warranty for one year and the warranty card will be issued', 890, 3800, 10, 'e8.avif'),
+(142, '43', '00142', '4300142', 'Smart Mug', 'An insulated travel tumbler featuring an intelligent digital temperature display on the lid to show the warmth of your beverage. It keeps your coffee or tea hot for hours using advanced thermal insulation technology. The leakproof design prevents accidental spills while commuting.  Warranty: This product has warranty for six months and the warranty card will be issued', 299, 3000, 10, 'e7.webp'),
+(143, '44', '00143', '4400143', 'Wireless Earbuds', 'These sleek bluetooth earphones deliver clear sound and deep bass for an immersive audio experience. The charging case features a prominent digital battery indicator so you always know when to plug it in. Their ergonomic ear tips provide a secure and comfortable fit during exercise.  Warranty: This product has warranty for six months and the warranty card will be issued', 890, 5000, 10, 'e6.jpg'),
+(144, '45', '00144', '4500144', 'Power Bank', 'A high capacity portable charger from a reliable brand featuring multiple output ports to charge your smartphones and tablets simultaneously. The integrated digital screen displays the remaining battery percentage with accuracy. It is built with safety protocols to prevent overcharging.  Warranty: This product has warranty for one year and the warranty card will be issued', 789, 5000, 10, 'e5.jpg'),
+(145, '46', '00145', '4600145', 'Neck Massager', 'This electric muscle stimulation pad offers targeted relief for neck stiffness and shoulder fatigue. It uses gentle electrical pulses with adjustable modes and intensity levels to match your comfort requirements. The slim flexible design adheres easily to the skin for quick relaxation.  Warranty: This product has warranty for three months and the warranty card will be issued', 125, 4000, 10, 'e4.jpg'),
+(146, '47', '00146', '4700146', 'Neck Fan', 'A wearable hands free cooling fan shaped to sit comfortably around your neck during hot summer days. It utilizes a bladeless design to ensure complete safety while delivering a continuous refreshing breeze to your face. Ideal for outdoor walks sports and kitchen work.  Warranty: This product has warranty for six months and the warranty card will be issued', 340, 4000, 10, 'e3.webp'),
+(147, '48', '00147', '4800147', 'Handheld Fan', 'This adorable pocket sized fan features cute animal ears and a compact base for easy handheld or desktop cooling. It runs on a rechargeable battery providing multiple speed options to keep you cool anywhere. The lightweight frame makes it a perfect travel companion.  Warranty: This product has warranty for three months and the warranty card will be issued', 789, 5000, 10, 'e2.webp'),
+(148, '49', '00148', '4900148', 'Mini Printer', 'A pocket friendly thermal printer that connects wirelessly to your phone for instant printing of study notes labels and photos. It requires no messy ink cartridges and uses heat technology to produce clear black and white prints. Perfect for boosting student learning efficiency.  Warranty: This product has warranty for six months and the warranty card will be issued', 789, 9000, 10, 'e1.jpg'),
+(149, '50', '00149', '5000149', 'Romantic Popup', 'This premium handmade greeting features a beautiful surprise element that reveals layers of small white hearts upon opening. Designed on high quality pink cardstock, it includes elegant cursive lettering expressing profound love and affection. It is an ideal pick for making a partner smile during a romantic anniversary celebration.', 1000, 500, 12, 'c10.jpg'),
+(150, '51', '00150', '5100150', 'Heart Wand', 'A highly unique interactive design shaped like a blooming flower with multiple petals that unfold to display hidden loving messages. The front is decorated with a cute winking smiley face character and a bright red ribbon bow tied neatly on the holding stick. This playful piece makes a memorable gift choice for sharing sweet sentiments.', 689, 600, 12, 'c9.jpg'),
+(151, '52', '00151', '5200151', 'Love Always', 'A modern minimalist collection featuring elegant gold foil script and interactive rotating wheels to show customized messages. The soft pastel backgrounds contrast beautifully against the deep red shades to create a sophisticated aesthetic appearance. These prints are perfect for conveying heartfelt emotions on an anniversary or special date.', 300, 400, 12, 'e8.avif'),
+(152, '53', '00152', '5300152', 'Name: Beaded Hearts', 'This striking vertical greeting showcases multiple tiered paper hearts trailing along a black decorative border line. A neatly crafted white fabric bow rests at the bottom while delicate white faux pearl beads frame the main central message area beautifully. The rich contrast provides a festive and traditional romantic appeal.', 500, 400, 12, 'c7.jpg'),
+(153, '54', '00153', '5400153', 'Eid Eidi', 'An adorable festive envelope pack specifically designed to hold cash gifts or pocket money for children during religious celebrations. It features charming animated illustrations of a young boy and a young girl holding up oversized currency notes happily. The clean layout makes it a wonderful way to pass down traditional holiday blessings', 678, 350, 12, 'c6.jpg'),
+(154, '55', '00154', '5500154', 'Floral Eid Mubarak Card', 'A beautifully designed cultural card showcasing vibrant orange and yellow traditional patterns resembling classic mosaic tile art. It incorporates graceful white Arabic calligraphy spelling out holiday wishes beneath a vintage camera graphic layout. This design balances contemporary presentation with deep heritage roots flawlessly.', 678, 450, 12, 'c5.jpg'),
+(155, '56', '00155', '5600155', 'EID card with Gift', 'A creative multi functional item that doubles as a festive greeting and a beautiful gift holder for traditional earrings. The artistic illustration depicts a woman in traditional attire while the colorful floral panel carries joyful holiday greetings. It serves as a thoughtful all in one surprise package.', 789, 690, 12, 'c4.jpg'),
+(156, '57', '00156', '5700156', 'Bouque Birthday Card', 'An elegant rustic card crafted from premium brown kraft paper featuring a mini bouquet of genuine dried baby breath flowers. Wrapped neatly in white tissue paper and bound with a simple twine bow, it radiates a charming vintage look. It offers a warm artistic touch for celebrating another year of life.', 890, 500, 12, 'c3.jpg'),
+(157, '58', '00157', '5800157', 'Simple Birthday Card', 'A lovely personalized pink greeting adorned with a sweet graphic illustration of a girl holding roses inside a circular frame. The background is covered in subtle heart patterns and framed by delicate branches loaded with crimson heart shaped buds. It makes an excellent customized birthday option for a close friend.', 899, 300, 12, 'c2.jpg'),
+(158, '59', '00158', '5900158', 'Watercolor Birthday Card', 'This bright artistic print showcases a spectacular watercolor arrangement of blooming yellow flowers set against a serene sky blue wash background. The elegant text is positioned clearly at the bottom to deliver joyful greetings with a refreshing natural vibe. It is highly suitable for anyone who appreciates artistic botanical imagery.', 300, 300, 12, 'c1.jpg'),
+(159, '60', '00159', '6000159', 'Golden Bird', 'This elegant tabletop decoration features a stylized deer sculpture crafted with a glossy metallic gold finish. The figure captures a graceful pose with long slender legs and beautifully branching antlers that catch the light effortlessly. Anchored securely to a thick rectangular black base it offers a stunning contrast that fits perfectly into any upscale modern living room or executive office. The smooth polished surface adds a touch of luxury and refinement to floating shelves side tables or fireplace mantels making it an exceptional statement piece for people who love contemporary animal themed art display.', 900, 10000, 7, 'sh12.jpg'),
+(160, '61', '00160', '6100160', 'Ceramic Ginkgo', 'This beautiful ceramic ornament showcases an artistic interpretation of a ginkgo biloba leaf mounted on a sturdy stand. The fan shaped leaf features delicate ribbed textures along its surface and is finished in a brilliant matte gold coating that radiates warmth. It is supported by a thin metal rod resting on a clean cubic white base creating a highly sophisticated minimalist aesthetic. This nature inspired decorative accent piece works wonderfully as a centerpiece on coffee tables or bedroom dressers helping to bring a serene organic vibe to your indoor environment.', 345, 9000, 7, 'sh11.webp'),
+(161, '62', '00161', '6200161', 'Crystal Blossom', 'This luxurious decorative showpiece features a golden branch arrangement adorned with multi faceted transparent crystal spheres that resemble glistening flower buds. The metal framework mimics natural organic growth patterns curving gracefully upward to create an eye catching geometric balance. Each crystal bead is designed to refract ambient light beautifully scattering bright reflections across your room. It serves as a spectacular center decoration for formal dining tables entryway consoles or luxury display cabinets instantly elevating the surrounding atmosphere with its dazzling and upscale design elements.', 100, 12000, 7, 'sh10.jpg'),
+(162, '63', '00162', '6300162', 'Iphone', 'jsxujyhatgfghujikolkjhgfcvbn', 890, 67890, 4, 'Screenshot (82).png');
+
+--
+-- Triggers `products`
+--
+DELIMITER $$
+CREATE TRIGGER `set_product_codes` BEFORE INSERT ON `products` FOR EACH ROW BEGIN
+    DECLARE next_id INT;
+    SELECT AUTO_INCREMENT INTO next_id 
+    FROM information_schema.TABLES 
+    WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'products';
+
+    SET NEW.Product_code = LPAD(((next_id - 1) % 99) + 1, 2, '0');
+    SET NEW.Product_number = LPAD(next_id, 5, '0');
+    SET NEW.Product_ID = CONCAT(LPAD(((next_id - 1) % 99) + 1, 2, '0'), LPAD(next_id, 5, '0'));
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `return`
+--
+
+CREATE TABLE `return` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `Order_id` varchar(17) NOT NULL,
+  `Return_methode` varchar(8) NOT NULL,
+  `Return_type` varchar(10) NOT NULL,
+  `Return_reason` varchar(100) NOT NULL,
+  `AccountNO` int(11) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `Return_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `userID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `return`
+--
+
+INSERT INTO `return` (`id`, `name`, `Order_id`, `Return_methode`, `Return_type`, `Return_reason`, `AccountNO`, `status`, `Return_time`, `userID`) VALUES
+(1, 'saad', '5800157100000016', 'Pickup', 'Refund', ',llkahcnxb csd,mcnxcb xmc ', 0, 'Return issued', '2026-07-07 20:53:36', 1),
+(3, 'saad', '1400113300000017', 'DropOff', 'Refund', 'hxghczldkjhgfxhjkl./', 324567, 'Return Application Received', '2026-07-08 18:10:38', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `order_id` varchar(17) NOT NULL,
+  `Review_message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`id`, `name`, `email`, `order_id`, `Review_message`) VALUES
+(1, 'saad', 'saad@gmail.com', '2800127300000002', 'hsijkc[slkcoljiuhytfghbnjmk,lx cxddcxcxdcdd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(11) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`) VALUES
+(1, 'saad', 'saad@gmail.com', '0987654321', 'saadmirza'),
+(2, 'aliraza', 'aliraza@gmail.com', '6789054321', 'aliraza'),
+(3, 'ahmedkhan', 'ahmed@gmail.com', '123456777', 'ahmedkhan'),
+(4, 'farris', 'faris@gmail.com', '0987655432', '123456789');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `email` (`email`,`user_name`,`password`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Order_id` (`Order_id`),
+  ADD KEY `fk_orders_custom_product` (`product_id`),
+  ADD KEY `orders_ibfk_1` (`payment_id`),
+  ADD KEY `userID` (`userID`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `order_id(one)` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `payment_opts`
+--
+ALTER TABLE `payment_opts`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Product_ID` (`Product_ID`),
+  ADD KEY `category_Id` (`category_Id`);
+
+--
+-- Indexes for table `return`
+--
+ALTER TABLE `return`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Order_id` (`Order_id`),
+  ADD KEY `userID` (`userID`);
+
+--
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `email_2` (`email`,`phone`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `payment_opts`
+--
+ALTER TABLE `payment_opts`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+
+--
+-- AUTO_INCREMENT for table `return`
+--
+ALTER TABLE `return`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`Product_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`payment_id`) REFERENCES `payment_opts` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`Order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`Product_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_Id`) REFERENCES `categories` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `return`
+--
+ALTER TABLE `return`
+  ADD CONSTRAINT `return_ibfk_1` FOREIGN KEY (`Order_id`) REFERENCES `orders` (`Order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `return_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`Order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `cleanup_unpaid_orders` ON SCHEDULE EVERY 1 MINUTE STARTS '2026-07-08 00:17:55' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `orders`
+    WHERE LOWER(`status`) = 'to pay'
+      AND (TRIM(`Card_no`) = '' OR `Card_no` IS NULL OR `Card_no` = '0')
+      AND `Order_Date` <= NOW() - INTERVAL 1 HOUR$$
+
+DELIMITER ;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
