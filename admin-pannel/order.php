@@ -68,7 +68,6 @@ include('connection.php');
                     <td><?php echo $all_order[5]; ?></td>
                     <td><?php echo $all_order[7]; ?></td>
                     <td><?php echo $all_order[8]; ?></td>
-                    <!-- Added nowrap to dates so they don't break onto multiple lines awkwardly -->
                     <td style="white-space: nowrap;"><?php echo $all_order[11]; ?></td>
                     <td>
                         <?php 
@@ -87,11 +86,14 @@ include('connection.php');
                         <a href="orderdetail.php?orderid=<?php echo $all_order[3] ?>" class="btn btn-sm btn-outline-info d-block mb-1" style="font-size: 0.75rem;">Details</a>
                         <?php if($all_order[10] == "To Pay") { ?>
                             <a onclick="alert('Order Need To Be Paid first');" class="btn btn-sm btn-outline-success d-block" style="font-size: 0.75rem;">Status</a>
+                            <?php }
+                             elseif($all_order[10] == "Cancelled By Admin") { ?>
+                            <a onclick="alert('Order Is Cancelled By Admin');" class="btn btn-sm btn-outline-success d-block" style="font-size: 0.75rem;">Status</a>
                         <?php } else { ?>
                             <a href="status.php?orderid=<?php echo $all_order[3] ?>" class="btn btn-sm btn-outline-success d-block" style="font-size: 0.75rem;">Status</a>
                         <?php } ?>
                     </td>
-                    <?php if($_SESSION['role'] == 'admin'){ ?>
+                    <?php if($_SESSION['role'] == 'admin' && $all_order[10] != "Cancelled By Admin"){ ?>
                         <td class="text-center align-middle">
                             <a href="?cancelid=<?php echo $all_order[0] ?>" style="text-decoration: none;">❌</a>
                         </td>
