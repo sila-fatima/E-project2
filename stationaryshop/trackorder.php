@@ -43,7 +43,7 @@ include('navbar.php');
                 $userid = $_SESSION['userid'];
                 if(isset($_GET['status'])){
                     $status = $_GET['status'];
-                    if ($status == 'Dispached' || $status == 'Received'|| $status =="To Pay" || $status =="Reviewed" || $status=="Delivered" || $status="Cancelled By Admin") {
+                    if ($status == 'Dispached' || $status == 'Received'|| $status =="To Pay" || $status =="Reviewed" || $status=="Delivered" || $status="Cancelled By Admin" ) {
                         $orderfetch = mysqli_query($con, "SELECT * FROM `orders` WHERE status ='$status' AND userID =$userid");
                     } 
                 }elseif(isset($_GET['search'])){
